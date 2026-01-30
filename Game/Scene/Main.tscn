@@ -1,17 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=6 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
+[ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_togfq"]
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
 
-[node name="MainGameScene" type="Control"]
+[node name="MainGameScene" type="Control" node_paths=PackedStringArray("cat", "hand", "tv")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_togfq")
+cat = NodePath("Cat")
+hand = NodePath("Hand")
+tv = NodePath("TV")
 
 [node name="Cat" type="Sprite2D" parent="."]
 position = Vector2(1546, 502)
