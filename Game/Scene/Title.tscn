@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://bjpvbkw0552u1"]
+[gd_scene load_steps=18 format=3 uid="uid://bjpvbkw0552u1"]
 
 [ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="1_jxiog"]
+[ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="2_r4yu4"]
 [ext_resource type="PackedScene" uid="uid://bu67nktj14ycn" path="res://Scene/Main.tscn" id="4_ghwbr"]
 [ext_resource type="Script" uid="uid://br3ixx2smra0d" path="res://Scene/StartTv.cs" id="4_r4yu4"]
 [ext_resource type="Texture2D" uid="uid://c55qjkoq682le" path="res://Res/tv_cursor.png" id="5_ghwbr"]
@@ -262,7 +263,7 @@ _data = {
 &"start": SubResource("Animation_g4ccs")
 }
 
-[node name="MainGameScene" type="Control"]
+[node name="TitleScene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -271,7 +272,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("area2D", "StarFX", "CatFX", "TitleAnimPlayer")]
+[node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("area2D", "StarFX", "CatFX", "TitleAnimPlayer", "ExitBtn")]
 position = Vector2(398, 499)
 script = ExtResource("4_r4yu4")
 area2D = NodePath("Area2D")
@@ -280,6 +281,7 @@ GameScene = ExtResource("4_ghwbr")
 StarFX = NodePath("StartSFX")
 CatFX = NodePath("CatSFX")
 TitleAnimPlayer = NodePath("../title/TitleAnimPlayer")
+ExitBtn = NodePath("../btn_exit")
 
 [node name="Label" type="Label" parent="TV"]
 anchors_preset = 7
@@ -351,3 +353,15 @@ grow_vertical = 2
 libraries = {
 &"": SubResource("AnimationLibrary_u0kn2")
 }
+
+[node name="btn_exit" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 39.0
+offset_top = -157.0
+offset_right = 167.0
+offset_bottom = -29.0
+grow_vertical = 0
+texture_normal = ExtResource("2_r4yu4")
