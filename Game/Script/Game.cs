@@ -30,6 +30,7 @@ public partial class Game : Node
 			GD.Print($"{nameof(Game)}:重新开始");
 			GetTree().ReloadCurrentScene();
 		};
+		resultControl.Visible = false;
 	}
 
 	public override void _Process(double delta)
@@ -47,7 +48,7 @@ public partial class Game : Node
 		{
 			if (resultControl != null)
 			{
-				resultControl.Visible = true;
+				resultControl.ShowResultUI(cat.IsAlive);
 			}
 			else
 			{
