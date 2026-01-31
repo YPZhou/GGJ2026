@@ -1,30 +1,47 @@
-[gd_scene load_steps=31 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=48 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
 [ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_togfq"]
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
+[ext_resource type="Texture2D" uid="uid://106kewiv0f0w" path="res://Res/tv_good/电视画幅-meme-01.png" id="6_cjptb"]
 [ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="6_yg4ot"]
 [ext_resource type="Texture2D" uid="uid://dnoh53ltkue23" path="res://Res/tv_fool/电视画幅-骗人-01.png" id="7_58uq4"]
-[ext_resource type="Texture2D" uid="uid://btf1evwo6gr6l" path="res://Res/tv_good.png" id="7_hueuk"]
+[ext_resource type="Texture2D" uid="uid://c43qs2vabmddk" path="res://Res/tv_good/电视画幅-meme-02.png" id="7_n044j"]
 [ext_resource type="Texture2D" uid="uid://cw8dh4qblawdd" path="res://Res/tv_fool/电视画幅-骗人-02.png" id="8_pe27u"]
-[ext_resource type="Texture2D" uid="uid://6w6rwpqbjrj2" path="res://Res/tv_mosaic.png" id="9_6a8me"]
+[ext_resource type="Texture2D" uid="uid://cvm71ur53odc3" path="res://Res/tv_good/电视画幅-meme-03.png" id="8_xwk4e"]
+[ext_resource type="Texture2D" uid="uid://cbfctbk3r7nd4" path="res://Res/tv_good/电视画幅-meme-04.png" id="9_jupvq"]
 [ext_resource type="Texture2D" uid="uid://bo0y7piomifmj" path="res://Res/tv_fool/电视画幅-骗人-03.png" id="9_ne54y"]
+[ext_resource type="Texture2D" uid="uid://chrjngimu7t22" path="res://Res/tv_good/电视画幅-meme-05.png" id="10_cd6bo"]
 [ext_resource type="Texture2D" uid="uid://cqogrpdgujgj3" path="res://Res/tv_fool/电视画幅-骗人-04.png" id="10_sssj8"]
 [ext_resource type="Script" uid="uid://dw4xj75bfammq" path="res://Script/ResultControl.cs" id="10_yg4ot"]
+[ext_resource type="Texture2D" uid="uid://d2jxo6kl6h5el" path="res://Res/tv_good/电视画幅-meme-06.png" id="11_clf5q"]
 [ext_resource type="Texture2D" uid="uid://ceg0op4akn6qs" path="res://Res/result_meme.png" id="11_i0sg4"]
 [ext_resource type="Texture2D" uid="uid://cnp04noaaikjw" path="res://Res/tv_fool/电视画幅-骗人-05.png" id="11_u2c8l"]
 [ext_resource type="Script" uid="uid://83ajrylk63so" path="res://Scene/CatSanUI.cs" id="11_vm4ek"]
 [ext_resource type="Texture2D" uid="uid://bidbq5ablket7" path="res://Res/tv_fool/电视画幅-骗人-06.png" id="12_g6i1l"]
 [ext_resource type="Texture2D" uid="uid://b8qj44odkrlsw" path="res://Res/result_lose.png" id="12_mr7am"]
+[ext_resource type="Texture2D" uid="uid://x5pcot4d4ar4" path="res://Res/tv_good/电视画幅-meme-07.png" id="12_r8yv8"]
 [ext_resource type="Texture2D" uid="uid://ic2yclow0gtp" path="res://Res/tv_fool/电视画幅-骗人-07.png" id="13_reyx0"]
+[ext_resource type="Texture2D" uid="uid://bga1obauucchu" path="res://Res/tv_good/电视画幅-meme-08.png" id="13_wd3ae"]
 [ext_resource type="Texture2D" uid="uid://dt2uj7wqasunk" path="res://Res/tv_fool/电视画幅-骗人-08.png" id="14_5xnk5"]
+[ext_resource type="Texture2D" uid="uid://b7vvi1h14cgsd" path="res://Res/tv_good/电视画幅-meme-09.png" id="14_lllnr"]
 [ext_resource type="Script" uid="uid://mw2nrvhqnmjl" path="res://Script/StartControl.cs" id="14_mr7am"]
 [ext_resource type="Texture2D" uid="uid://gvqmr7e1247x" path="res://Res/tv_fool/电视画幅-骗人-09.png" id="15_6ngyt"]
+[ext_resource type="Texture2D" uid="uid://dygplfps2rpio" path="res://Res/tv_good/电视画幅-meme-10.png" id="15_86elt"]
+[ext_resource type="Texture2D" uid="uid://8o3po80rvutm" path="res://Res/tv_good/电视画幅-meme-11.png" id="16_6b3h5"]
 [ext_resource type="Texture2D" uid="uid://bctcxl6tn2c0x" path="res://Res/tv_fool/电视画幅-骗人-10.png" id="16_bficn"]
 [ext_resource type="Texture2D" uid="uid://16b7nisvjsiv" path="res://Res/tv_fool/电视画幅-骗人-11.png" id="17_m0bfr"]
+[ext_resource type="Texture2D" uid="uid://b7phkx41boc3m" path="res://Res/tv_good/电视画幅-meme-12.png" id="17_qtu3h"]
 [ext_resource type="Texture2D" uid="uid://bspbw4rh5qgsi" path="res://Res/tv_fool/电视画幅-骗人-12.png" id="18_0c33q"]
+[ext_resource type="Texture2D" uid="uid://dakdf6jhkbaew" path="res://Res/tv_good/电视画幅-meme-13.png" id="18_ps337"]
+[ext_resource type="Texture2D" uid="uid://bp2dd5y07kxoc" path="res://Res/tv_good/电视画幅-meme-14.png" id="19_5u6qd"]
+[ext_resource type="Texture2D" uid="uid://dc0jh5dpksu66" path="res://Res/tv_mosaic/1.png" id="19_sssj8"]
+[ext_resource type="Texture2D" uid="uid://4cjwq73lqoew" path="res://Res/tv_good/电视画幅-meme-15.png" id="20_goe3w"]
+[ext_resource type="Texture2D" uid="uid://l2htqegke762" path="res://Res/tv_mosaic/2.png" id="20_u2c8l"]
+[ext_resource type="Texture2D" uid="uid://cjoxy6nkkd355" path="res://Res/tv_mosaic/3.png" id="21_g6i1l"]
+[ext_resource type="Texture2D" uid="uid://bvrvjn5g4grfc" path="res://Res/tv_mosaic/4.png" id="22_reyx0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qtod"]
 size = Vector2(129, 126)
@@ -68,7 +85,7 @@ totalTime = 30.0
 position = Vector2(1546, 900)
 texture = ExtResource("1_h175a")
 script = ExtResource("1_djkur")
-HeadMoveInterval = 1.25
+HeadMoveInterval = 0.75
 HeadYOffsets = PackedFloat64Array(-200, -100, 0, 100, 200)
 HeadXRange = 100.0
 catHead = NodePath("CatHead")
@@ -132,9 +149,9 @@ position = Vector2(398, 499)
 texture = ExtResource("1_h175a")
 script = ExtResource("3_togfq")
 game = NodePath("..")
-goodImage = Array[Texture2D]([ExtResource("7_hueuk")])
+goodImage = Array[Texture2D]([ExtResource("6_cjptb"), ExtResource("7_n044j"), ExtResource("8_xwk4e"), ExtResource("9_jupvq"), ExtResource("10_cd6bo"), ExtResource("11_clf5q"), ExtResource("12_r8yv8"), ExtResource("13_wd3ae"), ExtResource("14_lllnr"), ExtResource("15_86elt"), ExtResource("16_6b3h5"), ExtResource("17_qtu3h"), ExtResource("18_ps337"), ExtResource("19_5u6qd"), ExtResource("20_goe3w")])
 foolImage = Array[Texture2D]([ExtResource("7_58uq4"), ExtResource("8_pe27u"), ExtResource("9_ne54y"), ExtResource("10_sssj8"), ExtResource("11_u2c8l"), ExtResource("12_g6i1l"), ExtResource("13_reyx0"), ExtResource("14_5xnk5"), ExtResource("15_6ngyt"), ExtResource("16_bficn"), ExtResource("17_m0bfr"), ExtResource("18_0c33q")])
-mosaicImage = Array[Texture2D]([ExtResource("9_6a8me")])
+mosaicImage = Array[Texture2D]([ExtResource("19_sssj8"), ExtResource("20_u2c8l"), ExtResource("21_g6i1l"), ExtResource("22_reyx0")])
 
 [node name="Label" type="Label" parent="TV"]
 anchors_preset = 7
@@ -164,7 +181,7 @@ shape = SubResource("RectangleShape2D_mr7am")
 position = Vector2(1300, 500)
 texture = ExtResource("1_h175a")
 script = ExtResource("2_h175a")
-handMoveSpeed = 420.0
+handMoveSpeed = 800.0
 interactArea = NodePath("Area2D")
 
 [node name="Label" type="Label" parent="Hand"]

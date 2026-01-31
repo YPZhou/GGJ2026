@@ -12,6 +12,13 @@ public partial class StartTv : Sprite2D
     [Export]
     PackedScene GameScene;
 
+    [Export]
+    AudioStreamPlayer2D StarFX;
+    [Export]
+    AudioStreamPlayer2D CatFX;
+    [Export]
+    AnimationPlayer TitleAnimPlayer;
+
     public override void _Ready()
     {
         if (area2D == null)
@@ -39,6 +46,11 @@ public partial class StartTv : Sprite2D
             MouseEntered = false;
             Input.SetCustomMouseCursor(null);
         };
+
+        StarFX.Finished += () =>
+        {
+            TitleAnimPlayer.Play("start");
+        };
     }
 
 
@@ -53,8 +65,13 @@ public partial class StartTv : Sprite2D
         {
             GD.Print($"{nameof(Game)}:开始游戏");
             Input.SetCustomMouseCursor(null);
-            GetTree().ChangeSceneToPacked(GameScene);
+            StarFX.Play();
         }
+    }
+
+    public void ChangScene()
+    {
+        GetTree().ChangeSceneToPacked(GameScene);
     }
 
 }
