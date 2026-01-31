@@ -138,6 +138,7 @@ public partial class Cat : Sprite2D
 		var points = GenerateBezierPointsWithOptionalCrossings(from, to, 24);
 		// headCurve.Points = points;
 		PlaceCatNeckAlongPoints(points, catNeckTexture);
+		catHead.GetParent().MoveChild(catHead, -1);
 	}
 
 	private Vector2[] GenerateBezierPointsWithOptionalCrossings(Vector2 from, Vector2 to, int segments)
