@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public enum TVStatus
@@ -32,13 +33,33 @@ public partial class TV : Sprite2D
 	double imageMinInterval = 0.75f;
 	[Export]
 	double imageMaxInterval = 1.5f;
+
 	double imageInterval = 0;
+
+	[Export]
+	int maxGoodCount = 4;
+	[Export]
+	int maxBadCount = 6;
+	[Export]
+	int maxMosaicCount = 6;
+
+	TVStatusCounter tVStatusCounter;
+
+	List<WeightedObject<TVStatus>> weightedObjects;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
 		CurrentStatus = TVStatus.BAD;
+		tVStatusCounter = new TVStatusCounter();
+		weightedObjects = new List<WeightedObject<TVStatus>>()
+		{
+			new WeightedObject<TVStatus>(TVStatus.GOOD, imageGoodWeight),
+			new WeightedObject<TVStatus>(TVStatus.BAD, imageBadWeight),
+			new WeightedObject<TVStatus>(TVStatus.MOSAIC, imageMosaicWeight),
+		};
+
 
 		CheckRes();
 
@@ -69,6 +90,11 @@ public partial class TV : Sprite2D
 	{
 		base._Process(delta);
 
+		if (game != null && game.IsGameEnd)
+		{
+			return;
+		}
+
 		imageInterval -= delta;
 		if (imageInterval <= 0)
 		{
@@ -84,24 +110,51 @@ public partial class TV : Sprite2D
 
 	private TVStatus RandomizeStatus()
 	{
-		float totalWeight = imageGoodWeight + imageBadWeight + imageMosaicWeight;
-		if (totalWeight <= 0) return TVStatus.GOOD;
+		TVStatus status = TVStatus.GOOD;
 
-		double randomValue = GD.RandRange(0, totalWeight);
-		TVStatus status;
+		var candidataes = new List<WeightedObject<TVStatus>>();
+		if (!tVStatusCounter.IsLimitReached(TVStatus.GOOD, maxGoodCount))
+		{
+			candidataes.Add(new WeightedObject<TVStatus>(TVStatus.GOOD, imageGoodWeight));
+		}
 
-		if (randomValue < imageGoodWeight)
+		if (!tVStatusCounter.IsLimitReached(TVStatus.BAD, maxBadCount))
 		{
-			status = TVStatus.GOOD;
+			candidataes.Add(new WeightedObject<TVStatus>(TVStatus.BAD, imageBadWeight));
 		}
-		else if (randomValue < imageGoodWeight + imageBadWeight)
+
+		if (!tVStatusCounter.IsLimitReached(TVStatus.MOSAIC, maxMosaicCount))
 		{
-			status = TVStatus.BAD;
+			candidataes.Add(new WeightedObject<TVStatus>(TVStatus.MOSAIC, imageMosaicWeight));
 		}
-		else
+
+		float totalWeight = 0f;
+		foreach (var obj in candidataes)
 		{
-			status = TVStatus.MOSAIC;
+
+			totalWeight += obj.Weight;
 		}
+
+		var random = GD.RandRange(0f, totalWeight);
+		float cumulativeWeight = 0f;
+		foreach (var obj in candidataes)
+		{
+			cumulativeWeight += obj.Weight;
+			if (random < cumulativeWeight)
+			{
+				status = obj.Status;
+				break;
+			}
+		}
+
+
+
+		if (status != CurrentStatus)
+		{
+			tVStatusCounter.Clear();
+		}
+		tVStatusCounter.Counts[status]++;
+
 		return status;
 	}
 
@@ -112,39 +165,82 @@ public partial class TV : Sprite2D
 		switch (status)
 		{
 			case TVStatus.GOOD:
-			if (mat != null)
-                {
+				if (mat != null)
+				{
 					mat.SetShaderParameter("scanline_count", 0f);
-                    mat.SetShaderParameter("static_intensity", 0f);
-                    mat.SetShaderParameter("scanline_opacity", 0f);
-                    mat.SetShaderParameter("boost", 1.0f); // 正常亮度
+					mat.SetShaderParameter("static_intensity", 0f);
+					mat.SetShaderParameter("scanline_opacity", 0f);
+					mat.SetShaderParameter("boost", 1.0f); // 正常亮度
 					mat.SetShaderParameter("roll_speed", 0f);
-                }
+				}
 				Texture = goodImage;
 				break;
 			case TVStatus.BAD:
-			if (mat != null)
-                {
+				if (mat != null)
+				{
 					mat.SetShaderParameter("scanline_count", 6f);
-                    mat.SetShaderParameter("static_intensity", 0.2f);
-                    mat.SetShaderParameter("scanline_opacity", 0.35f);
-                    mat.SetShaderParameter("boost", 1.4f);
+					mat.SetShaderParameter("static_intensity", 0.2f);
+					mat.SetShaderParameter("scanline_opacity", 0.35f);
+					mat.SetShaderParameter("boost", 1.4f);
 					mat.SetShaderParameter("roll_speed", 0.4f);
-                }
+				}
 				Texture = badImage;
 				break;
 			case TVStatus.MOSAIC:
-			if (mat != null)
-                {
+				if (mat != null)
+				{
 					mat.SetShaderParameter("scanline_count", 6f);
-                    mat.SetShaderParameter("static_intensity", 0.2f);
-                    mat.SetShaderParameter("scanline_opacity", 0.35f);
-                    mat.SetShaderParameter("boost", 1.4f);
+					mat.SetShaderParameter("static_intensity", 0.2f);
+					mat.SetShaderParameter("scanline_opacity", 0.35f);
+					mat.SetShaderParameter("boost", 1.4f);
 					mat.SetShaderParameter("roll_speed", 0.4f);
-                }
+				}
 				Texture = mosaicImage;
 				break;
 		}
+	}
+
+}
+
+class WeightedObject<T> where T : struct
+{
+	public T Status { get; private set; }
+	public float Weight { get; private set; }
+
+	public WeightedObject(T status, float weight)
+	{
+		Status = status;
+		Weight = weight;
+	}
+}
+
+public class TVStatusCounter
+{
+	Dictionary<TVStatus, int> counts;
+
+	public IDictionary<TVStatus, int> Counts => counts;
+
+	public TVStatusCounter()
+	{
+		counts = new Dictionary<TVStatus, int>()
+		{
+			{ TVStatus.GOOD, 0 },
+			{ TVStatus.BAD, 0 },
+			{ TVStatus.MOSAIC, 0 },
+		};
+	}
+
+	public void Clear()
+	{
+		foreach (var key in counts.Keys)
+		{
+			counts[key] = 0;
+		}
+	}
+
+	public bool IsLimitReached(TVStatus status, int maxCount)
+	{
+		return counts[status] >= maxCount;
 	}
 
 }
