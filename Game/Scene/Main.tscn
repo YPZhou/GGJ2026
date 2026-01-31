@@ -17,11 +17,13 @@ script = ExtResource("1_togfq")
 cat = NodePath("Cat")
 hand = NodePath("Hand")
 tv = NodePath("TV")
+totalTime = 30
 
 [node name="Cat" type="Sprite2D" parent="."]
 position = Vector2(1546, 502)
 texture = ExtResource("1_h175a")
 script = ExtResource("1_djkur")
+San = 100
 
 [node name="Label" type="Label" parent="Cat"]
 anchors_preset = 7
