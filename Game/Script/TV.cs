@@ -108,15 +108,34 @@ public partial class TV : Sprite2D
 	void SetImage(TVStatus status)
 	{
 		CurrentStatus = status;
+		var mat = Material as ShaderMaterial;
 		switch (status)
 		{
 			case TVStatus.GOOD:
+			if (mat != null)
+                {
+                    mat.SetShaderParameter("static_intensity", 0.02f);
+                    mat.SetShaderParameter("scanline_opacity", 0.1f);
+                    mat.SetShaderParameter("boost", 1.1f); // 正常亮度
+                }
 				Texture = goodImage;
 				break;
 			case TVStatus.BAD:
+			if (mat != null)
+                {
+                    mat.SetShaderParameter("static_intensity", 0.35f);
+                    mat.SetShaderParameter("scanline_opacity", 0.5f);
+                    mat.SetShaderParameter("boost", 1.4f);
+                }
 				Texture = badImage;
 				break;
 			case TVStatus.MOSAIC:
+			if (mat != null)
+                {
+                    mat.SetShaderParameter("static_intensity", 0.08f);
+                    mat.SetShaderParameter("scanline_opacity", 0.2f);
+                    mat.SetShaderParameter("boost", 1.2f);
+                }
 				Texture = mosaicImage;
 				break;
 		}
