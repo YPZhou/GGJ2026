@@ -45,7 +45,7 @@ public partial class TV : Sprite2D
 
 	TVStatusCounter tVStatusCounter;
 
-	List<WeightedObject<TVStatus>> weightedObjects;
+	List<WeightedObject<TVStatus>> weightedStates;
 
 	public override void _Ready()
 	{
@@ -53,7 +53,7 @@ public partial class TV : Sprite2D
 
 		CurrentStatus = TVStatus.BAD;
 		tVStatusCounter = new TVStatusCounter();
-		weightedObjects = new List<WeightedObject<TVStatus>>()
+		weightedStates = new List<WeightedObject<TVStatus>>()
 		{
 			new WeightedObject<TVStatus>(TVStatus.GOOD, imageGoodWeight),
 			new WeightedObject<TVStatus>(TVStatus.BAD, imageBadWeight),
@@ -63,7 +63,7 @@ public partial class TV : Sprite2D
 
 		CheckRes();
 
-		SetImage(TVStatus.GOOD);
+		SetImage(CurrentStatus);
 	}
 
 	void CheckRes()
@@ -90,11 +90,18 @@ public partial class TV : Sprite2D
 	{
 		base._Process(delta);
 
-		if (game != null && game.IsGameEnd)
+		if (game != null && !game.IsGameEnd)
 		{
-			return;
+			GameProcess(delta);
 		}
+		else
+		{
+			StandbyProcess(delta);
+		}
+	}
 
+	void GameProcess(double delta)
+	{
 		imageInterval -= delta;
 		if (imageInterval <= 0)
 		{
@@ -106,6 +113,11 @@ public partial class TV : Sprite2D
 
 			SetImage(nextStatus);
 		}
+	}
+
+	void StandbyProcess(double delta)
+	{
+		SetImage(TVStatus.BAD);
 	}
 
 	private TVStatus RandomizeStatus()
@@ -131,7 +143,6 @@ public partial class TV : Sprite2D
 		float totalWeight = 0f;
 		foreach (var obj in candidataes)
 		{
-
 			totalWeight += obj.Weight;
 		}
 
