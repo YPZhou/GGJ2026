@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public partial class Cat : Sprite2D
@@ -8,6 +9,8 @@ public partial class Cat : Sprite2D
 	[Export] double[] HeadYOffsets; // 可在 Inspector 中编辑
 	[Export] double HeadXRange; // X 轴随机偏移范围（±）
 	[Export] Sprite2D catHead; // 猫头节点
+	[Export] Node catNecksParent; // 猫脖子父节点
+	[Export] Texture2D catNeckTexture; // 猫脖子图片
 
 	public bool IsAlive => San > 0;
 
@@ -45,14 +48,16 @@ public partial class Cat : Sprite2D
 
 		if (IsAlive)
 		{
-			if (CurrentStatus == TVStatus.GOOD)
-			{
-				UpdateCatWhenWatchingGoodScene(delta);
-			}
-			else if (CurrentStatus == TVStatus.BAD)
-			{
-				UpdateCatWhenWatchingBadScene(delta);
-			}
+			// if (CurrentStatus == TVStatus.GOOD)
+			// {
+			// 	UpdateCatWhenWatchingGoodScene(delta);
+			// }
+			// else if (CurrentStatus == TVStatus.BAD)
+			// {
+			// 	UpdateCatWhenWatchingBadScene(delta);
+			// }
+
+			UpdateCatWhenWatchingBadScene(delta);
 		}
 	}
 
@@ -101,7 +106,9 @@ public partial class Cat : Sprite2D
 		if (headCurve == null)
 			return;
 
-		headCurve.Points = GenerateBezierPointsWithOptionalCrossings(from, to, 24);
+		var points = GenerateBezierPointsWithOptionalCrossings(from, to, 24);
+		// headCurve.Points = points;
+		PlaceCatNeckAlongPoints(points, catNeckTexture);
 	}
 
 	private Vector2[] GenerateBezierPointsWithOptionalCrossings(Vector2 from, Vector2 to, int segments)
@@ -152,6 +159,91 @@ public partial class Cat : Sprite2D
 		return best ?? new Vector2[segments + 1];
 	}
 
+	void PlaceCatNeckAlongPoints(Vector2[] bezierPoints, Texture2D catNeckTexture, float scale = 1.0f)
+	{
+		if (bezierPoints == null || bezierPoints.Length < 2 || catNeckTexture == null)
+			return;
+		
+		foreach (var child in catNecksParent.GetChildren())
+		{
+			child.QueueFree();
+		}
+
+		// 直接在相邻点之间放置图片
+		for (int i = 0; i < bezierPoints.Length - 1; i++)
+		{
+			Vector2 pointA = bezierPoints[i];
+			Vector2 pointB = bezierPoints[i + 1];
+			
+			// 计算线段的中点作为图片位置
+			Vector2 position = (pointA + pointB) * 0.5f;
+			
+			// 计算线段方向作为图片旋转
+			Vector2 direction = (pointB - pointA).Normalized();
+			float rotation = direction.Angle();
+			
+			// 计算图片缩放，使其长度刚好覆盖线段
+			float segmentLength = pointA.DistanceTo(pointB);
+			float textureWidth = catNeckTexture.GetWidth();
+			float widthScale = segmentLength / textureWidth;
+			
+			// 创建Polygon2D
+			CreateStretchedPolygon2D(position, rotation, catNeckTexture, new Vector2(widthScale, scale), segmentLength);
+		}
+	}
+
+	void CreateStretchedPolygon2D(Vector2 position, float rotation, Texture2D texture, Vector2 scale, float stretchLength)
+	{
+		float textureWidth = texture.GetWidth();
+		float textureHeight = texture.GetHeight();
+		float halfWidth = textureWidth * scale.X * 0.5f;
+		float halfHeight = textureHeight * scale.Y * 0.5f;
+		
+		Polygon2D segment = new Polygon2D();
+		segment.Texture = texture;
+		segment.TextureScale = scale;
+		
+		// 预计算旋转值
+		float cosR = Mathf.Cos(rotation);
+		float sinR = Mathf.Sin(rotation);
+		
+		// 计算四个顶点
+		Vector2[] vertices = new Vector2[4];
+		
+		vertices[0] = new Vector2(
+			position.X - halfWidth * cosR + halfHeight * sinR,
+			position.Y - halfWidth * sinR - halfHeight * cosR
+		);
+		
+		vertices[1] = new Vector2(
+			position.X - halfWidth * cosR - halfHeight * sinR,
+			position.Y - halfWidth * sinR + halfHeight * cosR
+		);
+		
+		vertices[2] = new Vector2(
+			position.X + halfWidth * cosR - halfHeight * sinR,
+			position.Y + halfWidth * sinR + halfHeight * cosR
+		);
+		
+		vertices[3] = new Vector2(
+			position.X + halfWidth * cosR + halfHeight * sinR,
+			position.Y + halfWidth * sinR - halfHeight * cosR
+		);
+		
+		segment.Polygon = vertices;
+		
+		// 设置UV
+		segment.UV = new Vector2[]
+		{
+			new Vector2(0, textureHeight),
+			new Vector2(0, 0),
+			new Vector2(textureWidth, 0),
+			new Vector2(textureWidth, textureHeight)
+		};
+		
+		catNecksParent.AddChild(segment);
+	}
+
 	private int CountSelfIntersections(Vector2[] pts)
 	{
 		int n = pts.Length;
@@ -191,4 +283,3 @@ public partial class Cat : Sprite2D
 			Math.Min(a.Y, b.Y) - 1e-6f <= p.Y && p.Y <= Math.Max(a.Y, b.Y) + 1e-6f;
 	}
 }
-
