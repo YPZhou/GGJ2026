@@ -1,9 +1,11 @@
+using System;
 using Godot;
 
 public enum TVStatus
 {
 	GOOD, // 正在播放好图片
 	BAD, // 正在播放坏图片
+	MOSAIC, // 正在播放马赛克
 }
 
 public partial class TV : Sprite2D
@@ -18,6 +20,17 @@ public partial class TV : Sprite2D
 	Texture2D badImage;
 	[Export]
 	Texture2D mosaicImage;
+
+	[Export(PropertyHint.Range, "0, 100")]
+	float imageGoodWeight = 20f;
+	[Export(PropertyHint.Range, "0, 100")]
+	float imageBadWeight = 20f;
+	[Export(PropertyHint.Range, "0, 100")]
+	float imageMosaicWeight = 60f;
+
+	float imageMinInterval = 0.75f;
+	float imageMaxInterval = 1.5f;
+	float imageInterval = 0;
 
 	public override void _Ready()
 	{
@@ -44,22 +57,54 @@ public partial class TV : Sprite2D
 		{
 			GD.PrintErr("Bad image is null, set bad image for TV.badImage in the editor.");
 		}
+		if (mosaicImage == null)
+		{
+			GD.PrintErr("Mosaic image is null, set mosaic image for TV.mosaicImage in the editor.");
+		}
 	}
 
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
 
-		
+		imageInterval -= (float)delta;
+		if (imageInterval <= 0)
+		{
+
+			imageInterval = (float)GD.RandRange(imageMinInterval, imageMaxInterval);
+			var nextStatus = RandomizeStatus();
+
+			GD.Print("Interval:" + imageInterval + " Change image to " + nextStatus);
+
+			SetImage(nextStatus);
+		}
+	}
+
+	private TVStatus RandomizeStatus()
+	{
+		float totalWeight = imageGoodWeight + imageBadWeight + imageMosaicWeight;
+		if (totalWeight <= 0) return TVStatus.GOOD;
+
+		double randomValue = GD.RandRange(0, totalWeight);
+		TVStatus status;
+
+		if (randomValue < imageGoodWeight)
+		{
+			status = TVStatus.GOOD;
+		}
+		else if (randomValue < imageGoodWeight + imageBadWeight)
+		{
+			status = TVStatus.BAD;
+		}
+		else
+		{
+			status = TVStatus.MOSAIC;
+		}
+		return status;
 	}
 
 	void SetImage(TVStatus status)
 	{
-		if (status == CurrentStatus)
-		{
-			return;
-		}
-
 		CurrentStatus = status;
 		switch (status)
 		{
@@ -68,6 +113,9 @@ public partial class TV : Sprite2D
 				break;
 			case TVStatus.BAD:
 				Texture = badImage;
+				break;
+			case TVStatus.MOSAIC:
+				Texture = mosaicImage;
 				break;
 		}
 	}
