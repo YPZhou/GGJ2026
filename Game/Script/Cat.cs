@@ -13,6 +13,9 @@ public partial class Cat : Sprite2D
 	[Export] Texture2D catNeckTexture; // 猫脖子图片
 	[Export] Game game;
 
+	[Export] Node2D NeckStart;
+	[Export] Node2D NeckEnd;
+
 	bool IsMaosked = false;
 
 	public bool IsAlive => San > 0;
@@ -26,6 +29,15 @@ public partial class Cat : Sprite2D
 	double initialX;
 	double currentX;
 	Line2D headCurve;
+
+	Vector2 currentHeadTargetPos;
+	Vector2 currentCp1, currentCp2;
+	Vector2 targetCp1, targetCp2;
+	Vector2 neckEndOffset;
+
+	[Export] float headSmoothingSpeed = 5.0f;
+	[Export] int neckSegments = 60; // Now used as a fallback or limit
+	[Export] float curveTolerance = 2.0f;
 
 	[Export]
     Area2D interactArea;
@@ -48,11 +60,34 @@ public partial class Cat : Sprite2D
 		{
 			GD.PrintErr($"{nameof(Cat)}: Interact area is null, set Interact area for Cat.interactArea in the editor.");
 		}
+		if ( NeckStart == null || NeckEnd == null)
+		{
+		 	GD.PrintErr($"{nameof(Cat)}: Neck start or end is null, set NeckStart and NeckEnd for Cat in the editor.");
+		}
 	}
 
 	public override void _Ready()
 	{
 		base._Ready();
+
+		// Calculate offset from Head to NeckEnd
+		if (catHead != null && NeckEnd != null)
+			neckEndOffset = NeckEnd.GlobalPosition - catHead.GlobalPosition;
+		else
+			neckEndOffset = Vector2.Zero;
+
+		currentHeadTargetPos = catHead.Position;
+		
+		// Initial straight CPs
+		Vector2 from = (NeckStart != null) ? ToLocal(NeckStart.GlobalPosition) : Vector2.Zero;
+		Vector2 to = (NeckEnd != null) ? ToLocal(NeckEnd.GlobalPosition) : catHead.Position;
+		float dx = to.X - from.X;
+		float dy = to.Y - from.Y;
+		targetCp1 = from + new Vector2(dx * 0.25f, dy * 0.5f);
+		targetCp2 = from + new Vector2(dx * 0.75f, dy * 0.8f);
+		currentCp1 = targetCp1;
+		currentCp2 = targetCp2;
+
 		initialY = catHead.Position.Y;
 		initialX = catHead.Position.X;
 		currentX = initialX;
@@ -68,6 +103,9 @@ public partial class Cat : Sprite2D
 		}
 
 		San = 100;
+		
+		// Ensure neck is drawn at start
+		DrawCurrentNeck();
 
 		CheckRes();
 	}
@@ -87,8 +125,40 @@ public partial class Cat : Sprite2D
 				UpdateCatWhenWatchingBadScene(delta);
 			}
 
+			if (MoveHead(delta))
+			{
+				DrawCurrentNeck();
+			}
+			
 			TickSan(delta, CurrentStatus);
 		}
+	}
+
+	private bool MoveHead(double delta)
+	{
+		if (catHead.Position.DistanceSquaredTo(currentHeadTargetPos) > 0.1f)
+		{
+			float t = (float)delta * headSmoothingSpeed;
+			catHead.Position = catHead.Position.Lerp(currentHeadTargetPos, t);
+			currentCp1 = currentCp1.Lerp(targetCp1, t);
+			currentCp2 = currentCp2.Lerp(targetCp2, t);
+			return true;
+		}
+		else if (catHead.Position != currentHeadTargetPos)
+		{
+			catHead.Position = currentHeadTargetPos;
+			currentCp1 = targetCp1;
+			currentCp2 = targetCp2;
+			return true;
+		}
+		return false;
+	}
+
+	private void DrawCurrentNeck()
+	{
+		Vector2 start = (NeckStart != null) ? ToLocal(NeckStart.GlobalPosition) : Vector2.Zero;
+		Vector2 end = (NeckEnd != null) ? ToLocal(NeckEnd.GlobalPosition) : catHead.Position;
+		DrawNeck(start, end);
 	}
 
 	void UpdateCatWhenWatchingGoodScene(double _)
@@ -97,7 +167,16 @@ public partial class Cat : Sprite2D
 		headTimer = 0.0;
 		headIndex = 0;
 		currentX = initialX;
-		catHead.Position = new Vector2((float)currentX, (float)initialY);
+		currentHeadTargetPos = new Vector2((float)currentX, (float)initialY);
+		
+		// Reset CPs (straight line approximate)
+		Vector2 from = (NeckStart != null) ? ToLocal(NeckStart.GlobalPosition) : Vector2.Zero;
+		Vector2 to = currentHeadTargetPos + neckEndOffset; // Approximated target
+		float dx = to.X - from.X;
+		float dy = to.Y - from.Y;
+		targetCp1 = from + new Vector2(dx * 0.25f, dy * 0.5f);
+		targetCp2 = from + new Vector2(dx * 0.75f, dy * 0.8f);
+
 		// 清除贝塞尔曲线（例如隐藏或清空点）
 		if (headCurve != null)
 			headCurve.Points = new Vector2[0];
@@ -127,70 +206,121 @@ public partial class Cat : Sprite2D
 			double targetOffset = (HeadYOffsets != null && HeadYOffsets.Length > 0) 
 			? HeadYOffsets[Math.Clamp(headIndex, 0, HeadYOffsets.Length - 1)] * booster
 			: 0.0;
-			catHead.Position = new Vector2((float)currentX, (float)(initialY + targetOffset));
-			// 生成并绘制贝塞尔曲线（从身体到猫头）
-			GenerateAndDrawBezier(new Vector2(0, 0), catHead.Position);
+			
+			currentHeadTargetPos = new Vector2((float)currentX, (float)(initialY + targetOffset));
+			
+			Vector2 from = (NeckStart != null) ? ToLocal(NeckStart.GlobalPosition) : Vector2.Zero;
+			Vector2 to = currentHeadTargetPos + neckEndOffset;
+			CalculateTargetBezierControlPoints(from, to);
 		}
 	}
 
 	// 生成并绘制一条从 body 到 head 的贝塞尔曲线（在本节点坐标系内）
-	private void GenerateAndDrawBezier(Vector2 from, Vector2 to)
+	private void DrawNeck(Vector2 from, Vector2 to)
 	{
 		if (headCurve == null)
 			return;
-
-		var points = GenerateBezierPointsWithOptionalCrossings(from, to, 24);
-		// headCurve.Points = points;
+		var points = GeneratePointsForCPs(from, to, currentCp1, currentCp2, neckSegments);
 		PlaceCatNeckAlongPoints(points, catNeckTexture);
 		catHead.GetParent().MoveChild(catHead, -1);
 	}
 
-	private Vector2[] GenerateBezierPointsWithOptionalCrossings(Vector2 from, Vector2 to, int segments)
+	private void CalculateTargetBezierControlPoints(Vector2 from, Vector2 to)
 	{
 		// 尝试随机生成 0 或 1 个交叉的贝塞尔曲线点
 		int desiredCross = Random.Shared.Next(2);
 		int attempts = 8;
-		Vector2[] best = null;
 		int bestDiff = int.MaxValue;
+
+		// Default fallback
+		float dx = to.X - from.X;
+		float dy = to.Y - from.Y;
+		targetCp1 = from + new Vector2(dx * 0.25f, dy * 0.5f);
+		targetCp2 = from + new Vector2(dx * 0.75f, dy * 0.8f);
 
 		for (int attempt = 0; attempt < attempts; attempt++)
 		{
-			float dx = to.X - from.X;
-			float dy = to.Y - from.Y;
+			dx = to.X - from.X;
+			dy = to.Y - from.Y;
 			float dist = (to - from).Length();
-			float v1 = (float)(0.2 + Random.Shared.NextDouble() * 0.8);
-			float v2 = (float)(0.2 + Random.Shared.NextDouble() * 0.8);
-			float dir = Random.Shared.NextDouble() > 0.5 ? 1f : -1f;
 
 			Vector2 cp1 = from + new Vector2(dx * 0.25f + (float)(Random.Shared.NextDouble() - 0.5) * dist * 0.4f, from.Y + dy * 0.5f);
 			Vector2 cp2 = from + new Vector2(dx * 0.75f + (float)(Random.Shared.NextDouble() - 0.5) * dist * 0.4f, from.Y + dy * 0.8f);
 
-			Vector2[] pts = new Vector2[segments + 1];
-			for (int i = 0; i <= segments; i++)
-			{
-				float t = (float)i / segments;
-				float u = 1f - t;
-				float b0 = u * u * u;
-				float b1 = 3f * u * u * t;
-				float b2 = 3f * u * t * t;
-				float b3 = t * t * t;
-				pts[i] = from * b0 + cp1 * b1 + cp2 * b2 + to * b3;
-			}
-
+			Vector2[] pts = GeneratePointsForCPs(from, to, cp1, cp2, neckSegments);
+			
 			int crosses = CountSelfIntersections(pts);
 			int diff = Math.Abs(crosses - desiredCross);
 			if (diff < bestDiff)
 			{
 				bestDiff = diff;
-				best = pts;
+				targetCp1 = cp1;
+				targetCp2 = cp2;
 			}
 			if (crosses == desiredCross)
 			{
-				return pts;
+				break;
 			}
 		}
+	}
 
-		return best ?? new Vector2[segments + 1];
+	private Vector2[] GeneratePointsForCPs(Vector2 from, Vector2 to, Vector2 cp1, Vector2 cp2, int segments)
+	{
+		List<Vector2> points = new List<Vector2>();
+		points.Add(from);
+		RecursiveBezier(points, from, cp1, cp2, to, curveTolerance * curveTolerance, 0);
+		return points.ToArray();
+	}
+
+	private void RecursiveBezier(List<Vector2> points, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float tolSq, int level)
+	{
+		// 递归深度限制 (2^10 = 1024 segments)
+		if (level > 10)
+		{
+			points.Add(p3);
+			return;
+		}
+
+		// 计算平直度 (Flatness)
+		float ux = p3.X - p0.X;
+		float uy = p3.Y - p0.Y;
+		float lenSq = ux * ux + uy * uy;
+
+		bool isFlat = true;
+
+		if (lenSq < 1e-5f)
+		{
+			// 起点终点几乎重合，检查控制点距离
+			if (p0.DistanceSquaredTo(p1) > tolSq || p0.DistanceSquaredTo(p2) > tolSq)
+				isFlat = false;
+		}
+		else
+		{
+			// 直线方程距离公式 (叉乘) / 长度
+			float cross1 = (p1.X - p0.X) * uy - (p1.Y - p0.Y) * ux; 
+			float cross2 = (p2.X - p0.X) * uy - (p2.Y - p0.Y) * ux;
+
+			if ((cross1 * cross1) > tolSq * lenSq || (cross2 * cross2) > tolSq * lenSq)
+				isFlat = false;
+		}
+
+		if (isFlat)
+		{
+			points.Add(p3);
+		}
+		else
+		{
+			// De Casteljau subdivision
+			Vector2 p01 = (p0 + p1) * 0.5f;
+			Vector2 p12 = (p1 + p2) * 0.5f;
+			Vector2 p23 = (p2 + p3) * 0.5f;
+			Vector2 p012 = (p01 + p12) * 0.5f;
+			Vector2 p123 = (p12 + p23) * 0.5f;
+			Vector2 p0123 = (p012 + p123) * 0.5f;
+
+			RecursiveBezier(points, p0, p01, p012, p0123, tolSq, level + 1);
+			RecursiveBezier(points, p0123, p123, p23, p3, tolSq, level + 1);
+		}
 	}
 
 	void PlaceCatNeckAlongPoints(Vector2[] bezierPoints, Texture2D catNeckTexture, float scale = 1.0f)
@@ -203,11 +333,21 @@ public partial class Cat : Sprite2D
 			child.QueueFree();
 		}
 
-		// 直接在相邻点之间放置图片
+		float totalLength = 0f;
+		for (int i = 0; i < bezierPoints.Length - 1; i++)
+		{
+			totalLength += bezierPoints[i].DistanceTo(bezierPoints[i + 1]);
+		}
+
+		float currentDist = 0f;
+		float textureWidth = catNeckTexture.GetWidth();
+		float textureHeight = catNeckTexture.GetHeight();
+
 		for (int i = 0; i < bezierPoints.Length - 1; i++)
 		{
 			Vector2 pointA = bezierPoints[i];
 			Vector2 pointB = bezierPoints[i + 1];
+			float segLen = pointA.DistanceTo(pointB);
 
 			// 计算线段的中点作为图片位置
 			Vector2 position = (pointA + pointB) * 0.5f;
@@ -216,63 +356,61 @@ public partial class Cat : Sprite2D
 			Vector2 direction = (pointB - pointA).Normalized();
 			float rotation = direction.Angle();
 
-			// 计算图片缩放，使其长度刚好覆盖线段
-			float segmentLength = pointA.DistanceTo(pointB);
-			float textureWidth = catNeckTexture.GetWidth();
-			float widthScale = segmentLength / textureWidth;
+			float uStart = (currentDist / totalLength) * textureWidth;
+			float uEnd = ((currentDist + segLen) / totalLength) * textureWidth;
 
-			// 创建Polygon2D
-			CreateStretchedPolygon2D(position, rotation, catNeckTexture, new Vector2(widthScale, scale), segmentLength);
+			currentDist += segLen;
+
+			CreateSegmentWithCustomUV(position, rotation, catNeckTexture, scale, segLen, uStart, uEnd, textureHeight);
 		}
 	}
 
-	void CreateStretchedPolygon2D(Vector2 position, float rotation, Texture2D texture, Vector2 scale, float stretchLength)
+	void CreateSegmentWithCustomUV(Vector2 position, float rotation, Texture2D texture, float thicknessScale, float length, float uStart, float uEnd, float texHeight)
 	{
-		float textureWidth = texture.GetWidth();
-		float textureHeight = texture.GetHeight();
-		float halfWidth = textureWidth * scale.X * 0.5f;
-		float halfHeight = textureHeight * scale.Y * 0.5f;
+		float halfLength = length * 0.5f;
+		float halfThickness = texture.GetHeight() * thicknessScale * 0.5f;
 
 		Polygon2D segment = new Polygon2D();
 		segment.Texture = texture;
-		segment.TextureScale = scale;
 
-		// 预计算旋转值
 		float cosR = Mathf.Cos(rotation);
 		float sinR = Mathf.Sin(rotation);
 
-		// 计算四个顶点
+		// Local: X is along length, Y is along thickness
 		Vector2[] vertices = new Vector2[4];
 
+		// TL (Top Left in texture space -> uStart, 0) -> Local (-halfLength, -halfThickness)
 		vertices[0] = new Vector2(
-			position.X - halfWidth * cosR + halfHeight * sinR,
-			position.Y - halfWidth * sinR - halfHeight * cosR
+			position.X + (-halfLength) * cosR - (-halfThickness) * sinR,
+			position.Y + (-halfLength) * sinR + (-halfThickness) * cosR
 		);
 
+		// BL (Bottom Left in texture space -> uStart, texHeight) -> Local (-halfLength, +halfThickness)
 		vertices[1] = new Vector2(
-			position.X - halfWidth * cosR - halfHeight * sinR,
-			position.Y - halfWidth * sinR + halfHeight * cosR
+			position.X + (-halfLength) * cosR - (halfThickness) * sinR,
+			position.Y + (-halfLength) * sinR + (halfThickness) * cosR
 		);
 
+		// BR (Bottom Right in texture space -> uEnd, texHeight) -> Local (+halfLength, +halfThickness)
 		vertices[2] = new Vector2(
-			position.X + halfWidth * cosR - halfHeight * sinR,
-			position.Y + halfWidth * sinR + halfHeight * cosR
+			position.X + (halfLength) * cosR - (halfThickness) * sinR,
+			position.Y + (halfLength) * sinR + (halfThickness) * cosR
 		);
 
+		// TR (Top Right in texture space -> uEnd, 0) -> Local (+halfLength, -halfThickness)
 		vertices[3] = new Vector2(
-			position.X + halfWidth * cosR + halfHeight * sinR,
-			position.Y + halfWidth * sinR - halfHeight * cosR
+			position.X + (halfLength) * cosR - (-halfThickness) * sinR,
+			position.Y + (halfLength) * sinR + (-halfThickness) * cosR
 		);
 
 		segment.Polygon = vertices;
 
-		// 设置UV
 		segment.UV = new Vector2[]
 		{
-			new Vector2(0, textureHeight),
-			new Vector2(0, 0),
-			new Vector2(textureWidth, 0),
-			new Vector2(textureWidth, textureHeight)
+			new Vector2(uStart, 0),
+			new Vector2(uStart, texHeight),
+			new Vector2(uEnd, texHeight),
+			new Vector2(uEnd, 0)
 		};
 
 		catNecksParent.AddChild(segment);
