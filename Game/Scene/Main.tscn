@@ -1,10 +1,13 @@
-[gd_scene load_steps=48 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=52 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
 [ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_togfq"]
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
+[ext_resource type="Texture2D" uid="uid://dvjhcjh71b4jh" path="res://Res/cat/cat_body.png" id="2_jupvq"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
+[ext_resource type="Texture2D" uid="uid://jwx4u33agyvd" path="res://Res/cat/cat_neck_seg_1.png" id="4_jupvq"]
+[ext_resource type="Texture2D" uid="uid://dtkdrumtq2rxy" path="res://Res/cat/cat_head.png" id="5_jupvq"]
 [ext_resource type="Texture2D" uid="uid://106kewiv0f0w" path="res://Res/tv_good/电视画幅-meme-01.png" id="6_cjptb"]
 [ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="6_yg4ot"]
 [ext_resource type="Texture2D" uid="uid://dnoh53ltkue23" path="res://Res/tv_fool/电视画幅-骗人-01.png" id="7_58uq4"]
@@ -44,7 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://bvrvjn5g4grfc" path="res://Res/tv_mosaic/4.png" id="22_reyx0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qtod"]
-size = Vector2(129, 126)
+size = Vector2(356.25, 193.75)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vm4ek"]
 shader = ExtResource("6_yg4ot")
@@ -55,6 +58,9 @@ shader_parameter/boost = 1.0890000042275
 shader_parameter/roll_speed = 0.2000000095
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mr7am"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jupvq"]
+size = Vector2(125, 132)
 
 [sub_resource type="LabelSettings" id="LabelSettings_i0sg4"]
 font_size = 41
@@ -90,7 +96,7 @@ HeadYOffsets = PackedFloat64Array(-200, -100, 0, 100, 200)
 HeadXRange = 100.0
 catHead = NodePath("CatHead")
 catNecksParent = NodePath("CatNecks")
-catNeckTexture = ExtResource("1_h175a")
+catNeckTexture = ExtResource("4_jupvq")
 game = NodePath("..")
 interactArea = NodePath("CatHead/Area2D")
 
@@ -111,26 +117,8 @@ text = "猫身"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CatHead" type="Sprite2D" parent="Cat"]
-position = Vector2(0, -400)
-texture = ExtResource("1_h175a")
-
-[node name="Label" type="Label" parent="Cat/CatHead"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -64.0
-offset_right = -32.0
-offset_bottom = -19.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 32
-text = "猫头"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="CatHead" type="Node2D" parent="Cat"]
+position = Vector2(-41, -358)
 
 [node name="Area2D" type="Area2D" parent="Cat/CatHead"]
 scale = Vector2(0.16, 0.16)
@@ -138,10 +126,22 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cat/CatHead/Area2D"]
-position = Vector2(-0.5, 0)
+position = Vector2(-181.25, -56.25)
 shape = SubResource("RectangleShape2D_4qtod")
 
+[node name="Sprite2D" type="Sprite2D" parent="Cat/CatHead"]
+position = Vector2(-1.9999998, -32.999996)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_jupvq")
+offset = Vector2(226, 626)
+
 [node name="CatNecks" type="Node2D" parent="Cat"]
+position = Vector2(-33, -102)
+
+[node name="Sprite2D" type="Sprite2D" parent="Cat"]
+position = Vector2(-2, -93)
+scale = Vector2(0.223, 0.223)
+texture = ExtResource("2_jupvq")
 
 [node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("game")]
 material = SubResource("ShaderMaterial_vm4ek")
@@ -202,10 +202,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Area2D" type="Area2D" parent="Hand"]
-collision_mask = 6
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Area2D"]
-shape = SubResource("RectangleShape2D_4qtod")
+position = Vector2(-0.5, -3)
+shape = SubResource("RectangleShape2D_jupvq")
 
 [node name="GameTime" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(960, 40)

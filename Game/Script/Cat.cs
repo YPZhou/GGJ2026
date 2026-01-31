@@ -8,7 +8,7 @@ public partial class Cat : Sprite2D
 	[Export] double HeadMoveInterval; // 猫头瞬移间隔
 	[Export] double[] HeadYOffsets; // 可在 Inspector 中编辑
 	[Export] double HeadXRange; // X 轴随机偏移范围（±）
-	[Export] Sprite2D catHead; // 猫头节点
+	[Export] Node2D catHead; // 猫头节点
 	[Export] Node catNecksParent; // 猫脖子父节点
 	[Export] Texture2D catNeckTexture; // 猫脖子图片
 	[Export] Game game;
