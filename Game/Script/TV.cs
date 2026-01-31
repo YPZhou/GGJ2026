@@ -47,7 +47,7 @@ public partial class TV : Sprite2D
 
 	List<WeightedObject<TVStatus>> weightedStates;
 
-	bool mouseEntered;
+	public bool MouseEntered {get; private set;}
 	[Export]
 	Area2D area2D;
 	[Export]
@@ -70,12 +70,12 @@ public partial class TV : Sprite2D
 		area2D.InputPickable = true;
 		area2D.MouseEntered += () =>
 		{
-			mouseEntered = true;
+			MouseEntered = true;
 			Input.SetCustomMouseCursor(cursorTexture, Input.CursorShape.Arrow, new Vector2(16, 16));
 		};
 		area2D.MouseExited += () =>
 		{
-			mouseEntered = false;
+			MouseEntered = false;
 			Input.SetCustomMouseCursor(null);
 		};
 

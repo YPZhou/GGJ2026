@@ -130,7 +130,7 @@ public partial class Game : Node
 
 	void TickStart()
 	{
-		if (hand.IsTouchingTv && Input.IsKeyPressed(Key.Space))
+		if (tv.MouseEntered && Input.IsMouseButtonPressed(MouseButton.Left))
 		{
 			GD.Print($"{nameof(Game)}:开始游戏");
 			EnterState(GameState.Playing);
