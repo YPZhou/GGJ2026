@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c5ypwhqm7frwe"
+path="res://.godot/imported/Gelato - Penguin's Game (English Version).ogg-4df7cf87192f92d52febed7377df436a.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sound/BGM/Gelato - Penguin's Game (English Version).ogg"
+dest_files=["res://.godot/imported/Gelato - Penguin's Game (English Version).ogg-4df7cf87192f92d52febed7377df436a.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
