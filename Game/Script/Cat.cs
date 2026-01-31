@@ -113,6 +113,7 @@ public partial class Cat : Sprite2D
 		headTimer += delta;
 		if (headTimer >= HeadMoveInterval)
 		{
+			var booster = Booster.GetBooster(game.ElapsedTime);
 			headTimer = 0.0;
 			if (HeadYOffsets != null && HeadYOffsets.Length > 0)
 			{
@@ -124,10 +125,12 @@ public partial class Cat : Sprite2D
 				}
 				headIndex = newIndex;
 				// 在 Y 改变时更新 X
-				currentX = initialX + (Random.Shared.NextDouble() * 2.0 - 1.0) * HeadXRange;
+				currentX = initialX + (Random.Shared.NextDouble() * 2.0 - 1.0) * HeadXRange * booster;
 			}
 
-			double targetOffset = (HeadYOffsets != null && HeadYOffsets.Length > 0) ? HeadYOffsets[Math.Clamp(headIndex, 0, HeadYOffsets.Length - 1)] : 0.0;
+			double targetOffset = (HeadYOffsets != null && HeadYOffsets.Length > 0) 
+			? HeadYOffsets[Math.Clamp(headIndex, 0, HeadYOffsets.Length - 1)] * booster
+			: 0.0;
 			catHead.Position = new Vector2((float)currentX, (float)(initialY + targetOffset));
 			// 生成并绘制贝塞尔曲线（从身体到猫头）
 			GenerateAndDrawBezier(new Vector2(0, 0), catHead.Position);

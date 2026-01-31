@@ -130,7 +130,7 @@ public partial class TV : Sprite2D
 		if (imageInterval <= 0)
 		{
 
-			imageInterval = GD.RandRange(imageMinInterval, imageMaxInterval);
+			imageInterval = GD.RandRange(imageMinInterval, imageMaxInterval) / Booster.GetBooster(game.ElapsedTime);
 			var nextStatus = RandomizeStatus();
 
 			GD.Print($"{nameof(TV)}: Interval:" + imageInterval.ToString("F2") + " Change image to " + nextStatus);

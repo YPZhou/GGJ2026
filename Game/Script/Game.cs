@@ -21,10 +21,10 @@ public partial class Game : Node
 	[Export] CatSanUI catSanUI;
 
 	[Export] double totalTime; // 单局时长，30秒
-	double elapsedTime = 0;
-	double RemainingTIme => totalTime - elapsedTime;
+	public double ElapsedTime  { get; private set; } = 0;
+	double RemainingTIme => totalTime - ElapsedTime;
 
-	public bool IsGameEnd => elapsedTime >= totalTime || !cat.IsAlive;
+	public bool IsGameEnd => ElapsedTime >= totalTime || !cat.IsAlive;
 
 	public GameState CurrentGameState { get; private set; } = GameState.Start;
 
@@ -58,7 +58,7 @@ public partial class Game : Node
 	public override void _Ready()
 	{
 		base._Ready();
-		elapsedTime = 0;
+		ElapsedTime = 0;
 		timeBar.MaxValue = totalTime;
 		UpdateTimeHint(RemainingTIme);
 		handTransform = hand.Transform;
@@ -117,8 +117,8 @@ public partial class Game : Node
 	{
 		if (!IsGameEnd)
 		{
-			elapsedTime += (float)delta;
-			timeBar.Value = elapsedTime;
+			ElapsedTime += delta;
+			timeBar.Value = ElapsedTime;
 			UpdateTimeHint(RemainingTIme);
 			UpdateCatSanUI();
 		}
