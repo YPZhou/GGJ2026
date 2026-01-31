@@ -16,7 +16,7 @@ public partial class Game : Node
 	double elapsedTime = 0;
 	double RemainingTIme => totalTime - elapsedTime;
 
-	public bool IsGameEnd => elapsedTime >= totalTime;
+	public bool IsGameEnd => elapsedTime >= totalTime || !cat.IsAlive;
 
 	public override void _Ready()
 	{

@@ -5,7 +5,7 @@ using Godot;
 public enum TVStatus
 {
 	GOOD, // 正在播放好图片
-	BAD, // 正在播放坏图片
+	Fool, // 正在播放Fool
 	MOSAIC, // 正在播放马赛克
 }
 
@@ -18,14 +18,14 @@ public partial class TV : Sprite2D
 	[Export]
 	Texture2D goodImage;
 	[Export]
-	Texture2D badImage;
+	Texture2D foolImage;
 	[Export]
 	Texture2D mosaicImage;
 
 	[Export(PropertyHint.Range, "0, 100")]
 	float imageGoodWeight = 20f;
 	[Export(PropertyHint.Range, "0, 100")]
-	float imageBadWeight = 20f;
+	float imageFoolWeight = 20f;
 	[Export(PropertyHint.Range, "0, 100")]
 	float imageMosaicWeight = 60f;
 
@@ -39,7 +39,7 @@ public partial class TV : Sprite2D
 	[Export]
 	int maxGoodCount = 4;
 	[Export]
-	int maxBadCount = 6;
+	int maxFoolCount = 4;
 	[Export]
 	int maxMosaicCount = 6;
 
@@ -51,12 +51,12 @@ public partial class TV : Sprite2D
 	{
 		base._Ready();
 
-		CurrentStatus = TVStatus.BAD;
+		CurrentStatus = TVStatus.Fool;
 		tVStatusCounter = new TVStatusCounter();
 		weightedStates = new List<WeightedObject<TVStatus>>()
 		{
 			new WeightedObject<TVStatus>(TVStatus.GOOD, imageGoodWeight),
-			new WeightedObject<TVStatus>(TVStatus.BAD, imageBadWeight),
+			new WeightedObject<TVStatus>(TVStatus.Fool, imageFoolWeight),
 			new WeightedObject<TVStatus>(TVStatus.MOSAIC, imageMosaicWeight),
 		};
 
@@ -76,7 +76,7 @@ public partial class TV : Sprite2D
 		{
 			GD.PrintErr("Good image is null, set good image for TV.goodImage in the editor.");
 		}
-		if (badImage == null)
+		if (foolImage == null)
 		{
 			GD.PrintErr("Bad image is null, set bad image for TV.badImage in the editor.");
 		}
@@ -117,7 +117,7 @@ public partial class TV : Sprite2D
 
 	void StandbyProcess(double delta)
 	{
-		SetImage(TVStatus.BAD);
+		SetImage(TVStatus.Fool);
 	}
 
 	private TVStatus RandomizeStatus()
@@ -130,9 +130,9 @@ public partial class TV : Sprite2D
 			candidataes.Add(new WeightedObject<TVStatus>(TVStatus.GOOD, imageGoodWeight));
 		}
 
-		if (!tVStatusCounter.IsLimitReached(TVStatus.BAD, maxBadCount))
+		if (!tVStatusCounter.IsLimitReached(TVStatus.Fool, maxFoolCount))
 		{
-			candidataes.Add(new WeightedObject<TVStatus>(TVStatus.BAD, imageBadWeight));
+			candidataes.Add(new WeightedObject<TVStatus>(TVStatus.Fool, imageFoolWeight));
 		}
 
 		if (!tVStatusCounter.IsLimitReached(TVStatus.MOSAIC, maxMosaicCount))
@@ -186,7 +186,7 @@ public partial class TV : Sprite2D
 				}
 				Texture = goodImage;
 				break;
-			case TVStatus.BAD:
+			case TVStatus.Fool:
 				if (mat != null)
 				{
 					mat.SetShaderParameter("scanline_count", 6f);
@@ -195,7 +195,7 @@ public partial class TV : Sprite2D
 					mat.SetShaderParameter("boost", 1.4f);
 					mat.SetShaderParameter("roll_speed", 0.4f);
 				}
-				Texture = badImage;
+				Texture = foolImage;
 				break;
 			case TVStatus.MOSAIC:
 				if (mat != null)
@@ -236,7 +236,7 @@ public class TVStatusCounter
 		counts = new Dictionary<TVStatus, int>()
 		{
 			{ TVStatus.GOOD, 0 },
-			{ TVStatus.BAD, 0 },
+			{ TVStatus.Fool, 0 },
 			{ TVStatus.MOSAIC, 0 },
 		};
 	}

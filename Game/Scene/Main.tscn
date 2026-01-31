@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
 [ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="6_yg4ot"]
 [ext_resource type="Texture2D" uid="uid://btf1evwo6gr6l" path="res://Res/tv_good.png" id="7_hueuk"]
-[ext_resource type="Texture2D" uid="uid://bwhuxbyfqdvqw" path="res://Res/tv_bad.png" id="8_6a8me"]
+[ext_resource type="Texture2D" uid="uid://b2tl53boenmes" path="res://Res/tv_fool.png" id="8_i0sg4"]
 [ext_resource type="Texture2D" uid="uid://6w6rwpqbjrj2" path="res://Res/tv_mosaic.png" id="9_6a8me"]
 [ext_resource type="Script" uid="uid://dw4xj75bfammq" path="res://Script/ResultControl.cs" id="10_yg4ot"]
 [ext_resource type="Texture2D" uid="uid://ceg0op4akn6qs" path="res://Res/result_meme.png" id="11_i0sg4"]
@@ -122,7 +122,7 @@ texture = ExtResource("1_h175a")
 script = ExtResource("3_togfq")
 game = NodePath("..")
 goodImage = ExtResource("7_hueuk")
-badImage = ExtResource("8_6a8me")
+foolImage = ExtResource("8_i0sg4")
 mosaicImage = ExtResource("9_6a8me")
 
 [node name="Label" type="Label" parent="TV"]
@@ -215,9 +215,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -198.0
+offset_left = -196.0
 offset_top = -174.0
-offset_right = 200.0
+offset_right = 202.0
 offset_bottom = 203.0
 grow_horizontal = 2
 grow_vertical = 2

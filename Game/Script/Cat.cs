@@ -54,7 +54,7 @@ public partial class Cat : Sprite2D
 			{
 				UpdateCatWhenWatchingGoodScene(delta);
 			}
-			else if (CurrentStatus == TVStatus.BAD)
+			else if (CurrentStatus == TVStatus.Fool)
 			{
 				UpdateCatWhenWatchingBadScene(delta);
 			}
@@ -294,10 +294,10 @@ public partial class Cat : Sprite2D
 				deltaSan = delta * 5;
 				break;
 			case TVStatus.MOSAIC:
-				deltaSan = 0D;
-				break;
-			case TVStatus.BAD:
 				deltaSan = delta * -10;
+				break;
+			case TVStatus.Fool:
+				deltaSan = 0d;
 				break;
 		}
 
