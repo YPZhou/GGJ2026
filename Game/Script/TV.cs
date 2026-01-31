@@ -28,9 +28,11 @@ public partial class TV : Sprite2D
 	[Export(PropertyHint.Range, "0, 100")]
 	float imageMosaicWeight = 60f;
 
-	float imageMinInterval = 0.75f;
-	float imageMaxInterval = 1.5f;
-	float imageInterval = 0;
+	[Export]
+	double imageMinInterval = 0.75f;
+	[Export]
+	double imageMaxInterval = 1.5f;
+	double imageInterval = 0;
 
 	public override void _Ready()
 	{
@@ -67,14 +69,14 @@ public partial class TV : Sprite2D
 	{
 		base._Process(delta);
 
-		imageInterval -= (float)delta;
+		imageInterval -= delta;
 		if (imageInterval <= 0)
 		{
 
-			imageInterval = (float)GD.RandRange(imageMinInterval, imageMaxInterval);
+			imageInterval = GD.RandRange(imageMinInterval, imageMaxInterval);
 			var nextStatus = RandomizeStatus();
 
-			GD.Print("Interval:" + imageInterval + " Change image to " + nextStatus);
+			GD.Print($"{nameof(TV)}: Interval:" + imageInterval + " Change image to " + nextStatus);
 
 			SetImage(nextStatus);
 		}
