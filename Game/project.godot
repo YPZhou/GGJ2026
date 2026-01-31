@@ -26,6 +26,11 @@ window/stretch/mode="viewport"
 
 project/assembly_name="GGJ2026"
 
+[layer_names]
+
+2d_physics/layer_1="Hand"
+2d_physics/layer_2="Cat"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

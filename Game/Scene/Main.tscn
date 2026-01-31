@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=17 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
@@ -7,10 +7,15 @@
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
 [ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="6_yg4ot"]
 [ext_resource type="Texture2D" uid="uid://btf1evwo6gr6l" path="res://Res/tv_good.png" id="7_hueuk"]
-[ext_resource type="Texture2D" uid="uid://bwhuxbyfqdvqw" path="res://Res/tv_bad.png" id="8_6a8me"]
+[ext_resource type="Texture2D" uid="uid://b2tl53boenmes" path="res://Res/tv_fool.png" id="8_i0sg4"]
 [ext_resource type="Texture2D" uid="uid://6w6rwpqbjrj2" path="res://Res/tv_mosaic.png" id="9_6a8me"]
 [ext_resource type="Script" uid="uid://dw4xj75bfammq" path="res://Script/ResultControl.cs" id="10_yg4ot"]
+[ext_resource type="Texture2D" uid="uid://ceg0op4akn6qs" path="res://Res/result_meme.png" id="11_i0sg4"]
 [ext_resource type="Script" uid="uid://83ajrylk63so" path="res://Scene/CatSanUI.cs" id="11_vm4ek"]
+[ext_resource type="Texture2D" uid="uid://b8qj44odkrlsw" path="res://Res/result_lose.png" id="12_mr7am"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4qtod"]
+size = Vector2(129, 126)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vm4ek"]
 shader = ExtResource("6_yg4ot")
@@ -19,6 +24,9 @@ shader_parameter/scanline_opacity = 0.8930000424175
 shader_parameter/static_intensity = 0.0710000033725
 shader_parameter/boost = 1.0890000042275
 shader_parameter/roll_speed = 0.2000000095
+
+[sub_resource type="LabelSettings" id="LabelSettings_i0sg4"]
+font_size = 41
 
 [node name="MainGameScene" type="Control" node_paths=PackedStringArray("resultControl", "cat", "hand", "tv", "timeBar", "timeHint", "catSanUI")]
 layout_mode = 3
@@ -37,17 +45,17 @@ timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 totalTime = 30.0
 
-[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent")]
+[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "interactArea")]
 position = Vector2(1546, 900)
 texture = ExtResource("1_h175a")
 script = ExtResource("1_djkur")
-San = 100
 HeadMoveInterval = 1.25
 HeadYOffsets = PackedFloat64Array(-200, -100, 0, 100, 200)
 HeadXRange = 100.0
 catHead = NodePath("CatHead")
 catNecksParent = NodePath("CatNecks")
 catNeckTexture = ExtResource("1_h175a")
+interactArea = NodePath("CatHead/Area2D")
 
 [node name="Label" type="Label" parent="Cat"]
 anchors_preset = 7
@@ -87,12 +95,22 @@ text = "猫头"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Area2D" type="Area2D" parent="Cat/CatHead"]
+scale = Vector2(0.16, 0.16)
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat/CatHead/Area2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_4qtod")
+
 [node name="CatNecks" type="Node2D" parent="Cat"]
 
-[node name="Hand" type="Sprite2D" parent="."]
+[node name="Hand" type="Sprite2D" parent="." node_paths=PackedStringArray("interactArea")]
 position = Vector2(1300, 499)
 texture = ExtResource("1_h175a")
 script = ExtResource("2_h175a")
+interactArea = NodePath("Area2D")
 
 [node name="Label" type="Label" parent="Hand"]
 anchors_preset = 7
@@ -111,6 +129,12 @@ text = "手"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Area2D" type="Area2D" parent="Hand"]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Area2D"]
+shape = SubResource("RectangleShape2D_4qtod")
+
 [node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("game")]
 material = SubResource("ShaderMaterial_vm4ek")
 position = Vector2(398, 499)
@@ -118,7 +142,7 @@ texture = ExtResource("1_h175a")
 script = ExtResource("3_togfq")
 game = NodePath("..")
 goodImage = ExtResource("7_hueuk")
-badImage = ExtResource("8_6a8me")
+foolImage = ExtResource("8_i0sg4")
 mosaicImage = ExtResource("9_6a8me")
 
 [node name="Label" type="Label" parent="TV"]
@@ -165,8 +189,7 @@ text = "时间 30:00s"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ResultControl" type="Panel" parent="." node_paths=PackedStringArray("okButton")]
-visible = false
+[node name="ResultControl" type="Panel" parent="." node_paths=PackedStringArray("okButton", "resultLabel", "resultTextureRect")]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 1
 anchors_preset = 8
@@ -174,29 +197,52 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -25.0
-offset_right = 100.0
-offset_bottom = 25.0
+offset_left = -200.0
+offset_top = -359.0
+offset_right = 200.0
+offset_bottom = 289.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_yg4ot")
 okButton = NodePath("Button")
+resultLabel = NodePath("Label")
+resultTextureRect = NodePath("TextureRect")
+winTexture = ExtResource("11_i0sg4")
+loseTexture = ExtResource("12_mr7am")
 
 [node name="Label" type="Label" parent="ResultControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -285.0
+offset_right = 43.0
+offset_bottom = -262.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game End!"
+label_settings = SubResource("LabelSettings_i0sg4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ResultControl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -42.0
-offset_top = -11.5
-offset_right = 42.0
-offset_bottom = 11.5
+offset_left = -198.0
+offset_top = -174.0
+offset_right = 200.0
+offset_bottom = 203.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Game End!"
+expand_mode = 1
+stretch_mode = 3
 
 [node name="Button" type="Button" parent="ResultControl"]
 layout_mode = 1
