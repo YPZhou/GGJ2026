@@ -191,9 +191,9 @@ public partial class TV : Sprite2D
 				{
 					mat.SetShaderParameter("scanline_count", 6f);
 					mat.SetShaderParameter("static_intensity", 0.2f);
-					mat.SetShaderParameter("scanline_opacity", 0.35f);
-					mat.SetShaderParameter("boost", 1.4f);
-					mat.SetShaderParameter("roll_speed", 0.4f);
+					mat.SetShaderParameter("scanline_opacity", 0.1f);
+					mat.SetShaderParameter("boost", 1.2f);
+					mat.SetShaderParameter("roll_speed", 0.2f);
 				}
 				Texture = foolImage;
 				break;
@@ -202,7 +202,7 @@ public partial class TV : Sprite2D
 				{
 					mat.SetShaderParameter("scanline_count", 6f);
 					mat.SetShaderParameter("static_intensity", 0.2f);
-					mat.SetShaderParameter("scanline_opacity", 0.35f);
+					mat.SetShaderParameter("scanline_opacity", 0.4f);
 					mat.SetShaderParameter("boost", 1.4f);
 					mat.SetShaderParameter("roll_speed", 0.4f);
 				}
