@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bjpvbkw0552u1"]
+[gd_scene load_steps=14 format=3 uid="uid://bjpvbkw0552u1"]
 
 [ext_resource type="Texture2D" uid="uid://ic2yclow0gtp" path="res://Res/tv_fool/电视画幅-骗人-07.png" id="1_wfnnf"]
 [ext_resource type="PackedScene" uid="uid://bu67nktj14ycn" path="res://Scene/Main.tscn" id="4_ghwbr"]
@@ -6,9 +6,151 @@
 [ext_resource type="Texture2D" uid="uid://c55qjkoq682le" path="res://Res/tv_cursor.png" id="5_ghwbr"]
 [ext_resource type="AudioStream" uid="uid://u4e6r1pxfd0b" path="res://Sound/Effect/elevator_button.wav" id="5_wfnnf"]
 [ext_resource type="AudioStream" uid="uid://ci4xqqaoqivc7" path="res://Sound/Effect/cat3b.wav" id="6_r4yu4"]
+[ext_resource type="Texture2D" uid="uid://dexwvtcxs6aue" path="res://Res/title/点击后主标题.png" id="7_jxiog"]
+[ext_resource type="Texture2D" uid="uid://b86ab4msofp6n" path="res://Res/title/默认主标题.png" id="7_ybpwn"]
+[ext_resource type="Texture2D" uid="uid://ci2dgn355vf3n" path="res://Res/title/手掌.png" id="9_6kmno"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghwbr"]
 size = Vector2(744.5, 535)
+
+[sub_resource type="Animation" id="Animation_g4ccs"]
+resource_name = "start"
+length = 1.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hand:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1000, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("7_ybpwn"), ExtResource("7_jxiog")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("hand:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [null, ExtResource("9_6kmno")]
+}
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../TV/CatSFX")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_r4yu4")
+}],
+"times": PackedFloat32Array(0.7)
+}
+tracks/4/use_blend = true
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../TV")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"ChangScene"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_6kmno"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1000, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_ybpwn")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("hand:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u0kn2"]
+_data = {
+&"RESET": SubResource("Animation_6kmno"),
+&"start": SubResource("Animation_g4ccs")
+}
 
 [node name="MainGameScene" type="Control"]
 layout_mode = 3
@@ -19,13 +161,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("area2D")]
+[node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("area2D", "StarFX", "CatFX", "TitleAnimPlayer")]
 position = Vector2(398, 499)
 texture = ExtResource("1_wfnnf")
 script = ExtResource("4_r4yu4")
 area2D = NodePath("Area2D")
 cursorTexture = ExtResource("5_ghwbr")
 GameScene = ExtResource("4_ghwbr")
+StarFX = NodePath("StartSFX")
+CatFX = NodePath("CatSFX")
+TitleAnimPlayer = NodePath("../title/TitleAnimPlayer")
 
 [node name="Label" type="Label" parent="TV"]
 anchors_preset = 7
@@ -48,7 +193,6 @@ vertical_alignment = 1
 stream = ExtResource("5_wfnnf")
 
 [node name="CatSFX" type="AudioStreamPlayer2D" parent="TV"]
-stream = ExtResource("6_r4yu4")
 
 [node name="Area2D" type="Area2D" parent="TV"]
 
@@ -68,3 +212,33 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "我是猫"
+
+[node name="title" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -600.0
+offset_right = 600.0
+offset_bottom = 460.0
+grow_horizontal = 2
+texture = ExtResource("7_ybpwn")
+
+[node name="hand" type="TextureRect" parent="title"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -230.0
+offset_right = 1000.0032
+offset_bottom = 230.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="TitleAnimPlayer" type="AnimationPlayer" parent="title"]
+libraries = {
+&"": SubResource("AnimationLibrary_u0kn2")
+}
