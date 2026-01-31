@@ -18,6 +18,8 @@ public partial class StartTv : Sprite2D
     AudioStreamPlayer2D CatFX;
     [Export]
     AnimationPlayer TitleAnimPlayer;
+    [Export]
+    TextureButton ExitBtn;
 
     public override void _Ready()
     {
@@ -51,6 +53,8 @@ public partial class StartTv : Sprite2D
         {
             TitleAnimPlayer.Play("start");
         };
+
+        ExitBtn.Pressed += Exit_Game;
     }
 
 
@@ -72,6 +76,11 @@ public partial class StartTv : Sprite2D
     public void ChangScene()
     {
         GetTree().ChangeSceneToPacked(GameScene);
+    }
+
+    public void Exit_Game()
+    {
+        GetTree().Quit();
     }
 
 }
