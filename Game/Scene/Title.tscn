@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=6 format=3 uid="uid://bjpvbkw0552u1"]
 
-[ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
-[ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
-[ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_togfq"]
-[ext_resource type="PackedScene" uid="uid://bfyltneqlr5fi" path="res://Scene/Result.tscn" id="2_aan6j"]
-[ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
-[ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
+[ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_wfnnf"]
+[ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="2_r4yu4"]
+[ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="3_ghwbr"]
+[ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="4_fov4c"]
+[ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="5_ybpwn"]
 
 [node name="MainGameScene" type="Control" node_paths=PackedStringArray("cat", "hand", "tv")]
 layout_mode = 3
@@ -14,8 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_togfq")
-resultScene = ExtResource("2_aan6j")
+script = ExtResource("1_wfnnf")
 cat = NodePath("Cat")
 hand = NodePath("Hand")
 tv = NodePath("TV")
@@ -23,8 +21,8 @@ totalTime = 30
 
 [node name="Cat" type="Sprite2D" parent="."]
 position = Vector2(1546, 502)
-texture = ExtResource("1_h175a")
-script = ExtResource("1_djkur")
+texture = ExtResource("2_r4yu4")
+script = ExtResource("3_ghwbr")
 San = 100
 
 [node name="Label" type="Label" parent="Cat"]
@@ -46,8 +44,8 @@ vertical_alignment = 1
 
 [node name="Hand" type="Sprite2D" parent="."]
 position = Vector2(1300, 499)
-texture = ExtResource("1_h175a")
-script = ExtResource("2_h175a")
+texture = ExtResource("2_r4yu4")
+script = ExtResource("4_fov4c")
 
 [node name="Label" type="Label" parent="Hand"]
 anchors_preset = 7
@@ -68,8 +66,8 @@ vertical_alignment = 1
 
 [node name="TV" type="Sprite2D" parent="."]
 position = Vector2(398, 499)
-texture = ExtResource("1_h175a")
-script = ExtResource("3_togfq")
+texture = ExtResource("2_r4yu4")
+script = ExtResource("5_ybpwn")
 
 [node name="Label" type="Label" parent="TV"]
 anchors_preset = 7
