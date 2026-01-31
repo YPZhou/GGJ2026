@@ -107,7 +107,7 @@ public partial class Game : Node
 				HideUI();
 				timeBar.Visible = true;
 				catSanUI.Visible = true;
-
+				hand.Visible = true;
 				hand.Transform = handTransform;
 				break;
 		}
@@ -148,6 +148,7 @@ public partial class Game : Node
 		timeBar.Visible = false;
 		catSanUI.Visible = false;
 		resultControl.Visible = false;
+		hand.Visible = false;
 	}
 
 	void UpdateCatSanUI()
