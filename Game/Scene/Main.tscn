@@ -45,7 +45,7 @@ font_size = 41
 [sub_resource type="LabelSettings" id="LabelSettings_mr7am"]
 font_size = 20
 
-[node name="MainGameScene" type="Control" node_paths=PackedStringArray("resultControl", "cat", "hand", "tv", "timeBar", "timeHint", "catSanUI")]
+[node name="MainGameScene" type="Control" node_paths=PackedStringArray("startControl", "resultControl", "cat", "hand", "tv", "timeBar", "timeHint", "catSanUI")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,6 +53,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_togfq")
+startControl = NodePath("StartControl")
 resultControl = NodePath("ResultControl")
 cat = NodePath("Cat")
 hand = NodePath("Hand")
@@ -62,7 +63,7 @@ timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 totalTime = 30.0
 
-[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "interactArea")]
+[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea")]
 position = Vector2(1546, 900)
 texture = ExtResource("1_h175a")
 script = ExtResource("1_djkur")
@@ -72,6 +73,7 @@ HeadXRange = 100.0
 catHead = NodePath("CatHead")
 catNecksParent = NodePath("CatNecks")
 catNeckTexture = ExtResource("1_h175a")
+game = NodePath("..")
 interactArea = NodePath("CatHead/Area2D")
 
 [node name="Label" type="Label" parent="Cat"]
