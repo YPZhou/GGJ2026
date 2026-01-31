@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=54 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
@@ -91,7 +91,6 @@ totalTime = 30.0
 
 [node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea", "gizmo")]
 position = Vector2(1546, 900)
-texture = ExtResource("1_h175a")
 script = ExtResource("1_djkur")
 HeadMoveInterval = 0.75
 HeadYOffsets = PackedFloat64Array(-200, -100, 0, 100, 200)
@@ -188,6 +187,7 @@ shape = SubResource("RectangleShape2D_mr7am")
 
 [node name="Hand" type="Sprite2D" parent="." node_paths=PackedStringArray("interactArea")]
 position = Vector2(1300, 545.75)
+scale = Vector2(0.105, 0.105)
 texture = ExtResource("37_n044j")
 script = ExtResource("2_h175a")
 handMoveSpeed = 800.0
@@ -211,6 +211,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Area2D" type="Area2D" parent="Hand"]
+scale = Vector2(3.18, 3.18)
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Area2D"]
