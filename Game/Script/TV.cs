@@ -117,7 +117,8 @@ public partial class TV : Sprite2D
 
 	void StandbyProcess(double delta)
 	{
-		SetImage(TVStatus.Fool);
+		if (CurrentStatus != TVStatus.Fool)
+			SetImage(TVStatus.Fool);
 	}
 
 	private TVStatus RandomizeStatus()
