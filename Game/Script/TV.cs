@@ -47,9 +47,16 @@ public partial class TV : Sprite2D
 
 	List<WeightedObject<TVStatus>> weightedStates;
 
+	bool mouseEntered;
+	[Export]
+	Area2D area2D;
+	[Export]
+	Texture2D cursorTexture;
+
 	public override void _Ready()
 	{
 		base._Ready();
+		CheckRes();
 
 		CurrentStatus = TVStatus.Fool;
 		tVStatusCounter = new TVStatusCounter();
@@ -60,8 +67,17 @@ public partial class TV : Sprite2D
 			new WeightedObject<TVStatus>(TVStatus.MOSAIC, imageMosaicWeight),
 		};
 
-
-		CheckRes();
+		area2D.InputPickable = true;
+		area2D.MouseEntered += () =>
+		{
+			mouseEntered = true;
+			Input.SetCustomMouseCursor(cursorTexture, Input.CursorShape.Arrow, new Vector2(16, 16));
+		};
+		area2D.MouseExited += () =>
+		{
+			mouseEntered = false;
+			Input.SetCustomMouseCursor(null);
+		};
 
 		SetImage(CurrentStatus);
 	}
@@ -83,6 +99,14 @@ public partial class TV : Sprite2D
 		if (mosaicImage == null)
 		{
 			GD.PrintErr("Mosaic image is null, set mosaic image for TV.mosaicImage in the editor.");
+		}
+		if (area2D == null)
+		{
+			GD.PrintErr("Area2D is null, set Area2D for TV.area2D in the editor.");
+		}
+		if (cursorTexture == null)
+		{
+			GD.PrintErr("Cursor texture is null, set Cursor texture for TV.cursorTexture in the editor.");
 		}
 	}
 
