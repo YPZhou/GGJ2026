@@ -11,7 +11,7 @@ public enum TVStatus
 
 public partial class TV : Sprite2D
 {
-	public static TVStatus CurrentStatus { get; set; }
+	public static TVStatus CurrentStatus { get; private set; }
 
 	[Export]
 	Game game;

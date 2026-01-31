@@ -4,7 +4,7 @@ using Godot;
 
 public partial class Cat : Sprite2D
 {
-	[Export] int San; // 小猫san值
+	[Export] public double San { get; private set; } // 小猫san值
 	[Export] double HeadMoveInterval; // 猫头瞬移间隔
 	[Export] double[] HeadYOffsets; // 可在 Inspector 中编辑
 	[Export] double HeadXRange; // X 轴随机偏移范围（±）
@@ -40,6 +40,8 @@ public partial class Cat : Sprite2D
 			headCurve.Name = "HeadCurve";
 			AddChild(headCurve);
 		}
+
+		San = 100;
 	}
 
 	public override void _Process(double delta)
@@ -48,16 +50,16 @@ public partial class Cat : Sprite2D
 
 		if (IsAlive)
 		{
-			// if (CurrentStatus == TVStatus.GOOD)
-			// {
-			// 	UpdateCatWhenWatchingGoodScene(delta);
-			// }
-			// else if (CurrentStatus == TVStatus.BAD)
-			// {
-			// 	UpdateCatWhenWatchingBadScene(delta);
-			// }
+			if (CurrentStatus == TVStatus.GOOD)
+			{
+				UpdateCatWhenWatchingGoodScene(delta);
+			}
+			else if (CurrentStatus == TVStatus.BAD)
+			{
+				UpdateCatWhenWatchingBadScene(delta);
+			}
 
-			UpdateCatWhenWatchingBadScene(delta);
+			TickSan(delta, CurrentStatus);
 		}
 	}
 
@@ -163,7 +165,7 @@ public partial class Cat : Sprite2D
 	{
 		if (bezierPoints == null || bezierPoints.Length < 2 || catNeckTexture == null)
 			return;
-		
+
 		foreach (var child in catNecksParent.GetChildren())
 		{
 			child.QueueFree();
@@ -174,19 +176,19 @@ public partial class Cat : Sprite2D
 		{
 			Vector2 pointA = bezierPoints[i];
 			Vector2 pointB = bezierPoints[i + 1];
-			
+
 			// 计算线段的中点作为图片位置
 			Vector2 position = (pointA + pointB) * 0.5f;
-			
+
 			// 计算线段方向作为图片旋转
 			Vector2 direction = (pointB - pointA).Normalized();
 			float rotation = direction.Angle();
-			
+
 			// 计算图片缩放，使其长度刚好覆盖线段
 			float segmentLength = pointA.DistanceTo(pointB);
 			float textureWidth = catNeckTexture.GetWidth();
 			float widthScale = segmentLength / textureWidth;
-			
+
 			// 创建Polygon2D
 			CreateStretchedPolygon2D(position, rotation, catNeckTexture, new Vector2(widthScale, scale), segmentLength);
 		}
@@ -198,40 +200,40 @@ public partial class Cat : Sprite2D
 		float textureHeight = texture.GetHeight();
 		float halfWidth = textureWidth * scale.X * 0.5f;
 		float halfHeight = textureHeight * scale.Y * 0.5f;
-		
+
 		Polygon2D segment = new Polygon2D();
 		segment.Texture = texture;
 		segment.TextureScale = scale;
-		
+
 		// 预计算旋转值
 		float cosR = Mathf.Cos(rotation);
 		float sinR = Mathf.Sin(rotation);
-		
+
 		// 计算四个顶点
 		Vector2[] vertices = new Vector2[4];
-		
+
 		vertices[0] = new Vector2(
 			position.X - halfWidth * cosR + halfHeight * sinR,
 			position.Y - halfWidth * sinR - halfHeight * cosR
 		);
-		
+
 		vertices[1] = new Vector2(
 			position.X - halfWidth * cosR - halfHeight * sinR,
 			position.Y - halfWidth * sinR + halfHeight * cosR
 		);
-		
+
 		vertices[2] = new Vector2(
 			position.X + halfWidth * cosR - halfHeight * sinR,
 			position.Y + halfWidth * sinR + halfHeight * cosR
 		);
-		
+
 		vertices[3] = new Vector2(
 			position.X + halfWidth * cosR + halfHeight * sinR,
 			position.Y + halfWidth * sinR - halfHeight * cosR
 		);
-		
+
 		segment.Polygon = vertices;
-		
+
 		// 设置UV
 		segment.UV = new Vector2[]
 		{
@@ -240,7 +242,7 @@ public partial class Cat : Sprite2D
 			new Vector2(textureWidth, 0),
 			new Vector2(textureWidth, textureHeight)
 		};
-		
+
 		catNecksParent.AddChild(segment);
 	}
 
@@ -281,5 +283,25 @@ public partial class Cat : Sprite2D
 	{
 		return Math.Min(a.X, b.X) - 1e-6f <= p.X && p.X <= Math.Max(a.X, b.X) + 1e-6f &&
 			Math.Min(a.Y, b.Y) - 1e-6f <= p.Y && p.Y <= Math.Max(a.Y, b.Y) + 1e-6f;
+	}
+
+	void TickSan(double delta, TVStatus tVStatus)
+	{
+		double deltaSan = 0;
+		switch (tVStatus)
+		{
+			case TVStatus.GOOD:
+				deltaSan = delta * 5;
+				break;
+			case TVStatus.MOSAIC:
+				deltaSan = 0D;
+				break;
+			case TVStatus.BAD:
+				deltaSan = delta * -10;
+				break;
+		}
+
+		San = Math.Max(0, San + deltaSan);
+		San = Math.Min(100, San);
 	}
 }

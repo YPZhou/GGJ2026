@@ -10,6 +10,7 @@ public partial class Game : Node
 
 	[Export] ProgressBar timeBar;
 	[Export] Label timeHint;
+	[Export] CatSanUI catSanUI;
 
 	[Export] double totalTime; // 单局时长，30秒
 	double elapsedTime = 0;
@@ -40,6 +41,7 @@ public partial class Game : Node
 			elapsedTime += (float)delta;
 			timeBar.Value = elapsedTime;
 			UpdateTimeHint(RemainingTIme);
+			UpdateCatSanUI();
 		}
 		else
 		{
@@ -57,5 +59,13 @@ public partial class Game : Node
 	void UpdateTimeHint(double remainingTIme)
 	{
 		timeHint.Text = $"时间 {remainingTIme:F1}s";
+	}
+
+	void UpdateCatSanUI()
+	{
+		if (catSanUI != null && cat != null)
+		{
+			catSanUI.UpdateProgress(cat.San);
+		}
 	}
 }
