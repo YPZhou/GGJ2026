@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://3omcoe457am5"
-path="res://.godot/imported/点击后固定的主标题.png-d6cb92fad824eedc0407ec7584bdba7f.ctex"
+path="res://.godot/imported/点击后固定的主标题.png-bcc2593f643a4c20a75650e84a1f16e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Res/title/点击后固定的主标题.png"
-dest_files=["res://.godot/imported/点击后固定的主标题.png-d6cb92fad824eedc0407ec7584bdba7f.ctex"]
+source_file="res://Res/ui/title/点击后固定的主标题.png"
+dest_files=["res://.godot/imported/点击后固定的主标题.png-bcc2593f643a4c20a75650e84a1f16e6.ctex"]
 
 [params]
 

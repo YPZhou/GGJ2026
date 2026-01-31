@@ -17,8 +17,6 @@ public partial class StartTv : Sprite2D
     [Export]
     AudioStreamPlayer2D CatFX;
     [Export]
-    AudioStreamPlayer2D EnviSFX;
-    [Export]
     AnimationPlayer TitleAnimPlayer;
     [Export]
     TextureButton ExitBtn;

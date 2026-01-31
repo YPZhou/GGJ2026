@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b86ab4msofp6n"
-path="res://.godot/imported/默认主标题.png-812a577f40b51378df912817efb20d73.ctex"
+uid="uid://7tj4u4q6vb0q"
+path="res://.godot/imported/开始按键按下.png-1c001756fc171d6c97f941fc021caf95.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Res/title/默认主标题.png"
-dest_files=["res://.godot/imported/默认主标题.png-812a577f40b51378df912817efb20d73.ctex"]
+source_file="res://Res/ui/button/开始按键按下.png"
+dest_files=["res://.godot/imported/开始按键按下.png-1c001756fc171d6c97f941fc021caf95.ctex"]
 
 [params]
 

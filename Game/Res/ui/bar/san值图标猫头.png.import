@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci2dgn355vf3n"
-path="res://.godot/imported/手掌.png-0ca09ea62c7b376e0b5841e94dfcf5d6.ctex"
+uid="uid://nagsftw4jerl"
+path="res://.godot/imported/san值图标猫头.png-8c4785258b7287d3d00955d7ffcf1798.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Res/title/手掌.png"
-dest_files=["res://.godot/imported/手掌.png-0ca09ea62c7b376e0b5841e94dfcf5d6.ctex"]
+source_file="res://Res/ui/bar/san值图标猫头.png"
+dest_files=["res://.godot/imported/san值图标猫头.png-8c4785258b7287d3d00955d7ffcf1798.ctex"]
 
 [params]
 

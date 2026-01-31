@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dexwvtcxs6aue"
-path="res://.godot/imported/点击后主标题.png-920dc7cb10ab48fe7ad6311adc0886bf.ctex"
+uid="uid://y35u8n28y6cw"
+path="res://.godot/imported/S点击.png-124153ab1491878acb7e40d7fc6fa5b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Res/title/点击后主标题.png"
-dest_files=["res://.godot/imported/点击后主标题.png-920dc7cb10ab48fe7ad6311adc0886bf.ctex"]
+source_file="res://Res/ui/button/S点击.png"
+dest_files=["res://.godot/imported/S点击.png-124153ab1491878acb7e40d7fc6fa5b2.ctex"]
 
 [params]
 
