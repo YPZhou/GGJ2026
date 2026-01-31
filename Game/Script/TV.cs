@@ -90,7 +90,7 @@ public partial class TV : Sprite2D
 	{
 		base._Process(delta);
 
-		if (game != null && !game.IsGameEnd)
+		if (game != null && game.CurrentGameState == GameState.Playing && !game.IsGameEnd)
 		{
 			GameProcess(delta);
 		}

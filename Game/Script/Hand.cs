@@ -6,6 +6,8 @@ public partial class Hand : Sprite2D
     [Export]
     double handMoveSpeed = 280; // 手移动速度
 
+    public bool IsTouchingTv {get; private set;} = false;
+
     [Export]
     Area2D interactArea;
 
@@ -62,6 +64,12 @@ public partial class Hand : Sprite2D
             GD.Print("Touching Cat Head!");
             cat.SetMasked(true);
         }
+
+        if (area.GetParent() is TV tv)
+        {
+            GD.Print($"Touching TV");
+            IsTouchingTv = true;
+        }
     }
 
     private void OnAreaExited(Area2D area)
@@ -70,6 +78,12 @@ public partial class Hand : Sprite2D
         {
             GD.Print("Stop Touching Cat Head.");
             cat.SetMasked(false);
+        }
+
+        if (area.GetParent() is TV tv)
+        {
+            GD.Print($"Stop Touching TV");
+            IsTouchingTv = false;
         }
     }
 

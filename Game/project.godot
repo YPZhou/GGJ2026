@@ -30,6 +30,7 @@ project/assembly_name="GGJ2026"
 
 2d_physics/layer_1="Hand"
 2d_physics/layer_2="Cat"
+2d_physics/layer_3="TV"
 
 [rendering]
 

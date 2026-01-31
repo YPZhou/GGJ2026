@@ -11,6 +11,7 @@ public partial class Cat : Sprite2D
 	[Export] Sprite2D catHead; // 猫头节点
 	[Export] Node catNecksParent; // 猫脖子父节点
 	[Export] Texture2D catNeckTexture; // 猫脖子图片
+	[Export] Game game;
 
 	bool IsMaosked = false;
 
@@ -75,7 +76,7 @@ public partial class Cat : Sprite2D
 	{
 		base._Process(delta);
 
-		if (IsAlive)
+		if (IsAlive && game.CurrentGameState == GameState.Playing)
 		{
 			if (CurrentStatus == TVStatus.GOOD)
 			{
@@ -87,6 +88,10 @@ public partial class Cat : Sprite2D
 			}
 
 			TickSan(delta, CurrentStatus);
+		}else if (game.CurrentGameState == GameState.Start)
+		{
+			UpdateCatWhenWatchingGoodScene(delta);
+			San = 100;
 		}
 	}
 
