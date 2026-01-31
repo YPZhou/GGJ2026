@@ -3,23 +3,23 @@
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
 [ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_togfq"]
-[ext_resource type="PackedScene" uid="uid://bfyltneqlr5fi" path="res://Scene/Result.tscn" id="2_aan6j"]
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
 [ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="6_yg4ot"]
 [ext_resource type="Texture2D" uid="uid://btf1evwo6gr6l" path="res://Res/tv_good.png" id="7_hueuk"]
 [ext_resource type="Texture2D" uid="uid://bwhuxbyfqdvqw" path="res://Res/tv_bad.png" id="8_6a8me"]
 [ext_resource type="Texture2D" uid="uid://6w6rwpqbjrj2" path="res://Res/tv_mosaic.png" id="9_6a8me"]
+[ext_resource type="Script" uid="uid://dw4xj75bfammq" path="res://Script/ResultControl.cs" id="10_yg4ot"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vm4ek"]
 shader = ExtResource("6_yg4ot")
-shader_parameter/scanline_count = 11.0000005225
+shader_parameter/scanline_count = 0.50000002375
 shader_parameter/scanline_opacity = 0.8930000424175
 shader_parameter/static_intensity = 0.0710000033725
 shader_parameter/boost = 1.0890000042275
 shader_parameter/roll_speed = 0.2000000095
 
-[node name="MainGameScene" type="Control" node_paths=PackedStringArray("cat", "hand", "tv", "timeBar", "timeHint")]
+[node name="MainGameScene" type="Control" node_paths=PackedStringArray("resultControl", "cat", "hand", "tv", "timeBar", "timeHint")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,7 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_togfq")
-resultScene = ExtResource("2_aan6j")
+resultControl = NodePath("ResultControl")
 cat = NodePath("Cat")
 hand = NodePath("Hand")
 tv = NodePath("TV")
@@ -158,3 +158,50 @@ grow_vertical = 2
 text = "时间 30:00s"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ResultControl" type="Panel" parent="." node_paths=PackedStringArray("okButton")]
+visible = false
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -25.0
+offset_right = 100.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_yg4ot")
+okButton = NodePath("Button")
+
+[node name="Label" type="Label" parent="ResultControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -11.5
+offset_right = 42.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game End!"
+
+[node name="Button" type="Button" parent="ResultControl"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -31.0
+offset_right = 15.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Ok"

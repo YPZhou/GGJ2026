@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Game : Node
 {
-	[Export] PackedScene resultScene;
+	[Export] ResultControl resultControl;
 
 	[Export] Cat cat;
 	[Export] Hand hand;
@@ -23,6 +23,12 @@ public partial class Game : Node
 		elapsedTime = 0;
 		timeBar.MaxValue = totalTime;
 		UpdateTimeHint(RemainingTIme);
+
+		resultControl.OkButton.Pressed += () =>
+		{
+			GD.Print($"{nameof(Game)}:重新开始");
+			GetTree().ReloadCurrentScene();
+		};
 	}
 
 	public override void _Process(double delta)
@@ -34,17 +40,16 @@ public partial class Game : Node
 			elapsedTime += (float)delta;
 			timeBar.Value = elapsedTime;
 			UpdateTimeHint(RemainingTIme);
-
-			if (IsGameEnd)
+		}
+		else
+		{
+			if (resultControl != null)
 			{
-				if (resultScene != null)
-				{
-					GetTree().ChangeSceneToPacked(resultScene);
-				}
-				else
-				{
-					GD.PrintErr("Result scene not set in Game.resultScene");
-				}
+				resultControl.Visible = true;
+			}
+			else
+			{
+				GD.PrintErr("Result control not set in Game.resultControl");
 			}
 		}
 	}
