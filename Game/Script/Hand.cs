@@ -6,32 +6,71 @@ public partial class Hand : Sprite2D
     [Export]
     double handMoveSpeed = 280; // 手移动速度
 
+    [Export]
+    Area2D interactArea;
+
+    void CheckRes()
+    {
+        if (interactArea == null)
+        {
+            GD.PrintErr($"{nameof(Hand)}: Interact area is null, set Interact area for Hand.interactArea in the editor.");
+        }
+    }
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        interactArea.AreaEntered += OnAreaEntered;
+        interactArea.AreaExited += OnAreaExited;
+
+        CheckRes();
+    }
+
     public override void _Process(double delta)
     {
         base._Process(delta);
 
-        // 2. 获取输入方向
+        // 更新位置
+        Position += (float)handMoveSpeed * (float)delta * ProcessInput(delta);
+
+        var viewportRect = GetViewportRect();
+        Position = Position.Clamp(viewportRect.Position, viewportRect.End);
+    }
+
+    static Vector2 ProcessInput(double delta)
+    {
         Vector2 direction = Vector2.Zero;
 
-        // 使用物理按键检测 (W/A/S/D)
         if (Input.IsKeyPressed(Key.W)) direction.Y -= 1;
         if (Input.IsKeyPressed(Key.S)) direction.Y += 1;
         if (Input.IsKeyPressed(Key.A)) direction.X -= 1;
         if (Input.IsKeyPressed(Key.D)) direction.X += 1;
 
-        // 3. 移动逻辑
         if (direction != Vector2.Zero)
         {
-            // 归一化向量，避免斜向移动比直线快
             direction = direction.Normalized();
-            
-            // 更新位置
-            Position += (float)delta * (float)handMoveSpeed * direction;
         }
-        
-         var viewportRect = GetViewportRect();
-         Position = Position.Clamp(viewportRect.Position, viewportRect.End);
+
+        return direction;
     }
 
+    private void OnAreaEntered(Area2D area)
+    {
+        if (area.GetParent()?.GetParent() is Cat cat)
+        {
+            GD.Print("Touching Cat Head!");
+            cat.SetMasked(true);
+        }
+    }
 
-}   
+    private void OnAreaExited(Area2D area)
+    {
+        if (area.GetParent()?.GetParent() is Cat cat)
+        {
+            GD.Print("Stop Touching Cat Head.");
+            cat.SetMasked(false);
+        }
+    }
+
+}

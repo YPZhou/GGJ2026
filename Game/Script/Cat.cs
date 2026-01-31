@@ -12,6 +12,8 @@ public partial class Cat : Sprite2D
 	[Export] Node catNecksParent; // 猫脖子父节点
 	[Export] Texture2D catNeckTexture; // 猫脖子图片
 
+	bool IsMaosked = false;
+
 	public bool IsAlive => San > 0;
 
 	public TVStatus CurrentStatus => TV.CurrentStatus;
@@ -23,6 +25,29 @@ public partial class Cat : Sprite2D
 	double initialX;
 	double currentX;
 	Line2D headCurve;
+
+	[Export]
+    Area2D interactArea;
+
+	void CheckRes()
+	{
+		if (catHead == null)
+		{
+			GD.PrintErr($"{nameof(Cat)}: Cat head is null, set Cat head for Cat.catHead in the editor.");
+		}
+		if (catNecksParent == null)
+		{
+			GD.PrintErr($"{nameof(Cat)}: Cat necks parent is null, set Cat necks parent for Cat.catNecksParent in the editor.");
+		}
+		if (catNeckTexture == null)
+		{
+			GD.PrintErr($"{nameof(Cat)}: Cat neck texture is null, set Cat neck texture for Cat.catNeckTexture in the editor.");
+		}
+		if (interactArea == null)
+		{
+			GD.PrintErr($"{nameof(Cat)}: Interact area is null, set Interact area for Cat.interactArea in the editor.");
+		}
+	}
 
 	public override void _Ready()
 	{
@@ -42,6 +67,8 @@ public partial class Cat : Sprite2D
 		}
 
 		San = 100;
+
+		CheckRes();
 	}
 
 	public override void _Process(double delta)
@@ -301,7 +328,17 @@ public partial class Cat : Sprite2D
 				break;
 		}
 
+		if (IsMaosked)
+		{
+			deltaSan *= 0;
+		}
+
 		San = Math.Max(0, San + deltaSan);
 		San = Math.Min(100, San);
+	}
+
+	public void SetMasked(bool masked)
+	{
+		IsMaosked = masked;
 	}
 }

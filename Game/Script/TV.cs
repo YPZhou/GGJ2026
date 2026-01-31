@@ -78,7 +78,7 @@ public partial class TV : Sprite2D
 		}
 		if (foolImage == null)
 		{
-			GD.PrintErr("Bad image is null, set bad image for TV.badImage in the editor.");
+			GD.PrintErr("Fool image is null, set fool image for TV.foolImage in the editor.");
 		}
 		if (mosaicImage == null)
 		{
@@ -109,7 +109,7 @@ public partial class TV : Sprite2D
 			imageInterval = GD.RandRange(imageMinInterval, imageMaxInterval);
 			var nextStatus = RandomizeStatus();
 
-			GD.Print($"{nameof(TV)}: Interval:" + imageInterval + " Change image to " + nextStatus);
+			GD.Print($"{nameof(TV)}: Interval:" + imageInterval.ToString("F2") + " Change image to " + nextStatus);
 
 			SetImage(nextStatus);
 		}

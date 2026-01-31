@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=17 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://ceg0op4akn6qs" path="res://Res/result_meme.png" id="11_i0sg4"]
 [ext_resource type="Script" uid="uid://83ajrylk63so" path="res://Scene/CatSanUI.cs" id="11_vm4ek"]
 [ext_resource type="Texture2D" uid="uid://b8qj44odkrlsw" path="res://Res/result_lose.png" id="12_mr7am"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4qtod"]
+size = Vector2(129, 126)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vm4ek"]
 shader = ExtResource("6_yg4ot")
@@ -42,7 +45,7 @@ timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 totalTime = 30.0
 
-[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent")]
+[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "interactArea")]
 position = Vector2(1546, 900)
 texture = ExtResource("1_h175a")
 script = ExtResource("1_djkur")
@@ -52,6 +55,7 @@ HeadXRange = 100.0
 catHead = NodePath("CatHead")
 catNecksParent = NodePath("CatNecks")
 catNeckTexture = ExtResource("1_h175a")
+interactArea = NodePath("CatHead/Area2D")
 
 [node name="Label" type="Label" parent="Cat"]
 anchors_preset = 7
@@ -91,12 +95,22 @@ text = "猫头"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Area2D" type="Area2D" parent="Cat/CatHead"]
+scale = Vector2(0.16, 0.16)
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat/CatHead/Area2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_4qtod")
+
 [node name="CatNecks" type="Node2D" parent="Cat"]
 
-[node name="Hand" type="Sprite2D" parent="."]
+[node name="Hand" type="Sprite2D" parent="." node_paths=PackedStringArray("interactArea")]
 position = Vector2(1300, 499)
 texture = ExtResource("1_h175a")
 script = ExtResource("2_h175a")
+interactArea = NodePath("Area2D")
 
 [node name="Label" type="Label" parent="Hand"]
 anchors_preset = 7
@@ -114,6 +128,12 @@ theme_override_font_sizes/font_size = 32
 text = "手"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="Hand"]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Area2D"]
+shape = SubResource("RectangleShape2D_4qtod")
 
 [node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("game")]
 material = SubResource("ShaderMaterial_vm4ek")
@@ -215,9 +235,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -196.0
+offset_left = -198.0
 offset_top = -174.0
-offset_right = 202.0
+offset_right = 200.0
 offset_bottom = 203.0
 grow_horizontal = 2
 grow_vertical = 2
