@@ -1,6 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://bjpvbkw0552u1"]
+[gd_scene load_steps=17 format=3 uid="uid://bjpvbkw0552u1"]
 
-[ext_resource type="Texture2D" uid="uid://ic2yclow0gtp" path="res://Res/tv_fool/电视画幅-骗人-07.png" id="1_wfnnf"]
+[ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="1_jxiog"]
 [ext_resource type="PackedScene" uid="uid://bu67nktj14ycn" path="res://Scene/Main.tscn" id="4_ghwbr"]
 [ext_resource type="Script" uid="uid://br3ixx2smra0d" path="res://Scene/StartTv.cs" id="4_r4yu4"]
 [ext_resource type="Texture2D" uid="uid://c55qjkoq682le" path="res://Res/tv_cursor.png" id="5_ghwbr"]
@@ -12,6 +12,20 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghwbr"]
 size = Vector2(744.5, 535)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jxiog"]
+shader = ExtResource("1_jxiog")
+shader_parameter/scanline_count = 100.0
+shader_parameter/scanline_opacity = 0.3
+shader_parameter/static_intensity = 0.05
+shader_parameter/boost = 1.6
+shader_parameter/roll_speed = 0.5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ybpwn"]
+frequency = 0.5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jxiog"]
+noise = SubResource("FastNoiseLite_ybpwn")
 
 [sub_resource type="Animation" id="Animation_g4ccs"]
 resource_name = "start"
@@ -94,6 +108,54 @@ tracks/5/keys = {
 "method": &"ChangScene"
 }]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../TV:material")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [null, SubResource("ShaderMaterial_jxiog")]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../TV:texture")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [null, SubResource("NoiseTexture2D_jxiog")]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../TV:texture:noise")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("FastNoiseLite_ybpwn")]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../TV:texture:noise:frequency")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.1, 1.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.5, 1.0]
+}
 
 [sub_resource type="Animation" id="Animation_6kmno"]
 length = 0.001
@@ -145,6 +207,54 @@ tracks/3/keys = {
 "update": 1,
 "values": [null]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../TV:material")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../TV:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../TV:texture:noise")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("FastNoiseLite_ybpwn")]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../TV:texture:noise:frequency")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u0kn2"]
 _data = {
@@ -163,7 +273,6 @@ mouse_filter = 1
 
 [node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("area2D", "StarFX", "CatFX", "TitleAnimPlayer")]
 position = Vector2(398, 499)
-texture = ExtResource("1_wfnnf")
 script = ExtResource("4_r4yu4")
 area2D = NodePath("Area2D")
 cursorTexture = ExtResource("5_ghwbr")
