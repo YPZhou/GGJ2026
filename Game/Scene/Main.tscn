@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=9 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bfyltneqlr5fi" path="res://Scene/Result.tscn" id="2_aan6j"]
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
+[ext_resource type="Texture2D" uid="uid://btf1evwo6gr6l" path="res://Res/tv_good.png" id="7_hueuk"]
+[ext_resource type="Texture2D" uid="uid://bwhuxbyfqdvqw" path="res://Res/tv_bad.png" id="8_6a8me"]
 
 [node name="MainGameScene" type="Control" node_paths=PackedStringArray("cat", "hand", "tv", "timeBar", "timeHint")]
 layout_mode = 3
@@ -93,10 +95,13 @@ text = "手"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TV" type="Sprite2D" parent="."]
+[node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("game")]
 position = Vector2(398, 499)
 texture = ExtResource("1_h175a")
 script = ExtResource("3_togfq")
+game = NodePath("..")
+goodImage = ExtResource("7_hueuk")
+badImage = ExtResource("8_6a8me")
 
 [node name="Label" type="Label" parent="TV"]
 anchors_preset = 7
