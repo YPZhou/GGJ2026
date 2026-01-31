@@ -144,6 +144,7 @@ public partial class Game : Node
 
 	void HideUI()
 	{
+		startControl.Visible = false;
 		timeBar.Visible = false;
 		catSanUI.Visible = false;
 		resultControl.Visible = false;
