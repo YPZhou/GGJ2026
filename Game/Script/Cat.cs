@@ -88,10 +88,6 @@ public partial class Cat : Sprite2D
 			}
 
 			TickSan(delta, CurrentStatus);
-		}else if (game.CurrentGameState == GameState.Start)
-		{
-			UpdateCatWhenWatchingGoodScene(delta);
-			San = 100;
 		}
 	}
 

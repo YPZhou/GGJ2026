@@ -2,7 +2,6 @@ using Godot;
 
 public enum GameState
 {
-	Start,
 	Playing,
 	Result,
 }
@@ -26,7 +25,7 @@ public partial class Game : Node
 
 	public bool IsGameEnd => ElapsedTime >= totalTime || !cat.IsAlive;
 
-	public GameState CurrentGameState { get; private set; } = GameState.Start;
+	public GameState CurrentGameState { get; private set; } = GameState.Playing;
 
 	Transform2D handTransform;
 
@@ -62,15 +61,9 @@ public partial class Game : Node
 		timeBar.MaxValue = totalTime;
 		UpdateTimeHint(RemainingTIme);
 		handTransform = hand.Transform;
-
-		resultControl.OkButton.Pressed += () =>
-		{
-			GD.Print($"{nameof(Game)}:重新开始");
-			GetTree().ReloadCurrentScene();
-		};
 		resultControl.Visible = false;
 
-		EnterState(GameState.Start);
+		EnterState(GameState.Playing);
 	}
 
 	public override void _Process(double delta)
@@ -79,9 +72,6 @@ public partial class Game : Node
 
 		switch (CurrentGameState)
 		{
-			case GameState.Start:
-				TickStart();
-				break;
 			case GameState.Result:
 				break;
 			case GameState.Playing:
@@ -95,10 +85,6 @@ public partial class Game : Node
 		CurrentGameState = state;
 		switch (state)
 		{
-			case GameState.Start:
-				HideUI();
-				startControl.Visible = true;
-				break;
 			case GameState.Result:
 				HideUI();
 				resultControl.ShowResultUI(cat.IsAlive);
@@ -125,15 +111,6 @@ public partial class Game : Node
 		else
 		{
 			EnterState(GameState.Result);
-		}
-	}
-
-	void TickStart()
-	{
-		if (tv.MouseEntered && Input.IsMouseButtonPressed(MouseButton.Left))
-		{
-			GD.Print($"{nameof(Game)}:开始游戏");
-			EnterState(GameState.Playing);
 		}
 	}
 

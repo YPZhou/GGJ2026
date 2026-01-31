@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjpvbkw0552u1"]
+[gd_scene load_steps=8 format=3 uid="uid://bjpvbkw0552u1"]
 
-[ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="2_r4yu4"]
-[ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="3_ghwbr"]
-[ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="4_fov4c"]
+[ext_resource type="Texture2D" uid="uid://ic2yclow0gtp" path="res://Res/tv_fool/电视画幅-骗人-07.png" id="1_wfnnf"]
+[ext_resource type="PackedScene" uid="uid://bu67nktj14ycn" path="res://Scene/Main.tscn" id="4_ghwbr"]
+[ext_resource type="Script" uid="uid://br3ixx2smra0d" path="res://Scene/StartTv.cs" id="4_r4yu4"]
+[ext_resource type="Texture2D" uid="uid://c55qjkoq682le" path="res://Res/tv_cursor.png" id="5_ghwbr"]
 [ext_resource type="AudioStream" uid="uid://u4e6r1pxfd0b" path="res://Sound/Effect/elevator_button.wav" id="5_wfnnf"]
-[ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="5_ybpwn"]
 [ext_resource type="AudioStream" uid="uid://ci4xqqaoqivc7" path="res://Sound/Effect/cat3b.wav" id="6_r4yu4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghwbr"]
+size = Vector2(744.5, 535)
 
 [node name="MainGameScene" type="Control"]
 layout_mode = 3
@@ -14,56 +17,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
-[node name="Cat" type="Sprite2D" parent="."]
-position = Vector2(1546, 502)
-texture = ExtResource("2_r4yu4")
-script = ExtResource("3_ghwbr")
-San = 100.0
-
-[node name="Label" type="Label" parent="Cat"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -64.0
-offset_right = -32.0
-offset_bottom = -19.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 32
-text = "猫"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Hand" type="Sprite2D" parent="."]
-position = Vector2(1300, 499)
-texture = ExtResource("2_r4yu4")
-script = ExtResource("4_fov4c")
-
-[node name="Label" type="Label" parent="Hand"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -64.0
-offset_right = -32.0
-offset_bottom = -19.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 32
-text = "手"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TV" type="Sprite2D" parent="."]
+[node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("area2D")]
 position = Vector2(398, 499)
-texture = ExtResource("2_r4yu4")
-script = ExtResource("5_ybpwn")
+texture = ExtResource("1_wfnnf")
+script = ExtResource("4_r4yu4")
+area2D = NodePath("Area2D")
+cursorTexture = ExtResource("5_ghwbr")
+GameScene = ExtResource("4_ghwbr")
 
 [node name="Label" type="Label" parent="TV"]
 anchors_preset = 7
@@ -87,3 +49,22 @@ stream = ExtResource("5_wfnnf")
 
 [node name="CatSFX" type="AudioStreamPlayer2D" parent="TV"]
 stream = ExtResource("6_r4yu4")
+
+[node name="Area2D" type="Area2D" parent="TV"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TV/Area2D"]
+position = Vector2(-2.25, -1.5)
+shape = SubResource("RectangleShape2D_ghwbr")
+
+[node name="Cat" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1468.0
+offset_top = 497.0
+offset_right = 1576.0
+offset_bottom = 606.0
+
+[node name="Label" type="Label" parent="Cat"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "我是猫"

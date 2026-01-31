@@ -4,7 +4,12 @@ using System;
 public partial class ResultControl : Panel
 {
     [Export]
-    Button okButton;
+    Button restartButton;
+
+    [Export]
+    Button backToMainMenuButton;
+
+
     [Export]
     Label resultLabel;
     [Export]
@@ -16,23 +21,34 @@ public partial class ResultControl : Panel
     [Export]
     Texture2D loseTexture;
 
-    public Button OkButton
-    {
-        get { return okButton; }
-    }
-
     public override void _Ready()
     {
         base._Ready();
 
         CheckRes();
+
+        restartButton.Pressed += () =>
+		{
+			GD.Print($"{nameof(Game)}:重新开始");
+			GetTree().ReloadCurrentScene();
+		};
+
+		backToMainMenuButton.Pressed += () =>
+		{
+			GD.Print($"{nameof(Game)}:返回主菜单");
+			GetTree().ChangeSceneToFile("res://Scene/Title.tscn");
+		};
     }
 
     void CheckRes()
     {
-        if (okButton == null)
+        if (backToMainMenuButton == null)
         {
-            GD.PrintErr($"{nameof(ResultControl)}: Ok button is null, set Ok button for ResultControl.okButton in the editor.");
+            GD.PrintErr($"{nameof(ResultControl)}: Back to main menu button is null, set Back to main menu button for ResultControl.backToMainMenuButton in the editor.");
+        }
+        if (restartButton == null)
+        {
+            GD.PrintErr($"{nameof(ResultControl)}: Restart button is null, set Restart button for ResultControl.restartButton in the editor.");
         }
         if (resultLabel == null)
         {
