@@ -13,10 +13,11 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vm4ek"]
 shader = ExtResource("6_yg4ot")
-shader_parameter/scanline_count = 13.154000624815
-shader_parameter/scanline_opacity = 0.746000035435
-shader_parameter/static_intensity = 0.2150000102125
-shader_parameter/boost = 1.578000027455
+shader_parameter/scanline_count = 11.0000005225
+shader_parameter/scanline_opacity = 0.8930000424175
+shader_parameter/static_intensity = 0.0710000033725
+shader_parameter/boost = 1.0890000042275
+shader_parameter/roll_speed = 0.2000000095
 
 [node name="MainGameScene" type="Control" node_paths=PackedStringArray("cat", "hand", "tv", "timeBar", "timeHint")]
 layout_mode = 3

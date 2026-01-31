@@ -10,13 +10,15 @@ uniform float static_intensity : hint_range(0, 1) = 0.05;
 // 颜色亮度增强 (用于配合发光)
 uniform float boost : hint_range(1.0, 5.0) = 1.6;
 
+uniform float roll_speed : hint_range(0.0, 1.0) = 0.5;
+
 void fragment() {
     // 获取原图颜色
     vec4 color = texture(TEXTURE, UV);
     
     // --- 1. 扫描线效果 ---
     // 使用正弦波根据UV纵坐标生成条纹
-    float s = sin(UV.y * scanline_count * PI * 2.0);
+    float s = sin((UV.y + TIME * roll_speed) * scanline_count * PI * 2.0);
     s = (s * 0.5 + 0.5) * 0.9 + 0.1; 
     vec4 scanline_color = vec4(0.0, 0.0, 0.0, 1.0);
     // 混合黑色条纹
@@ -24,7 +26,7 @@ void fragment() {
     
     // --- 2. 噪点/雪花效果 ---
     // 基于时间生成随机噪点
-    float noise = fract(sin(dot(UV * TIME, vec2(12.9898, 78.233))) * 43758.5453);
+	float noise = fract(sin(dot(UV * TIME, vec2(12.9898, 78.233))) * 43758.5453);
     // 仅在暗部或整体混合噪点
     color.rgb = mix(color.rgb, vec3(noise), static_intensity);
     

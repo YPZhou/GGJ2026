@@ -114,27 +114,33 @@ public partial class TV : Sprite2D
 			case TVStatus.GOOD:
 			if (mat != null)
                 {
-                    mat.SetShaderParameter("static_intensity", 0.02f);
-                    mat.SetShaderParameter("scanline_opacity", 0.1f);
-                    mat.SetShaderParameter("boost", 1.1f); // 正常亮度
+					mat.SetShaderParameter("scanline_count", 0f);
+                    mat.SetShaderParameter("static_intensity", 0f);
+                    mat.SetShaderParameter("scanline_opacity", 0f);
+                    mat.SetShaderParameter("boost", 1.0f); // 正常亮度
+					mat.SetShaderParameter("roll_speed", 0f);
                 }
 				Texture = goodImage;
 				break;
 			case TVStatus.BAD:
 			if (mat != null)
                 {
-                    mat.SetShaderParameter("static_intensity", 0.35f);
-                    mat.SetShaderParameter("scanline_opacity", 0.5f);
+					mat.SetShaderParameter("scanline_count", 6f);
+                    mat.SetShaderParameter("static_intensity", 0.2f);
+                    mat.SetShaderParameter("scanline_opacity", 0.35f);
                     mat.SetShaderParameter("boost", 1.4f);
+					mat.SetShaderParameter("roll_speed", 0.4f);
                 }
 				Texture = badImage;
 				break;
 			case TVStatus.MOSAIC:
 			if (mat != null)
                 {
+					mat.SetShaderParameter("scanline_count", 3f);
                     mat.SetShaderParameter("static_intensity", 0.08f);
                     mat.SetShaderParameter("scanline_opacity", 0.2f);
                     mat.SetShaderParameter("boost", 1.2f);
+					mat.SetShaderParameter("roll_speed", 0.1f);
                 }
 				Texture = mosaicImage;
 				break;
