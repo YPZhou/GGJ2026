@@ -4,6 +4,16 @@ using System;
 public partial class Gizmo : Node2D
 {
     Vector2[] points;
+    
+    public Vector2[] Points 
+    { 
+        get => points; 
+        set 
+        { 
+            points = value; 
+            QueueRedraw(); 
+        } 
+    }
 
     public override void _Ready()
     {

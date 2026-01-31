@@ -139,14 +139,17 @@ offset = Vector2(226, 626)
 
 [node name="CatNecks" type="Node2D" parent="Cat"]
 position = Vector2(-33, -102)
-
-[node name="Sprite2D" type="Sprite2D" parent="Cat"]
-position = Vector2(-2, -93)
-scale = Vector2(0.223, 0.223)
-texture = ExtResource("2_jupvq")
+scale = Vector2(0.135, 0.135)
 
 [node name="Gizmo" type="Node2D" parent="Cat"]
 script = ExtResource("7_cd6bo")
+
+[node name="Body" type="Node2D" parent="Cat"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Cat/Body"]
+position = Vector2(-2, -93)
+scale = Vector2(0.223, 0.223)
+texture = ExtResource("2_jupvq")
 
 [node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("game")]
 material = SubResource("ShaderMaterial_vm4ek")
