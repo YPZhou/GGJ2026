@@ -311,6 +311,8 @@ stream = ExtResource("5_wfnnf")
 position = Vector2(-2.25, -1.5)
 shape = SubResource("RectangleShape2D_ghwbr")
 
+[node name="EnviSfx" type="AudioStreamPlayer2D" parent="TV"]
+
 [node name="Cat" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 1468.0
