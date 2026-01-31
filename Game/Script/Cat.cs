@@ -134,6 +134,18 @@ public partial class Cat : Sprite2D
 		}
 	}
 
+	Vector2 GenerateRandomCatHeadPosition()
+	{
+		double targetOffset = 0.0;
+		if (HeadYOffsets != null && HeadYOffsets.Length > 0)
+		{
+			int index = Random.Shared.Next(HeadYOffsets.Length);
+			targetOffset = HeadYOffsets[index];
+		}
+		double randomX = initialX + (Random.Shared.NextDouble() * 2.0 - 1.0) * HeadXRange;
+		return new Vector2((float)randomX, (float)(initialY + targetOffset));
+	}
+
 	private bool MoveHead(double delta)
 	{
 		if (catHead.Position.DistanceSquaredTo(currentHeadTargetPos) > 0.1f)
@@ -225,6 +237,7 @@ public partial class Cat : Sprite2D
 		catHead.GetParent().MoveChild(catHead, -1);
 	}
 
+	[Obsolete]
 	private void CalculateTargetBezierControlPoints(Vector2 from, Vector2 to)
 	{
 		// 尝试随机生成 0 或 1 个交叉的贝塞尔曲线点
@@ -264,6 +277,7 @@ public partial class Cat : Sprite2D
 		}
 	}
 
+	[Obsolete]
 	private Vector2[] GeneratePointsForCPs(Vector2 from, Vector2 to, Vector2 cp1, Vector2 cp2, int segments)
 	{
 		List<Vector2> points = new List<Vector2>();
@@ -272,6 +286,7 @@ public partial class Cat : Sprite2D
 		return points.ToArray();
 	}
 
+	[Obsolete]
 	private void RecursiveBezier(List<Vector2> points, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float tolSq, int level)
 	{
 		// 递归深度限制 (2^10 = 1024 segments)
@@ -323,6 +338,7 @@ public partial class Cat : Sprite2D
 		}
 	}
 
+	[Obsolete]
 	void PlaceCatNeckAlongPoints(Vector2[] bezierPoints, Texture2D catNeckTexture, float scale = 1.0f)
 	{
 		if (bezierPoints == null || bezierPoints.Length < 2 || catNeckTexture == null)
@@ -365,6 +381,7 @@ public partial class Cat : Sprite2D
 		}
 	}
 
+	[Obsolete]
 	void CreateSegmentWithCustomUV(Vector2 position, float rotation, Texture2D texture, float thicknessScale, float length, float uStart, float uEnd, float texHeight)
 	{
 		float halfLength = length * 0.5f;
@@ -416,6 +433,7 @@ public partial class Cat : Sprite2D
 		catNecksParent.AddChild(segment);
 	}
 
+	[Obsolete]
 	private int CountSelfIntersections(Vector2[] pts)
 	{
 		int n = pts.Length;
