@@ -16,11 +16,11 @@ public partial class TV : Sprite2D
 	[Export]
 	Game game;
 	[Export]
-	Texture2D goodImage;
+	Texture2D[] goodImage;
 	[Export]
-	Texture2D foolImage;
+	Texture2D[] foolImage;
 	[Export]
-	Texture2D mosaicImage;
+	Texture2D[] mosaicImage;
 
 	[Export(PropertyHint.Range, "0, 100")]
 	float imageGoodWeight = 20f;
@@ -184,7 +184,7 @@ public partial class TV : Sprite2D
 					mat.SetShaderParameter("boost", 1.0f); // 正常亮度
 					mat.SetShaderParameter("roll_speed", 0f);
 				}
-				Texture = goodImage;
+				Texture = goodImage[GD.RandRange(0, goodImage.Length)];
 				break;
 			case TVStatus.Fool:
 				if (mat != null)
@@ -195,7 +195,7 @@ public partial class TV : Sprite2D
 					mat.SetShaderParameter("boost", 1.2f);
 					mat.SetShaderParameter("roll_speed", 0.2f);
 				}
-				Texture = foolImage;
+				Texture = foolImage[GD.RandRange(0, foolImage.Length)];
 				break;
 			case TVStatus.MOSAIC:
 				if (mat != null)
@@ -206,7 +206,7 @@ public partial class TV : Sprite2D
 					mat.SetShaderParameter("boost", 1.4f);
 					mat.SetShaderParameter("roll_speed", 0.4f);
 				}
-				Texture = mosaicImage;
+				Texture = mosaicImage[GD.RandRange(0, mosaicImage.Length)];
 				break;
 		}
 	}

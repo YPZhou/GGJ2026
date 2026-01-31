@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=31 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
@@ -6,14 +6,25 @@
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
 [ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="6_yg4ot"]
+[ext_resource type="Texture2D" uid="uid://dnoh53ltkue23" path="res://Res/tv_fool/电视画幅-骗人-01.png" id="7_58uq4"]
 [ext_resource type="Texture2D" uid="uid://btf1evwo6gr6l" path="res://Res/tv_good.png" id="7_hueuk"]
-[ext_resource type="Texture2D" uid="uid://b2tl53boenmes" path="res://Res/tv_fool.png" id="8_i0sg4"]
+[ext_resource type="Texture2D" uid="uid://cw8dh4qblawdd" path="res://Res/tv_fool/电视画幅-骗人-02.png" id="8_pe27u"]
 [ext_resource type="Texture2D" uid="uid://6w6rwpqbjrj2" path="res://Res/tv_mosaic.png" id="9_6a8me"]
+[ext_resource type="Texture2D" uid="uid://bo0y7piomifmj" path="res://Res/tv_fool/电视画幅-骗人-03.png" id="9_ne54y"]
+[ext_resource type="Texture2D" uid="uid://cqogrpdgujgj3" path="res://Res/tv_fool/电视画幅-骗人-04.png" id="10_sssj8"]
 [ext_resource type="Script" uid="uid://dw4xj75bfammq" path="res://Script/ResultControl.cs" id="10_yg4ot"]
 [ext_resource type="Texture2D" uid="uid://ceg0op4akn6qs" path="res://Res/result_meme.png" id="11_i0sg4"]
+[ext_resource type="Texture2D" uid="uid://cnp04noaaikjw" path="res://Res/tv_fool/电视画幅-骗人-05.png" id="11_u2c8l"]
 [ext_resource type="Script" uid="uid://83ajrylk63so" path="res://Scene/CatSanUI.cs" id="11_vm4ek"]
+[ext_resource type="Texture2D" uid="uid://bidbq5ablket7" path="res://Res/tv_fool/电视画幅-骗人-06.png" id="12_g6i1l"]
 [ext_resource type="Texture2D" uid="uid://b8qj44odkrlsw" path="res://Res/result_lose.png" id="12_mr7am"]
+[ext_resource type="Texture2D" uid="uid://ic2yclow0gtp" path="res://Res/tv_fool/电视画幅-骗人-07.png" id="13_reyx0"]
+[ext_resource type="Texture2D" uid="uid://dt2uj7wqasunk" path="res://Res/tv_fool/电视画幅-骗人-08.png" id="14_5xnk5"]
 [ext_resource type="Script" uid="uid://mw2nrvhqnmjl" path="res://Script/StartControl.cs" id="14_mr7am"]
+[ext_resource type="Texture2D" uid="uid://gvqmr7e1247x" path="res://Res/tv_fool/电视画幅-骗人-09.png" id="15_6ngyt"]
+[ext_resource type="Texture2D" uid="uid://bctcxl6tn2c0x" path="res://Res/tv_fool/电视画幅-骗人-10.png" id="16_bficn"]
+[ext_resource type="Texture2D" uid="uid://16b7nisvjsiv" path="res://Res/tv_fool/电视画幅-骗人-11.png" id="17_m0bfr"]
+[ext_resource type="Texture2D" uid="uid://bspbw4rh5qgsi" path="res://Res/tv_fool/电视画幅-骗人-12.png" id="18_0c33q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qtod"]
 size = Vector2(129, 126)
@@ -34,7 +45,7 @@ font_size = 41
 [sub_resource type="LabelSettings" id="LabelSettings_mr7am"]
 font_size = 20
 
-[node name="MainGameScene" type="Control" node_paths=PackedStringArray("startControl", "resultControl", "cat", "hand", "tv", "timeBar", "timeHint", "catSanUI")]
+[node name="MainGameScene" type="Control" node_paths=PackedStringArray("resultControl", "cat", "hand", "tv", "timeBar", "timeHint", "catSanUI")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,7 +53,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_togfq")
-startControl = NodePath("StartControl")
 resultControl = NodePath("ResultControl")
 cat = NodePath("Cat")
 hand = NodePath("Hand")
@@ -52,7 +62,7 @@ timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 totalTime = 30.0
 
-[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea")]
+[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "interactArea")]
 position = Vector2(1546, 900)
 texture = ExtResource("1_h175a")
 script = ExtResource("1_djkur")
@@ -62,7 +72,6 @@ HeadXRange = 100.0
 catHead = NodePath("CatHead")
 catNecksParent = NodePath("CatNecks")
 catNeckTexture = ExtResource("1_h175a")
-game = NodePath("..")
 interactArea = NodePath("CatHead/Area2D")
 
 [node name="Label" type="Label" parent="Cat"]
@@ -120,9 +129,9 @@ position = Vector2(398, 499)
 texture = ExtResource("1_h175a")
 script = ExtResource("3_togfq")
 game = NodePath("..")
-goodImage = ExtResource("7_hueuk")
-foolImage = ExtResource("8_i0sg4")
-mosaicImage = ExtResource("9_6a8me")
+goodImage = Array[Texture2D]([ExtResource("7_hueuk")])
+foolImage = Array[Texture2D]([ExtResource("7_58uq4"), ExtResource("8_pe27u"), ExtResource("9_ne54y"), ExtResource("10_sssj8"), ExtResource("11_u2c8l"), ExtResource("12_g6i1l"), ExtResource("13_reyx0"), ExtResource("14_5xnk5"), ExtResource("15_6ngyt"), ExtResource("16_bficn"), ExtResource("17_m0bfr"), ExtResource("18_0c33q")])
+mosaicImage = Array[Texture2D]([ExtResource("9_6a8me")])
 
 [node name="Label" type="Label" parent="TV"]
 anchors_preset = 7
