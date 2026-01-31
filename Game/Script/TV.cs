@@ -9,4 +9,11 @@ public enum TVStatus
 public partial class TV : Node
 {
 	public static TVStatus CurrentStatus { get; set; }
+
+	public override void _Ready()
+	{
+		base._Ready();
+
+		CurrentStatus = TVStatus.BAD;
+	}
 }

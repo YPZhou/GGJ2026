@@ -28,6 +28,9 @@ position = Vector2(1546, 502)
 texture = ExtResource("1_h175a")
 script = ExtResource("1_djkur")
 San = 100
+HeadMoveInterval = 1.25
+HeadYOffsetA = -200.0
+HeadYOffsetC = 200.0
 
 [node name="Label" type="Label" parent="Cat"]
 anchors_preset = 7
