@@ -85,7 +85,7 @@ totalTime = 30.0
 position = Vector2(1546, 900)
 texture = ExtResource("1_h175a")
 script = ExtResource("1_djkur")
-HeadMoveInterval = 1.25
+HeadMoveInterval = 0.75
 HeadYOffsets = PackedFloat64Array(-200, -100, 0, 100, 200)
 HeadXRange = 100.0
 catHead = NodePath("CatHead")
@@ -181,7 +181,7 @@ shape = SubResource("RectangleShape2D_mr7am")
 position = Vector2(1300, 500)
 texture = ExtResource("1_h175a")
 script = ExtResource("2_h175a")
-handMoveSpeed = 420.0
+handMoveSpeed = 800.0
 interactArea = NodePath("Area2D")
 
 [node name="Label" type="Label" parent="Hand"]
