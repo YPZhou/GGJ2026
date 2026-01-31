@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
 
-[node name="MainGameScene" type="Control" node_paths=PackedStringArray("cat", "hand", "tv")]
+[node name="MainGameScene" type="Control" node_paths=PackedStringArray("cat", "hand", "tv", "timeBar", "timeHint")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,9 @@ resultScene = ExtResource("2_aan6j")
 cat = NodePath("Cat")
 hand = NodePath("Hand")
 tv = NodePath("TV")
-totalTime = 30
+timeBar = NodePath("GameTime")
+timeHint = NodePath("GameTime/Time")
+totalTime = 30.0
 
 [node name="Cat" type="Sprite2D" parent="."]
 position = Vector2(1546, 502)
@@ -85,5 +87,32 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "电视"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameTime" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(960, 40)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -479.5
+offset_top = 10.0
+offset_right = 480.5
+offset_bottom = 50.0
+grow_horizontal = 2
+max_value = 30.0
+step = 0.1
+value = 5.0
+show_percentage = false
+
+[node name="Time" type="Label" parent="GameTime"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "时间 30:00s"
 horizontal_alignment = 1
 vertical_alignment = 1

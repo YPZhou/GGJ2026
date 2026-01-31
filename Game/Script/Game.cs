@@ -8,8 +8,12 @@ public partial class Game : Node
 	[Export] Hand hand;
 	[Export] TV tv;
 
-	[Export] int totalTime; // 单局时长，30秒
+	[Export] ProgressBar timeBar;
+	[Export] Label timeHint;
+
+	[Export] double totalTime; // 单局时长，30秒
 	double elapsedTime = 0;
+	double RemainingTIme => totalTime - elapsedTime;
 
 	bool IsGameEnd => elapsedTime >= totalTime;
 
@@ -17,6 +21,8 @@ public partial class Game : Node
 	{
 		base._Ready();
 		elapsedTime = 0;
+		timeBar.MaxValue = totalTime;
+		UpdateTimeHint(RemainingTIme);
 	}
 
 	public override void _Process(double delta)
@@ -25,7 +31,10 @@ public partial class Game : Node
 
 		if (!IsGameEnd)
 		{
-			elapsedTime += delta;
+			elapsedTime += (float)delta;
+			timeBar.Value = elapsedTime;
+			UpdateTimeHint(RemainingTIme);
+
 			if (IsGameEnd)
 			{
 				if (resultScene != null)
@@ -38,5 +47,10 @@ public partial class Game : Node
 				}
 			}
 		}
+	}
+
+	void UpdateTimeHint(double remainingTIme)
+	{
+		timeHint.Text = $"时间 {remainingTIme:F1}s";
 	}
 }
