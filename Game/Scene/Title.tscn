@@ -17,7 +17,7 @@ grow_vertical = 2
 position = Vector2(1546, 502)
 texture = ExtResource("2_r4yu4")
 script = ExtResource("3_ghwbr")
-San = 100
+San = 100.0
 
 [node name="Label" type="Label" parent="Cat"]
 anchors_preset = 7
