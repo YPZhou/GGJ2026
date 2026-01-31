@@ -28,9 +28,11 @@ public partial class TV : Sprite2D
 	[Export(PropertyHint.Range, "0, 100")]
 	float imageMosaicWeight = 60f;
 
-	float imageMinInterval = 0.75f;
-	float imageMaxInterval = 1.5f;
-	float imageInterval = 0;
+	[Export]
+	double imageMinInterval = 0.75f;
+	[Export]
+	double imageMaxInterval = 1.5f;
+	double imageInterval = 0;
 
 	public override void _Ready()
 	{
@@ -67,14 +69,14 @@ public partial class TV : Sprite2D
 	{
 		base._Process(delta);
 
-		imageInterval -= (float)delta;
+		imageInterval -= delta;
 		if (imageInterval <= 0)
 		{
 
-			imageInterval = (float)GD.RandRange(imageMinInterval, imageMaxInterval);
+			imageInterval = GD.RandRange(imageMinInterval, imageMaxInterval);
 			var nextStatus = RandomizeStatus();
 
-			GD.Print("Interval:" + imageInterval + " Change image to " + nextStatus);
+			GD.Print($"{nameof(TV)}: Interval:" + imageInterval + " Change image to " + nextStatus);
 
 			SetImage(nextStatus);
 		}
@@ -106,15 +108,40 @@ public partial class TV : Sprite2D
 	void SetImage(TVStatus status)
 	{
 		CurrentStatus = status;
+		var mat = Material as ShaderMaterial;
 		switch (status)
 		{
 			case TVStatus.GOOD:
+			if (mat != null)
+                {
+					mat.SetShaderParameter("scanline_count", 0f);
+                    mat.SetShaderParameter("static_intensity", 0f);
+                    mat.SetShaderParameter("scanline_opacity", 0f);
+                    mat.SetShaderParameter("boost", 1.0f); // 正常亮度
+					mat.SetShaderParameter("roll_speed", 0f);
+                }
 				Texture = goodImage;
 				break;
 			case TVStatus.BAD:
+			if (mat != null)
+                {
+					mat.SetShaderParameter("scanline_count", 6f);
+                    mat.SetShaderParameter("static_intensity", 0.2f);
+                    mat.SetShaderParameter("scanline_opacity", 0.35f);
+                    mat.SetShaderParameter("boost", 1.4f);
+					mat.SetShaderParameter("roll_speed", 0.4f);
+                }
 				Texture = badImage;
 				break;
 			case TVStatus.MOSAIC:
+			if (mat != null)
+                {
+					mat.SetShaderParameter("scanline_count", 3f);
+                    mat.SetShaderParameter("static_intensity", 0.08f);
+                    mat.SetShaderParameter("scanline_opacity", 0.2f);
+                    mat.SetShaderParameter("boost", 1.2f);
+					mat.SetShaderParameter("roll_speed", 0.1f);
+                }
 				Texture = mosaicImage;
 				break;
 		}

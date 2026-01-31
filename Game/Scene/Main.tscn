@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=12 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
@@ -6,9 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://bfyltneqlr5fi" path="res://Scene/Result.tscn" id="2_aan6j"]
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
+[ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="6_yg4ot"]
 [ext_resource type="Texture2D" uid="uid://btf1evwo6gr6l" path="res://Res/tv_good.png" id="7_hueuk"]
 [ext_resource type="Texture2D" uid="uid://bwhuxbyfqdvqw" path="res://Res/tv_bad.png" id="8_6a8me"]
 [ext_resource type="Texture2D" uid="uid://6w6rwpqbjrj2" path="res://Res/tv_mosaic.png" id="9_6a8me"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vm4ek"]
+shader = ExtResource("6_yg4ot")
+shader_parameter/scanline_count = 11.0000005225
+shader_parameter/scanline_opacity = 0.8930000424175
+shader_parameter/static_intensity = 0.0710000033725
+shader_parameter/boost = 1.0890000042275
+shader_parameter/roll_speed = 0.2000000095
 
 [node name="MainGameScene" type="Control" node_paths=PackedStringArray("cat", "hand", "tv", "timeBar", "timeHint")]
 layout_mode = 3
@@ -101,6 +110,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("game")]
+material = SubResource("ShaderMaterial_vm4ek")
 position = Vector2(398, 499)
 texture = ExtResource("1_h175a")
 script = ExtResource("3_togfq")
