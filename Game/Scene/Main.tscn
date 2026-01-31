@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=53 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://106kewiv0f0w" path="res://Res/tv_good/电视画幅-meme-01.png" id="6_cjptb"]
 [ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="6_yg4ot"]
 [ext_resource type="Texture2D" uid="uid://dnoh53ltkue23" path="res://Res/tv_fool/电视画幅-骗人-01.png" id="7_58uq4"]
+[ext_resource type="Script" uid="uid://dvud7dn0y005p" path="res://Script/Gizmo.cs" id="7_cd6bo"]
 [ext_resource type="Texture2D" uid="uid://c43qs2vabmddk" path="res://Res/tv_good/电视画幅-meme-02.png" id="7_n044j"]
 [ext_resource type="Texture2D" uid="uid://cw8dh4qblawdd" path="res://Res/tv_fool/电视画幅-骗人-02.png" id="8_pe27u"]
 [ext_resource type="Texture2D" uid="uid://cvm71ur53odc3" path="res://Res/tv_good/电视画幅-meme-03.png" id="8_xwk4e"]
@@ -87,7 +88,7 @@ timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 totalTime = 30.0
 
-[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea")]
+[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea", "gizmo")]
 position = Vector2(1546, 900)
 texture = ExtResource("1_h175a")
 script = ExtResource("1_djkur")
@@ -99,6 +100,7 @@ catNecksParent = NodePath("CatNecks")
 catNeckTexture = ExtResource("4_jupvq")
 game = NodePath("..")
 interactArea = NodePath("CatHead/Area2D")
+gizmo = NodePath("Gizmo")
 
 [node name="Label" type="Label" parent="Cat"]
 anchors_preset = 7
@@ -142,6 +144,9 @@ position = Vector2(-33, -102)
 position = Vector2(-2, -93)
 scale = Vector2(0.223, 0.223)
 texture = ExtResource("2_jupvq")
+
+[node name="Gizmo" type="Node2D" parent="Cat"]
+script = ExtResource("7_cd6bo")
 
 [node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("game")]
 material = SubResource("ShaderMaterial_vm4ek")
