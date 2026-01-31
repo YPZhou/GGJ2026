@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjpvbkw0552u1"]
+[gd_scene load_steps=7 format=3 uid="uid://bjpvbkw0552u1"]
 
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="2_r4yu4"]
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="3_ghwbr"]
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="4_fov4c"]
+[ext_resource type="AudioStream" uid="uid://u4e6r1pxfd0b" path="res://Sound/Effect/elevator_button.wav" id="5_wfnnf"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="5_ybpwn"]
+[ext_resource type="AudioStream" uid="uid://ci4xqqaoqivc7" path="res://Sound/Effect/cat3b.wav" id="6_r4yu4"]
 
 [node name="MainGameScene" type="Control"]
 layout_mode = 3
@@ -79,3 +81,9 @@ theme_override_font_sizes/font_size = 32
 text = "电视"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StartSFX" type="AudioStreamPlayer2D" parent="TV"]
+stream = ExtResource("5_wfnnf")
+
+[node name="CatSFX" type="AudioStreamPlayer2D" parent="TV"]
+stream = ExtResource("6_r4yu4")
