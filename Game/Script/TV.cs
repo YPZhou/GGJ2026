@@ -22,7 +22,12 @@ public partial class TV : Sprite2D
 	[Export]
 	Texture2D[] mosaicImage;
 
-	[Export(PropertyHint.Range, "0, 100")]
+    [Export]
+    AudioStreamPlayer2D StartSFX;
+    [Export]
+    AudioStreamPlayer2D CatSFX;
+
+    [Export(PropertyHint.Range, "0, 100")]
 	float imageGoodWeight = 20f;
 	[Export(PropertyHint.Range, "0, 100")]
 	float imageFoolWeight = 20f;
