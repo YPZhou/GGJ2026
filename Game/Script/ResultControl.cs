@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class ResultControl : Panel
+public partial class ResultControl : Control
 {
     [Export]
     Button restartButton;
@@ -9,17 +9,17 @@ public partial class ResultControl : Panel
     [Export]
     Button backToMainMenuButton;
 
+    [Export]
+    TextureRect winTexture;
 
     [Export]
-    Label resultLabel;
-    [Export]
-    TextureRect resultTextureRect;
+    TextureRect failTexture;
 
     [Export]
-    Texture2D winTexture;
+    AudioStreamPlayer2D WinSFX;
 
     [Export]
-    Texture2D loseTexture;
+    AudioStreamPlayer2D FaildSFX;
 
     public override void _Ready()
     {
@@ -50,37 +50,21 @@ public partial class ResultControl : Panel
         {
             GD.PrintErr($"{nameof(ResultControl)}: Restart button is null, set Restart button for ResultControl.restartButton in the editor.");
         }
-        if (resultLabel == null)
-        {
-            GD.PrintErr($"{nameof(ResultControl)}: Result label is null, set Result label for ResultControl.resultLabel in the editor.");
-        }
-        if (winTexture == null)
-        {
-            GD.PrintErr($"{nameof(ResultControl)}: Win texture is null, set Win texture for ResultControl.winTexture in the editor.");
-        }
-        if (loseTexture == null)
-        {
-            GD.PrintErr($"{nameof(ResultControl)}: Lose texture is null, set Lose texture for ResultControl.loseTexture in the editor.");
-        }
-        if (resultTextureRect == null)
-        {
-            GD.PrintErr($"{nameof(ResultControl)}: Result texture rect is null, set Result texture rect for ResultControl.resultTextureRect in the editor.");
-        }
     }
 
     public void ShowResultUI(bool win)
     {
         Visible = true;
+        winTexture.Visible = win;
+        failTexture.Visible = !win;
         if (win)
         {
-            resultLabel.Text = "You Win!";
-            resultTextureRect.Texture = winTexture;
+            WinSFX.Play();
         }
         else
         {
-            resultLabel.Text = "You Lose!";
-            resultTextureRect.Texture = loseTexture;
+            FaildSFX.Play();
         }
-        GD.Print($"{nameof(ResultControl)}: Show result UI. {(win ? "Win" : "Lose")}");
+        //GD.Print($"{nameof(ResultControl)}: Show result UI. {(win ? "Win" : "Lose")}");
     }
 }

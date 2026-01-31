@@ -8,7 +8,6 @@ public enum GameState
 
 public partial class Game : Node
 {
-	[Export] StartControl startControl;
 	[Export] ResultControl resultControl;
 
 	[Export] Cat cat;
@@ -42,11 +41,6 @@ public partial class Game : Node
 		if (tv == null)
 		{
 			GD.PrintErr($"{nameof(Game)}: TV is null, set TV for Game.tv in the editor.");
-		}
-
-		if (startControl == null)
-		{
-			GD.PrintErr($"{nameof(Game)}: StartControl is null, set StartControl for Game.startControl in the editor.");
 		}
 		if (resultControl == null)
 		{
@@ -121,7 +115,6 @@ public partial class Game : Node
 
 	void HideUI()
 	{
-		startControl.Visible = false;
 		timeBar.Visible = false;
 		catSanUI.Visible = false;
 		resultControl.Visible = false;

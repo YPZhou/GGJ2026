@@ -17,6 +17,9 @@ public partial class StartTv : Sprite2D
     [Export]
     AudioStreamPlayer2D CatFX;
     [Export]
+    AudioStreamPlayer2D OpenDoor_SFX;
+
+    [Export]
     AnimationPlayer TitleAnimPlayer;
     [Export]
     TextureButton ExitBtn;
@@ -55,6 +58,11 @@ public partial class StartTv : Sprite2D
         };
 
         ExitBtn.Pressed += Exit_Game;
+
+        OpenDoor_SFX.Finished += () =>
+        {
+            GetTree().Quit();
+        };
     }
 
 
@@ -80,7 +88,7 @@ public partial class StartTv : Sprite2D
 
     public void Exit_Game()
     {
-        GetTree().Quit();
+        OpenDoor_SFX.Play();
     }
 
 }
