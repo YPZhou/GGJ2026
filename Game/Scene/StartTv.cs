@@ -85,6 +85,7 @@ public partial class StartTv : Sprite2D
         if (MouseEntered && Input.IsMouseButtonPressed(MouseButton.Left))
         {
             GD.Print($"{nameof(Game)}:开始游戏");
+			startButtonPolygon.Visible = false;
             Input.SetCustomMouseCursor(null);
             StarFX.Play();
         }
