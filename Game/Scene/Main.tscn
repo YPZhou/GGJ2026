@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=69 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_togfq"]
@@ -46,8 +46,10 @@
 [ext_resource type="Texture2D" uid="uid://bvrvjn5g4grfc" path="res://Res/tv_mosaic/4.png" id="22_reyx0"]
 [ext_resource type="Texture2D" uid="uid://cyxk4df03rr2x" path="res://Res/hand/平常手.png" id="37_n044j"]
 [ext_resource type="Texture2D" uid="uid://cqbjvn760wba8" path="res://Res/ui/bar/时间进度框.png" id="43_6b3h5"]
+[ext_resource type="Texture2D" uid="uid://dqedmntq4l1yq" path="res://Res/hand/上手.png" id="44_qke6d"]
 [ext_resource type="Texture2D" uid="uid://0j5p701kv14g" path="res://Res/ui/bar/时间进度条.png" id="44_qtu3h"]
 [ext_resource type="PackedScene" uid="uid://c7vav3ysovknj" path="res://Scene/control_tips.tscn" id="44_vs8fc"]
+[ext_resource type="Texture2D" uid="uid://s8bmqup0mc35" path="res://Res/hand/下手.png" id="45_3uymx"]
 [ext_resource type="Texture2D" uid="uid://dabypj0qrb1is" path="res://Res/ui/bar/时间图标钟.png" id="45_qtu3h"]
 [ext_resource type="Texture2D" uid="uid://hvvlsjfjwts2" path="res://Res/ui/result/结算页面-success.png" id="46_clf5q"]
 [ext_resource type="Texture2D" uid="uid://bp8solqpkwl6" path="res://Res/ui/result/跳跳小猫-02.png" id="47_r8yv8"]
@@ -255,6 +257,11 @@ scale = Vector2(0.105, 0.105)
 texture = ExtResource("37_n044j")
 script = ExtResource("2_h175a")
 handMoveSpeed = 800.0
+upHandCoordY = 350
+downHandCoordY = 500
+upHand = ExtResource("44_qke6d")
+normalHand = ExtResource("37_n044j")
+downHand = ExtResource("45_3uymx")
 interactArea = NodePath("Area2D")
 
 [node name="Area2D" type="Area2D" parent="Hand"]
