@@ -18,6 +18,9 @@ public partial class Game : Node
 	[Export] Label timeHint;
 	[Export] CatSanUI catSanUI;
 
+	[Export] Sprite2D tvFace;
+	[Export] Polygon2D tvScreen;
+
 	[Export] double totalTime; // 单局时长，30秒
 	public double ElapsedTime  { get; private set; } = 0;
 	double RemainingTIme => totalTime - ElapsedTime;
@@ -57,7 +60,27 @@ public partial class Game : Node
 		handTransform = hand.Transform;
 		resultControl.Visible = false;
 		Input.SetCustomMouseCursor(null);
+
+		SetupFadeInTween(tvFace);
+		SetupFadeInTween(tvScreen);
+
 		EnterState(GameState.Playing);
+	}
+
+	void SetupFadeInTween(Node2D node)
+	{
+		// 淡入效果：先设置为透明，然后使用 Tween 淡入到不透明
+		if (node != null)
+		{
+			var c = node.Modulate;
+			c.A = 0f;
+			node.Modulate = c;
+			node.Visible = true;
+			var tween = CreateTween();
+			tween.TweenProperty(node, "modulate:a", 1.0f, 2f)
+				.SetTrans(Tween.TransitionType.Sine)
+				.SetEase(Tween.EaseType.InOut);
+		}
 	}
 
 	public override void _Process(double delta)
