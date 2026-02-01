@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=74 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_togfq"]
@@ -60,7 +60,11 @@
 [ext_resource type="AudioStream" uid="uid://72ot4hxs5om8" path="res://Sound/Effect/RoaringBlackCat.wav" id="51_qtu3h"]
 [ext_resource type="Texture2D" uid="uid://b3vt68tjwvtv4" path="res://Res/ui/bar/san值条.png" id="54_ps337"]
 [ext_resource type="Texture2D" uid="uid://cc1813hxki0cu" path="res://Res/ui/bar/san值储蓄条.png" id="55_5u6qd"]
+[ext_resource type="Texture2D" uid="uid://d34gkf8mdjco4" path="res://Res/ui/button/重新挑战按默认.png" id="56_a8wfw"]
 [ext_resource type="Texture2D" uid="uid://nagsftw4jerl" path="res://Res/ui/bar/san值图标猫头.png" id="56_goe3w"]
+[ext_resource type="Texture2D" uid="uid://ciaql7c1jeg8w" path="res://Res/ui/button/重新挑战按下.png" id="57_45bv1"]
+[ext_resource type="Texture2D" uid="uid://xjq73x8rcj3n" path="res://Res/ui/button/返回标题默认.png" id="58_nqw0k"]
+[ext_resource type="Texture2D" uid="uid://ddfdv3vmf1cqu" path="res://Res/ui/button/返回标题按下.png" id="59_8xa3c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qtod"]
 size = Vector2(356.25, 193.75)
@@ -321,8 +325,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_yg4ot")
-restartButton = NodePath("RestartButton")
-backToMainMenuButton = NodePath("BackToMainButton")
+restartButton = NodePath("")
+backToMainMenuButton = NodePath("")
 winTexture = NodePath("Win")
 failTexture = NodePath("Filed")
 WinSFX = NodePath("SFX/WinSFX")
@@ -391,35 +395,39 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("49_lllnr")
 
-[node name="RestartButton" type="Button" parent="ResultControl"]
+[node name="RestartButton" type="TextureButton" parent="ResultControl"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -272.0
-offset_top = -160.0
-offset_right = -72.0
-offset_bottom = -60.0
+offset_left = -444.0
+offset_top = -168.0
+offset_right = -80.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "重新开始"
+texture_normal = ExtResource("56_a8wfw")
+texture_pressed = ExtResource("57_45bv1")
+texture_hover = ExtResource("57_45bv1")
 
-[node name="BackToMainButton" type="Button" parent="ResultControl"]
+[node name="BackToMainButton" type="TextureButton" parent="ResultControl"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 43.0
-offset_top = -154.0
-offset_right = 243.0
-offset_bottom = -54.0
+offset_left = 19.0
+offset_top = -167.0
+offset_right = 383.0
+offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "标题界面"
+texture_normal = ExtResource("58_nqw0k")
+texture_pressed = ExtResource("59_8xa3c")
+texture_hover = ExtResource("59_8xa3c")
 
 [node name="SFX" type="Control" parent="ResultControl"]
 layout_mode = 1
