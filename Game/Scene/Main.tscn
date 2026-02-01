@@ -253,7 +253,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Hand" type="Sprite2D" parent="." node_paths=PackedStringArray("interactArea")]
 position = Vector2(467.00006, 528)
-scale = Vector2(0.105, 0.105)
+scale = Vector2(0.075, 0.105)
 texture = ExtResource("37_n044j")
 script = ExtResource("2_h175a")
 handMoveSpeed = 800.0
