@@ -125,7 +125,7 @@ catSanUI = NodePath("CatSan")
 totalTime = 30.0
 
 [node name="TVSide" type="Sprite2D" parent="."]
-position = Vector2(595.99994, 564)
+position = Vector2(332.9999, 572)
 scale = Vector2(0.41080734, 0.4108073)
 texture = ExtResource("2_lllnr")
 
@@ -135,7 +135,7 @@ scale = Vector2(0.39170575, 0.43990228)
 texture = ExtResource("3_86elt")
 
 [node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea", "gizmo")]
-position = Vector2(963, 715)
+position = Vector2(711, 721)
 script = ExtResource("1_djkur")
 HeadMoveInterval = 0.75
 HeadYOffsets = PackedFloat64Array(-500, -450, -400, -350, -300)
@@ -231,7 +231,7 @@ scale = Vector2(28.705, 28.705)
 shape = SubResource("RectangleShape2D_mr7am")
 
 [node name="Hand" type="Sprite2D" parent="." node_paths=PackedStringArray("interactArea")]
-position = Vector2(691.00006, 536.00006)
+position = Vector2(467.00006, 528)
 scale = Vector2(0.105, 0.105)
 texture = ExtResource("37_n044j")
 script = ExtResource("2_h175a")
