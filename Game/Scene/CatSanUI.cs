@@ -4,7 +4,7 @@ using System;
 public partial class CatSanUI : Control
 {
     [Export]
-    ProgressBar progressBar;
+    TextureProgressBar progressBar;
 
     public override void _Ready()
     {
