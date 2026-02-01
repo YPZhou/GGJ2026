@@ -127,7 +127,7 @@ totalTime = 30.0
 position = Vector2(1546, 900)
 script = ExtResource("1_djkur")
 HeadMoveInterval = 0.75
-HeadYOffsets = PackedFloat64Array(-500, -400, -300, -200, -100)
+HeadYOffsets = PackedFloat64Array(-500, -450, -400, -350, -300)
 HeadXRange = 100.0
 catHead = NodePath("CatHead")
 catNecksParent = NodePath("CatNecks")
@@ -166,6 +166,7 @@ position = Vector2(-181.25, -56.25)
 shape = SubResource("RectangleShape2D_4qtod")
 
 [node name="Sprite2D" type="Sprite2D" parent="Cat/CatHead"]
+z_index = 1
 position = Vector2(-1.9999998, -32.999996)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_jupvq")
@@ -173,7 +174,6 @@ offset = Vector2(226, 626)
 
 [node name="CatNecks" type="Node2D" parent="Cat"]
 position = Vector2(-33, -102)
-scale = Vector2(0.135, 0.135)
 
 [node name="Gizmo" type="Node2D" parent="Cat"]
 script = ExtResource("7_cd6bo")
