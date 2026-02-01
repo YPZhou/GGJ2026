@@ -56,7 +56,7 @@ public partial class Game : Node
 		UpdateTimeHint(RemainingTIme);
 		handTransform = hand.Transform;
 		resultControl.Visible = false;
-
+		Input.SetCustomMouseCursor(null);
 		EnterState(GameState.Playing);
 	}
 
