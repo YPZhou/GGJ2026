@@ -23,6 +23,8 @@ public partial class TV : Sprite2D
 	Texture2D[] mosaicImage;
 	[Export]
 	Polygon2D tvScreen;
+	[Export]
+	Polygon2D tvScreenSide;
 
     [Export]
     AudioStreamPlayer2D StartSFX;
@@ -179,6 +181,7 @@ public partial class TV : Sprite2D
 	{
 		CurrentStatus = status;
 		var mat = tvScreen.Material as ShaderMaterial;
+		var sideMat = tvScreenSide.Material as ShaderMaterial;
 		switch (status)
 		{
 			case TVStatus.GOOD:
@@ -190,7 +193,19 @@ public partial class TV : Sprite2D
 					mat.SetShaderParameter("boost", 1.0f); // 正常亮度
 					mat.SetShaderParameter("roll_speed", 0f);
 				}
-				tvScreen.Texture = goodImage[GD.RandRange(0, goodImage.Length - 1)];
+
+				if (sideMat != null)
+				{
+					sideMat.SetShaderParameter("scanline_count", 0f);
+					sideMat.SetShaderParameter("static_intensity", 0f);
+					sideMat.SetShaderParameter("scanline_opacity", 0f);
+					sideMat.SetShaderParameter("boost", 1.0f); // 正常亮度
+					sideMat.SetShaderParameter("roll_speed", 0f);
+				}
+
+				var goodTexture = goodImage[GD.RandRange(0, goodImage.Length - 1)];
+				tvScreen.Texture = goodTexture;
+				tvScreenSide.Texture = goodTexture;
 				break;
 			case TVStatus.Fool:
 				if (mat != null)
@@ -201,7 +216,19 @@ public partial class TV : Sprite2D
 					mat.SetShaderParameter("boost", 1.2f);
 					mat.SetShaderParameter("roll_speed", 0.2f);
 				}
-				tvScreen.Texture = foolImage[GD.RandRange(0, foolImage.Length - 1)];
+
+				if (sideMat != null)
+				{
+					sideMat.SetShaderParameter("scanline_count", 6f);
+					sideMat.SetShaderParameter("static_intensity", 0.2f);
+					sideMat.SetShaderParameter("scanline_opacity", 0.1f);
+					sideMat.SetShaderParameter("boost", 1.2f);
+					sideMat.SetShaderParameter("roll_speed", 0.2f);
+				}
+
+				var foolTexture = foolImage[GD.RandRange(0, foolImage.Length - 1)];
+				tvScreen.Texture = foolTexture;
+				tvScreenSide.Texture = foolTexture;
 				break;
 			case TVStatus.MOSAIC:
 				if (mat != null)
@@ -212,7 +239,19 @@ public partial class TV : Sprite2D
 					mat.SetShaderParameter("boost", 1.4f);
 					mat.SetShaderParameter("roll_speed", 0.4f);
 				}
-				tvScreen.Texture = mosaicImage[GD.RandRange(0, mosaicImage.Length - 1)];
+
+				if (sideMat != null)
+				{
+					sideMat.SetShaderParameter("scanline_count", 6f);
+					sideMat.SetShaderParameter("static_intensity", 0.2f);
+					sideMat.SetShaderParameter("scanline_opacity", 0.4f);
+					sideMat.SetShaderParameter("boost", 1.4f);
+					sideMat.SetShaderParameter("roll_speed", 0.4f);
+				}
+
+				var mosaicTexture = mosaicImage[GD.RandRange(0, mosaicImage.Length - 1)];
+				tvScreen.Texture = mosaicTexture;
+				tvScreenSide.Texture = mosaicTexture;
 				break;
 		}
 	}
