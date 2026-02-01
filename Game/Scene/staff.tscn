@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://crymmtr50d3mn"]
+
+[node name="Staff" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -77.0
+offset_top = 39.0
+offset_right = 67.0
+offset_bottom = 73.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "制作人员名单"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+offset_left = 727.0
+offset_top = 175.0
+offset_right = 855.0
+offset_bottom = 357.0
+theme_override_font_sizes/font_size = 24
+text = "程序爹
+Cataphract
+超大型呆萌
+
+"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 1
+offset_left = 1061.0
+offset_top = 174.0
+offset_right = 1181.0
+offset_bottom = 393.0
+theme_override_font_sizes/font_size = 24
+text = "美术爹
+Lucy
+禾十
+清水因
+信使来送信
+眞目菌"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 1
+offset_left = 683.0
+offset_top = 470.0
+offset_right = 1233.0
+offset_bottom = 874.0
+theme_override_font_sizes/font_size = 24
+text = "借物表
+音乐
+Penguin's Game 8bit - 制樂厂Musiceuticals
+https://www.bilibili.com/video/BV1QVQRYVE3F/
+
+音效
+小森平的免费下载音效
+https://taira-komori.net/freesoundcn.html"
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="."]
+layout_mode = 1
+offset_left = 725.0
+offset_top = 329.0
+offset_right = 845.0
+offset_bottom = 437.0
+theme_override_font_sizes/font_size = 24
+text = "策划仔
+黑白色的枫
+"
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="."]
+layout_mode = 1
+offset_left = 1498.0
+offset_top = 431.0
+offset_right = 1618.0
+offset_bottom = 650.0
+theme_override_font_sizes/font_size = 24
+text = "场外援助
+石榴大师
+摊主
+
+卧底
+PH777
+"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -203.0
+offset_right = 92.0
+offset_bottom = -142.99976
+grow_horizontal = 2
+grow_vertical = 0
+text = "关闭"
