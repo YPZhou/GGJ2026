@@ -19,7 +19,6 @@ public partial class Game : Node
 	[Export] CatSanUI catSanUI;
 
 	[Export] Sprite2D tvFace;
-	[Export] Polygon2D tvScreen;
 
 	[Export] double totalTime; // 单局时长，30秒
 	public double ElapsedTime  { get; private set; } = 0;
@@ -62,22 +61,33 @@ public partial class Game : Node
 		Input.SetCustomMouseCursor(null);
 
 		SetupFadeInTween(tvFace);
-		SetupFadeInTween(tvScreen);
-
 		EnterState(GameState.Playing);
 	}
 
 	void SetupFadeInTween(Node2D node)
 	{
-		// 淡入效果：先设置为透明，然后使用 Tween 淡入到不透明
+		// 淡入并滑入效果：先设置为透明并将节点从右侧偏移，然后同时 Tween 透明度和 X 位置到目标值
 		if (node != null)
 		{
 			var c = node.Modulate;
 			c.A = 0f;
 			node.Modulate = c;
 			node.Visible = true;
+
 			var tween = CreateTween();
-			tween.TweenProperty(node, "modulate:a", 1.0f, 2f)
+			// 透明度淡入
+			tween.TweenProperty(node, "modulate:a", 1.0f, 0.5f)
+				.SetTrans(Tween.TransitionType.Sine)
+				.SetEase(Tween.EaseType.InOut);
+
+			// 保存目标位置，设置起始位置为向右偏移一定像素（例如 150px）以实现向左移入效果
+			var targetPos = node.Position;
+			float offsetX = 150f;
+			node.Position = new Vector2(targetPos.X + offsetX, targetPos.Y);
+			
+			// 同步 X 轴移动回目标位置（向左移入）
+			tween = CreateTween();
+			tween.TweenProperty(node, "position:x", targetPos.X, 0.5f)
 				.SetTrans(Tween.TransitionType.Sine)
 				.SetEase(Tween.EaseType.InOut);
 		}

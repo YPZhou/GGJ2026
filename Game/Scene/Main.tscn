@@ -1,12 +1,12 @@
-[gd_scene load_steps=70 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=71 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_togfq"]
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
 [ext_resource type="Texture2D" uid="uid://dvjhcjh71b4jh" path="res://Res/cat/cat_body.png" id="2_jupvq"]
-[ext_resource type="Texture2D" uid="uid://cbgci2a08j8d2" path="res://Res/ui/tv/tv_face.png" id="3_86elt"]
+[ext_resource type="Texture2D" uid="uid://da6swdlwvb3sp" path="res://Res/ui/background/right_without_tv.png" id="3_3uymx"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
-[ext_resource type="Texture2D" uid="uid://ca45surtl8ynh" path="res://Res/ui/tv/tv_side.png" id="3_vppcx"]
+[ext_resource type="Texture2D" uid="uid://d0gm53gmm5jkc" path="res://Res/ui/background/left_with_tv.png" id="3_vs8fc"]
 [ext_resource type="Texture2D" uid="uid://jwx4u33agyvd" path="res://Res/cat/cat_neck_seg_1.png" id="4_jupvq"]
 [ext_resource type="Texture2D" uid="uid://dtkdrumtq2rxy" path="res://Res/cat/cat_head.png" id="5_jupvq"]
 [ext_resource type="Texture2D" uid="uid://106kewiv0f0w" path="res://Res/tv_good/电视画幅-meme-01.png" id="6_cjptb"]
@@ -47,6 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://bvrvjn5g4grfc" path="res://Res/tv_mosaic/4.png" id="22_reyx0"]
 [ext_resource type="Texture2D" uid="uid://cyxk4df03rr2x" path="res://Res/hand/平常手.png" id="37_n044j"]
 [ext_resource type="Texture2D" uid="uid://cqbjvn760wba8" path="res://Res/ui/bar/时间进度框.png" id="43_6b3h5"]
+[ext_resource type="Texture2D" uid="uid://ck6jwwhydeva8" path="res://Res/ui/background/right_tv.png" id="43_qr046"]
 [ext_resource type="Texture2D" uid="uid://dqedmntq4l1yq" path="res://Res/hand/上手.png" id="44_qke6d"]
 [ext_resource type="Texture2D" uid="uid://0j5p701kv14g" path="res://Res/ui/bar/时间进度条.png" id="44_qtu3h"]
 [ext_resource type="PackedScene" uid="uid://c7vav3ysovknj" path="res://Scene/control_tips.tscn" id="44_vs8fc"]
@@ -134,19 +135,17 @@ tv = NodePath("TV")
 timeBar = NodePath("GameTime")
 timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
-tvFace = NodePath("TVFace")
-tvScreen = NodePath("TV/TVScreen")
+tvFace = NodePath("TV/TrueTV")
+tvScreen = NodePath("TV/TrueTV/TVScreen")
 totalTime = 30.0
 
-[node name="TVFace" type="Sprite2D" parent="."]
-position = Vector2(1576, 746)
-scale = Vector2(0.5852021, 0.6572069)
-texture = ExtResource("3_86elt")
-
 [node name="TVSide" type="Sprite2D" parent="."]
-position = Vector2(332.9999, 572)
-scale = Vector2(0.41080734, 0.4108073)
-texture = ExtResource("3_vppcx")
+position = Vector2(960, 540)
+texture = ExtResource("3_vs8fc")
+
+[node name="TVFace" type="Sprite2D" parent="."]
+position = Vector2(1412, 540)
+texture = ExtResource("3_3uymx")
 
 [node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea", "gizmo")]
 position = Vector2(846, 755)
@@ -208,12 +207,17 @@ game = NodePath("..")
 goodImage = Array[Texture2D]([ExtResource("6_cjptb"), ExtResource("7_n044j"), ExtResource("8_xwk4e"), ExtResource("9_jupvq"), ExtResource("10_cd6bo"), ExtResource("11_clf5q"), ExtResource("12_r8yv8"), ExtResource("13_wd3ae"), ExtResource("14_lllnr"), ExtResource("15_86elt"), ExtResource("16_6b3h5"), ExtResource("17_qtu3h"), ExtResource("18_ps337"), ExtResource("19_5u6qd"), ExtResource("20_goe3w")])
 foolImage = Array[Texture2D]([ExtResource("7_58uq4"), ExtResource("8_pe27u"), ExtResource("9_ne54y"), ExtResource("10_sssj8"), ExtResource("11_u2c8l"), ExtResource("12_g6i1l"), ExtResource("13_reyx0"), ExtResource("14_5xnk5"), ExtResource("15_6ngyt"), ExtResource("16_bficn"), ExtResource("17_m0bfr"), ExtResource("18_0c33q")])
 mosaicImage = Array[Texture2D]([ExtResource("19_sssj8"), ExtResource("20_u2c8l"), ExtResource("21_g6i1l"), ExtResource("22_reyx0")])
-tvScreen = NodePath("TVScreen")
+tvScreen = NodePath("TrueTV/TVScreen")
 tvScreenSide = NodePath("TVScreenSide")
 
-[node name="TVScreen" type="Polygon2D" parent="TV"]
+[node name="TrueTV" type="Sprite2D" parent="TV"]
+position = Vector2(0, 180)
+texture = ExtResource("43_qr046")
+
+[node name="TVScreen" type="Polygon2D" parent="TV/TrueTV"]
 material = SubResource("ShaderMaterial_vs8fc")
-polygon = PackedVector2Array(-244, -109, -245, 255, -223, 271, -158, 281, 189, 281, 249, 274, 276, 250, 276, -108, 252, -131, 220, -140, -187, -138, -224, -132)
+position = Vector2(0, -180)
+polygon = PackedVector2Array(-329, 9, -327, 339, -303, 359, -239, 367, 127, 367, 193, 360, 218, 334, 218, 6, 207, -12, 177, -27, -299, -27, -321, -6)
 uv = PackedVector2Array(0, 5, 0, 520, 5, 525, 15, 530, 725, 530, 735, 525, 740, 520, 740, 10, 735, 5, 730, 0, 10, 0, 5, 5)
 
 [node name="TVScreenSide" type="Polygon2D" parent="TV"]
