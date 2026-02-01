@@ -69,8 +69,6 @@ shader_parameter/static_intensity = 0.0710000033725
 shader_parameter/boost = 1.0890000042275
 shader_parameter/roll_speed = 0.2000000095
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mr7am"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jupvq"]
 size = Vector2(258.8629, 104.92883)
 
@@ -202,7 +200,7 @@ position = Vector2(-2, -93)
 scale = Vector2(0.223, 0.223)
 texture = ExtResource("2_jupvq")
 
-[node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("game")]
+[node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("game", "tvScreen")]
 material = SubResource("ShaderMaterial_vm4ek")
 position = Vector2(1509, 487)
 script = ExtResource("3_togfq")
@@ -210,8 +208,14 @@ game = NodePath("..")
 goodImage = Array[Texture2D]([ExtResource("6_cjptb"), ExtResource("7_n044j"), ExtResource("8_xwk4e"), ExtResource("9_jupvq"), ExtResource("10_cd6bo"), ExtResource("11_clf5q"), ExtResource("12_r8yv8"), ExtResource("13_wd3ae"), ExtResource("14_lllnr"), ExtResource("15_86elt"), ExtResource("16_6b3h5"), ExtResource("17_qtu3h"), ExtResource("18_ps337"), ExtResource("19_5u6qd"), ExtResource("20_goe3w")])
 foolImage = Array[Texture2D]([ExtResource("7_58uq4"), ExtResource("8_pe27u"), ExtResource("9_ne54y"), ExtResource("10_sssj8"), ExtResource("11_u2c8l"), ExtResource("12_g6i1l"), ExtResource("13_reyx0"), ExtResource("14_5xnk5"), ExtResource("15_6ngyt"), ExtResource("16_bficn"), ExtResource("17_m0bfr"), ExtResource("18_0c33q")])
 mosaicImage = Array[Texture2D]([ExtResource("19_sssj8"), ExtResource("20_u2c8l"), ExtResource("21_g6i1l"), ExtResource("22_reyx0")])
+tvScreen = NodePath("TVScreen")
+
+[node name="TVScreen" type="Polygon2D" parent="TV"]
+polygon = PackedVector2Array(-244, -109, -245, 255, -223, 271, -158, 281, 189, 281, 249, 274, 276, 250, 276, -108, 252, -131, 220, -140, -187, -138, -224, -132)
+uv = PackedVector2Array(0, 5, 0, 520, 5, 525, 15, 530, 725, 530, 735, 525, 740, 520, 740, 10, 735, 5, 730, 0, 10, 0, 5, 5)
 
 [node name="Label" type="Label" parent="TV"]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -228,13 +232,6 @@ text = "电视"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
-
-[node name="Area2D" type="Area2D" parent="TV"]
-collision_layer = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TV/Area2D"]
-scale = Vector2(28.705, 28.705)
-shape = SubResource("RectangleShape2D_mr7am")
 
 [node name="Hand" type="Sprite2D" parent="." node_paths=PackedStringArray("interactArea")]
 position = Vector2(467.00006, 528)
@@ -270,21 +267,22 @@ texture_under = ExtResource("43_6b3h5")
 texture_progress = ExtResource("44_qtu3h")
 
 [node name="Time" type="Label" parent="GameTime"]
+self_modulate = Color(0, 0, 0.011764706, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 24
 text = "时间 30:00s"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="GameTime"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1485.0
+offset_bottom = 131.0
 texture = ExtResource("45_qtu3h")
 
 [node name="ResultControl" type="Control" parent="." node_paths=PackedStringArray("restartButton", "backToMainMenuButton", "winTexture", "failTexture", "WinSFX", "FaildSFX")]
@@ -419,7 +417,7 @@ bus = &"Effect"
 stream = ExtResource("51_qtu3h")
 bus = &"Effect"
 
-[node name="CatSan" type="Control" parent="."]
+[node name="CatSan" type="Control" parent="." node_paths=PackedStringArray("progressBar")]
 custom_minimum_size = Vector2(559, 167)
 layout_mode = 1
 anchors_preset = 7
@@ -434,6 +432,7 @@ offset_bottom = -22.99939
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("11_vm4ek")
+progressBar = NodePath("SanTextureProgressBar")
 metadata/_edit_group_ = true
 
 [node name="SanTextureProgressBar" type="TextureProgressBar" parent="CatSan"]
