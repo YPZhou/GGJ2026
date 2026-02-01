@@ -388,9 +388,11 @@ grow_vertical = 2
 
 [node name="WinSFX" type="AudioStreamPlayer2D" parent="ResultControl/SFX"]
 stream = ExtResource("50_6b3h5")
+bus = &"Effect"
 
 [node name="FailSFX" type="AudioStreamPlayer2D" parent="ResultControl/SFX"]
 stream = ExtResource("51_qtu3h")
+bus = &"Effect"
 
 [node name="CatSan" type="Control" parent="." node_paths=PackedStringArray("progressBar")]
 visible = false

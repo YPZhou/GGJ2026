@@ -82,14 +82,18 @@ public partial class Game : Node
 			case GameState.Result:
 				HideUI();
 				resultControl.ShowResultUI(cat.IsAlive);
-				break;
+
+				AudioManager.Instance.PauseBGM();
+                break;
 			case GameState.Playing:
 				HideUI();
 				timeBar.Visible = true;
 				catSanUI.Visible = true;
 				hand.Visible = true;
 				hand.Transform = handTransform;
-				break;
+
+				AudioManager.Instance.PlayBGM();
+                break;
 		}
 	}
 

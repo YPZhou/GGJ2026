@@ -36,6 +36,9 @@ public partial class ResultControl : Control
 		backToMainMenuButton.Pressed += () =>
 		{
 			GD.Print($"{nameof(Game)}:返回主菜单");
+
+            AudioManager.Instance.PauseBGM();
+
 			GetTree().ChangeSceneToFile("res://Scene/Title.tscn");
 		};
     }

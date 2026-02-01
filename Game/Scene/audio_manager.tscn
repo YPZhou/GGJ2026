@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cimsp704ykul0"]
+
+[ext_resource type="Script" uid="uid://bdkkpymy1jfsm" path="res://Scene/AudioManager.cs" id="1_fmqd6"]
+[ext_resource type="AudioStream" uid="uid://b4wbmbr4eks0p" path="res://Sound/BGM/制樂厂Musiceuticals - Penguin's Game-8bit（兔子舞）.ogg" id="1_uux71"]
+
+[node name="AudioManager" type="Control" node_paths=PackedStringArray("BGM")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fmqd6")
+BGM = NodePath("BGM")
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_uux71")
+parameters/looping = true

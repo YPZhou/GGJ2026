@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b4wbmbr4eks0p"
+path="res://.godot/imported/制樂厂Musiceuticals - Penguin's Game-8bit（兔子舞）.ogg-88fa92b634e78b58d608ff63a02d4d58.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sound/BGM/制樂厂Musiceuticals - Penguin's Game-8bit（兔子舞）.ogg"
+dest_files=["res://.godot/imported/制樂厂Musiceuticals - Penguin's Game-8bit（兔子舞）.ogg-88fa92b634e78b58d608ff63a02d4d58.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
