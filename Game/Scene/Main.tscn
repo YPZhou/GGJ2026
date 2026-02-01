@@ -147,9 +147,10 @@ texture = ExtResource("3_vppcx")
 
 [node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea", "gizmo")]
 position = Vector2(711, 721)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("1_djkur")
 HeadMoveInterval = 0.75
-HeadYOffsets = PackedFloat64Array(-500, -450, -400, -350, -300)
+HeadYOffsets = PackedFloat64Array(-350, -250, -300, -400, -200)
 HeadXRange = 100.0
 catHead = NodePath("CatHead")
 catNecksParent = NodePath("CatNecks")
