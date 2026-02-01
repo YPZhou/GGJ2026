@@ -40,12 +40,12 @@
 [ext_resource type="Texture2D" uid="uid://bspbw4rh5qgsi" path="res://Res/tv_fool/电视画幅-骗人-12.png" id="18_0c33q"]
 [ext_resource type="Texture2D" uid="uid://dakdf6jhkbaew" path="res://Res/tv_good/电视画幅-meme-13.png" id="18_ps337"]
 [ext_resource type="Texture2D" uid="uid://bp2dd5y07kxoc" path="res://Res/tv_good/电视画幅-meme-14.png" id="19_5u6qd"]
-[ext_resource type="Texture2D" uid="uid://dc0jh5dpksu66" path="res://Res/tv_mosaic/1.png" id="19_sssj8"]
 [ext_resource type="Texture2D" uid="uid://4cjwq73lqoew" path="res://Res/tv_good/电视画幅-meme-15.png" id="20_goe3w"]
-[ext_resource type="Texture2D" uid="uid://l2htqegke762" path="res://Res/tv_mosaic/2.png" id="20_u2c8l"]
-[ext_resource type="Texture2D" uid="uid://cjoxy6nkkd355" path="res://Res/tv_mosaic/3.png" id="21_g6i1l"]
-[ext_resource type="Texture2D" uid="uid://bvrvjn5g4grfc" path="res://Res/tv_mosaic/4.png" id="22_reyx0"]
 [ext_resource type="Texture2D" uid="uid://cyxk4df03rr2x" path="res://Res/hand/平常手.png" id="37_n044j"]
+[ext_resource type="Texture2D" uid="uid://8el57lgx0pav" path="res://Res/tv_mosaic/1-.png" id="39_3uymx"]
+[ext_resource type="Texture2D" uid="uid://dbhfmh3uuosio" path="res://Res/tv_mosaic/2-.png" id="40_qr046"]
+[ext_resource type="Texture2D" uid="uid://djq3ssa6k0jwn" path="res://Res/tv_mosaic/3-.png" id="41_a8wfw"]
+[ext_resource type="Texture2D" uid="uid://ky8j27fh2ww0" path="res://Res/tv_mosaic/4-.png" id="42_45bv1"]
 [ext_resource type="Texture2D" uid="uid://cqbjvn760wba8" path="res://Res/ui/bar/时间进度框.png" id="43_6b3h5"]
 [ext_resource type="Texture2D" uid="uid://dqedmntq4l1yq" path="res://Res/hand/上手.png" id="44_qke6d"]
 [ext_resource type="Texture2D" uid="uid://0j5p701kv14g" path="res://Res/ui/bar/时间进度条.png" id="44_qtu3h"]
@@ -207,7 +207,7 @@ script = ExtResource("3_togfq")
 game = NodePath("..")
 goodImage = Array[Texture2D]([ExtResource("6_cjptb"), ExtResource("7_n044j"), ExtResource("8_xwk4e"), ExtResource("9_jupvq"), ExtResource("10_cd6bo"), ExtResource("11_clf5q"), ExtResource("12_r8yv8"), ExtResource("13_wd3ae"), ExtResource("14_lllnr"), ExtResource("15_86elt"), ExtResource("16_6b3h5"), ExtResource("17_qtu3h"), ExtResource("18_ps337"), ExtResource("19_5u6qd"), ExtResource("20_goe3w")])
 foolImage = Array[Texture2D]([ExtResource("7_58uq4"), ExtResource("8_pe27u"), ExtResource("9_ne54y"), ExtResource("10_sssj8"), ExtResource("11_u2c8l"), ExtResource("12_g6i1l"), ExtResource("13_reyx0"), ExtResource("14_5xnk5"), ExtResource("15_6ngyt"), ExtResource("16_bficn"), ExtResource("17_m0bfr"), ExtResource("18_0c33q")])
-mosaicImage = Array[Texture2D]([ExtResource("19_sssj8"), ExtResource("20_u2c8l"), ExtResource("21_g6i1l"), ExtResource("22_reyx0")])
+mosaicImage = Array[Texture2D]([ExtResource("39_3uymx"), ExtResource("40_qr046"), ExtResource("41_a8wfw"), ExtResource("42_45bv1")])
 tvScreen = NodePath("TVScreen")
 tvScreenSide = NodePath("TVScreenSide")
 

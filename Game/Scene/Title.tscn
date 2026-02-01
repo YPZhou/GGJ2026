@@ -22,6 +22,21 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghwbr"]
 size = Vector2(278, 447)
 
+[sub_resource type="Animation" id="Animation_e5hbd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_ifijr")]
+}
+
 [sub_resource type="Animation" id="Animation_7wypr"]
 resource_name = "sleep"
 length = 2.0
@@ -37,21 +52,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("9_ifijr"), ExtResource("10_oifpe")]
-}
-
-[sub_resource type="Animation" id="Animation_e5hbd"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("9_ifijr")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pniab"]
