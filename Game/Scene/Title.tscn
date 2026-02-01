@@ -7,13 +7,13 @@
 [ext_resource type="AudioStream" uid="uid://clmwpag3st2cr" path="res://Sound/Effect/purring.ogg" id="5_6kmno"]
 [ext_resource type="Texture2D" uid="uid://c55qjkoq682le" path="res://Res/tv_cursor.png" id="5_ghwbr"]
 [ext_resource type="AudioStream" uid="uid://u4e6r1pxfd0b" path="res://Sound/Effect/elevator_button.wav" id="5_wfnnf"]
-[ext_resource type="Texture2D" uid="uid://w5be5yug30v8" path="res://Res/cat/cat_1.png" id="6_g4ccs"]
 [ext_resource type="Texture2D" uid="uid://cqj0po8t3lbrj" path="res://Res/ui/button/开始按键默认.png" id="6_ifijr"]
 [ext_resource type="AudioStream" uid="uid://ci4xqqaoqivc7" path="res://Sound/Effect/cat3b.wav" id="6_r4yu4"]
 [ext_resource type="Texture2D" uid="uid://dexwvtcxs6aue" path="res://Res/ui/title/点击后主标题.png" id="7_jxiog"]
 [ext_resource type="Texture2D" uid="uid://7tj4u4q6vb0q" path="res://Res/ui/button/开始按键按下.png" id="7_mto7g"]
 [ext_resource type="Texture2D" uid="uid://b86ab4msofp6n" path="res://Res/ui/title/默认主标题.png" id="7_ybpwn"]
 [ext_resource type="Texture2D" uid="uid://ci2dgn355vf3n" path="res://Res/ui/title/手掌.png" id="9_6kmno"]
+[ext_resource type="Texture2D" uid="uid://c6kpcsh4y7qw7" path="res://Res/cat_sleep/猫咪睡觉1.png" id="9_ifijr"]
 [ext_resource type="Texture2D" uid="uid://bxloxes08uurw" path="res://Res/ui/button/离开默认.png" id="12_u0kn2"]
 [ext_resource type="Texture2D" uid="uid://dwef2l5rvq2tf" path="res://Res/ui/button/离开点击.png" id="13_nmykl"]
 [ext_resource type="AudioStream" uid="uid://f1lu3rvfxnqi" path="res://Sound/Effect/room_door_O.wav" id="14_nmykl"]
@@ -53,19 +53,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
+tracks/2/path = NodePath("hand:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.5, 0.5)]
+"update": 1,
+"values": [null]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("hand:texture")
+tracks/3/path = NodePath("../TV/TVScreen:material")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -77,7 +77,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../TV/TVScreen:material")
+tracks/4/path = NodePath("../TV/TVScreen:texture")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -89,58 +89,46 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../TV/TVScreen:texture")
+tracks/5/path = NodePath("../TV/TVScreen:texture:noise")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [SubResource("FastNoiseLite_ybpwn")]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../TV/TVScreen:texture:noise")
+tracks/6/path = NodePath("../TV/TVScreen:texture:noise:frequency")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("FastNoiseLite_ybpwn")]
+"update": 0,
+"values": [1.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../TV/TVScreen:texture:noise:frequency")
+tracks/7/path = NodePath("../TV/EnviSfx:stream_paused")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
+"update": 1,
+"values": [false]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("../TV/EnviSfx:stream_paused")
+tracks/8/path = NodePath("../TV/TVScreen:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("../TV/TVScreen:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -189,34 +177,22 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
+tracks/2/path = NodePath("hand:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0.5, 0.5), Vector2(0.5, 0.5)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hand:texture")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [null, ExtResource("9_6kmno")]
 }
-tracks/4/type = "audio"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../TV/CatSFX")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../TV/CatSFX")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
@@ -224,14 +200,14 @@ tracks/4/keys = {
 }],
 "times": PackedFloat32Array(0.7)
 }
-tracks/4/use_blend = true
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../TV")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/3/use_blend = true
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../TV")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(1.8),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -239,73 +215,73 @@ tracks/5/keys = {
 "method": &"ChangScene"
 }]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../TV/TVScreen:material")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [null, SubResource("ShaderMaterial_jxiog")]
+}
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../TV/TVScreen:material")
+tracks/6/path = NodePath("../TV/TVScreen:texture")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [null, SubResource("ShaderMaterial_jxiog")]
+"values": [null, SubResource("NoiseTexture2D_jxiog")]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../TV/TVScreen:texture")
+tracks/7/path = NodePath("../TV/TVScreen:texture:noise")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [null, SubResource("NoiseTexture2D_jxiog")]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("../TV/TVScreen:texture:noise")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
 "times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [SubResource("FastNoiseLite_ybpwn")]
 }
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("../TV/TVScreen:texture:noise:frequency")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../TV/TVScreen:texture:noise:frequency")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
 "times": PackedFloat32Array(0.1, 1.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.5, 1.0]
 }
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("../TV/EnviSfx:stream_paused")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../TV/EnviSfx:stream_paused")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "times": PackedFloat32Array(0, 0.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
 }
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("../TV/TVScreen:visible")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../TV/TVScreen:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
 "times": PackedFloat32Array(0, 0.1005234),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -378,11 +354,11 @@ polygon = PackedVector2Array(222, -157, 221, 15, 447, -19, 445, -119)
 uv = PackedVector2Array(0, 7, 1, 145, 360, 143, 358, 8)
 
 [node name="Cat" type="TextureRect" parent="."]
-offset_left = 1320.0
-offset_top = 476.0
-offset_right = 1875.0
-offset_bottom = 886.0
-texture = ExtResource("6_g4ccs")
+offset_left = 1184.0
+offset_top = 586.0
+offset_right = 1739.0
+offset_bottom = 996.0
+texture = ExtResource("9_ifijr")
 expand_mode = 1
 stretch_mode = 5
 
@@ -390,12 +366,12 @@ stretch_mode = 5
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -658.0
-offset_top = 39.0
-offset_right = 542.0
-offset_bottom = 499.0
+offset_left = -815.0
+offset_top = 31.999998
+offset_right = 385.0
+offset_bottom = 492.0
 grow_horizontal = 0
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("7_ybpwn")
 metadata/_edit_group_ = true
 
@@ -424,13 +400,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -101.0
-offset_top = -125.0
-offset_right = 100.0
-offset_bottom = 147.0
+offset_left = -142.0
+offset_top = -183.0
+offset_right = 59.0
+offset_bottom = 89.0
 grow_horizontal = 0
 grow_vertical = 0
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.7, 0.7)
 texture_normal = ExtResource("12_u0kn2")
 texture_pressed = ExtResource("13_nmykl")
 texture_hover = ExtResource("13_nmykl")
