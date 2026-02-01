@@ -4,10 +4,10 @@ using System;
 public partial class ResultControl : Control
 {
     [Export]
-    Button restartButton;
+    TextureButton restartButton;
 
     [Export]
-    Button backToMainMenuButton;
+    TextureButton backToMainMenuButton;
 
     [Export]
     TextureRect winTexture;
