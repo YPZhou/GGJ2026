@@ -21,6 +21,8 @@ public partial class TV : Sprite2D
 	Texture2D[] foolImage;
 	[Export]
 	Texture2D[] mosaicImage;
+	[Export]
+	Polygon2D tvScreen;
 
     [Export]
     AudioStreamPlayer2D StartSFX;
@@ -176,7 +178,7 @@ public partial class TV : Sprite2D
 	void SetImage(TVStatus status)
 	{
 		CurrentStatus = status;
-		var mat = Material as ShaderMaterial;
+		var mat = tvScreen.Material as ShaderMaterial;
 		switch (status)
 		{
 			case TVStatus.GOOD:
@@ -188,7 +190,7 @@ public partial class TV : Sprite2D
 					mat.SetShaderParameter("boost", 1.0f); // 正常亮度
 					mat.SetShaderParameter("roll_speed", 0f);
 				}
-				Texture = goodImage[GD.RandRange(0, goodImage.Length - 1)];
+				tvScreen.Texture = goodImage[GD.RandRange(0, goodImage.Length - 1)];
 				break;
 			case TVStatus.Fool:
 				if (mat != null)
@@ -199,7 +201,7 @@ public partial class TV : Sprite2D
 					mat.SetShaderParameter("boost", 1.2f);
 					mat.SetShaderParameter("roll_speed", 0.2f);
 				}
-				Texture = foolImage[GD.RandRange(0, foolImage.Length - 1)];
+				tvScreen.Texture = foolImage[GD.RandRange(0, foolImage.Length - 1)];
 				break;
 			case TVStatus.MOSAIC:
 				if (mat != null)
@@ -210,7 +212,7 @@ public partial class TV : Sprite2D
 					mat.SetShaderParameter("boost", 1.4f);
 					mat.SetShaderParameter("roll_speed", 0.4f);
 				}
-				Texture = mosaicImage[GD.RandRange(0, mosaicImage.Length - 1)];
+				tvScreen.Texture = mosaicImage[GD.RandRange(0, mosaicImage.Length - 1)];
 				break;
 		}
 	}
