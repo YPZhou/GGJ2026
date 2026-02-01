@@ -1,13 +1,12 @@
-[gd_scene load_steps=64 format=3 uid="uid://bu67nktj14ycn"]
-
+[gd_scene load_steps=65 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_togfq"]
 [ext_resource type="Script" uid="uid://bqn5s53t2w08w" path="res://Script/Hand.cs" id="2_h175a"]
 [ext_resource type="Texture2D" uid="uid://dvjhcjh71b4jh" path="res://Res/cat/cat_body.png" id="2_jupvq"]
-[ext_resource type="Texture2D" uid="uid://ca45surtl8ynh" path="res://Res/ui/tv/tv_side.png" id="2_lllnr"]
 [ext_resource type="Texture2D" uid="uid://cbgci2a08j8d2" path="res://Res/ui/tv/tv_face.png" id="3_86elt"]
 [ext_resource type="Script" uid="uid://16ls0u8j2swi" path="res://Script/TV.cs" id="3_togfq"]
+[ext_resource type="Texture2D" uid="uid://ca45surtl8ynh" path="res://Res/ui/tv/tv_side.png" id="3_vppcx"]
 [ext_resource type="Texture2D" uid="uid://jwx4u33agyvd" path="res://Res/cat/cat_neck_seg_1.png" id="4_jupvq"]
 [ext_resource type="Texture2D" uid="uid://dtkdrumtq2rxy" path="res://Res/cat/cat_head.png" id="5_jupvq"]
 [ext_resource type="Texture2D" uid="uid://106kewiv0f0w" path="res://Res/tv_good/电视画幅-meme-01.png" id="6_cjptb"]
@@ -113,7 +112,7 @@ _data = {
 &"happy": SubResource("Animation_lllnr")
 }
 
-[node name="MainGameScene" type="Control" node_paths=PackedStringArray("resultControl", "cat", "hand", "tv", "timeBar", "timeHint", "catSanUI")]
+[node name="MainGameScene" type="Control" node_paths=PackedStringArray("resultControl", "cat", "hand", "tv", "timeHint", "catSanUI")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,7 +125,6 @@ resultControl = NodePath("ResultControl")
 cat = NodePath("Cat")
 hand = NodePath("Hand")
 tv = NodePath("TV")
-timeBar = NodePath("")
 timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 totalTime = 30.0
@@ -139,7 +137,7 @@ texture = ExtResource("3_86elt")
 [node name="TVSide" type="Sprite2D" parent="."]
 position = Vector2(332.9999, 572)
 scale = Vector2(0.41080734, 0.4108073)
-texture = ExtResource("2_lllnr")
+texture = ExtResource("3_vppcx")
 
 [node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea", "gizmo")]
 position = Vector2(711, 721)
