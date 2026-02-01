@@ -20,11 +20,13 @@ public partial class Game : Node
 
 	[Export] Sprite2D tvFace;
 
+	[Export] TextureButton exit_btn;
+
 	[Export] double totalTime; // 单局时长，30秒
 	public double ElapsedTime  { get; private set; } = 0;
-	double RemainingTIme => totalTime - ElapsedTime;
+	double RemainingTIme => ElapsedTime;
 
-	public bool IsGameEnd => ElapsedTime >= totalTime || !cat.IsAlive;
+	public bool IsGameEnd => ElapsedTime <= 0 || !cat.IsAlive;
 
 	public GameState CurrentGameState { get; private set; } = GameState.Playing;
 
@@ -53,8 +55,9 @@ public partial class Game : Node
 	public override void _Ready()
 	{
 		base._Ready();
-		ElapsedTime = 0;
+		ElapsedTime = totalTime;
 		timeBar.MaxValue = totalTime;
+		timeBar.Value = totalTime;
 		UpdateTimeHint(RemainingTIme);
 		handTransform = hand.Transform;
 		resultControl.Visible = false;
@@ -62,7 +65,15 @@ public partial class Game : Node
 
 		SetupFadeInTween(tvFace);
 		EnterState(GameState.Playing);
-	}
+
+		exit_btn.Pressed += () =>
+		{
+            AudioManager.Instance.PauseBGM();
+			AudioManager.Instance.PlaySFX(AudioManager.EAudioSFX.OpenDoor);
+            GetTree().ChangeSceneToFile("res://Scene/Title.tscn");
+        };
+
+    }
 
 	void SetupFadeInTween(Node2D node)
 	{
@@ -134,7 +145,7 @@ public partial class Game : Node
 	{
 		if (!IsGameEnd)
 		{
-			ElapsedTime += delta;
+			ElapsedTime -= delta;
 			timeBar.Value = ElapsedTime;
 			UpdateTimeHint(RemainingTIme);
 			UpdateCatSanUI();

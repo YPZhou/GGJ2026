@@ -12,6 +12,7 @@ public partial class AudioManager : Control
         GoodImg,
         NormImg,
         BadImg,
+        OpenDoor,
     }
 
     public static AudioManager Instance { get; private set; }

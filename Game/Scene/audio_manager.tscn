@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cimsp704ykul0"]
+[gd_scene load_steps=10 format=3 uid="uid://cimsp704ykul0"]
 
 [ext_resource type="Script" uid="uid://bdkkpymy1jfsm" path="res://Scene/AudioManager.cs" id="1_fmqd6"]
 [ext_resource type="AudioStream" uid="uid://b4wbmbr4eks0p" path="res://Sound/BGM/制樂厂Musiceuticals - Penguin's Game-8bit（兔子舞）.ogg" id="1_uux71"]
 [ext_resource type="AudioStream" uid="uid://c045jgmmmyrcl" path="res://Sound/Effect/cat_like1a.wav" id="2_hmrhg"]
 [ext_resource type="AudioStream" uid="uid://cj35cqd4h17ej" path="res://Sound/Effect/swish1_1.wav" id="4_gp5ax"]
 [ext_resource type="AudioStream" uid="uid://u4e6r1pxfd0b" path="res://Sound/Effect/elevator_button.wav" id="4_hmrhg"]
+[ext_resource type="AudioStream" uid="uid://d3ug80ibmtj3y" path="res://Sound/Effect/mobile_phone_O.wav" id="5_mtrov"]
+[ext_resource type="AudioStream" uid="uid://c0hcibc508wqr" path="res://Sound/Effect/mobile_phone_C.wav" id="6_t0e50"]
+[ext_resource type="AudioStream" uid="uid://bri2s8js45ucq" path="res://Sound/Effect/damage1.wav" id="7_t0e50"]
+[ext_resource type="AudioStream" uid="uid://f1lu3rvfxnqi" path="res://Sound/Effect/room_door_O.wav" id="8_av0mf"]
 
 [node name="AudioManager" type="Control" node_paths=PackedStringArray("BGM", "SFXPlayers")]
 layout_mode = 3
@@ -17,11 +21,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fmqd6")
 BGM = NodePath("BGM/BGM")
-SFXPlayers = [NodePath("SFX/SFX1"), NodePath("SFX/SFX2"), NodePath("SFX/SFX3"), NodePath("SFX/SFX4"), NodePath("SFX/SFX5")]
+SFXPlayers = [NodePath("SFX/SFX1"), NodePath("SFX/SFX2"), NodePath("SFX/SFX3"), NodePath("SFX/SFX4"), NodePath("SFX/SFX5"), NodePath("SFX/SFX6"), NodePath("SFX/SFX7"), NodePath("SFX/SFX8"), NodePath("SFX/SFX9"), NodePath("SFX/SFX10"), NodePath("SFX/SFX11"), NodePath("SFX/SFX12"), NodePath("SFX/SFX13"), NodePath("SFX/SFX14"), NodePath("SFX/SFX15"), NodePath("SFX/SFX16"), NodePath("SFX/SFX17"), NodePath("SFX/SFX18"), NodePath("SFX/SFX19"), NodePath("SFX/SFX20")]
 SFXs = Dictionary[int, AudioStream]({
 0: ExtResource("2_hmrhg"),
 1: ExtResource("4_hmrhg"),
-2: ExtResource("4_gp5ax")
+2: ExtResource("4_gp5ax"),
+3: ExtResource("5_mtrov"),
+4: ExtResource("6_t0e50"),
+5: ExtResource("7_t0e50"),
+6: ExtResource("8_av0mf")
 })
 
 [node name="BGM" type="Node" parent="."]
@@ -34,16 +42,81 @@ parameters/looping = true
 [node name="SFX" type="Node" parent="."]
 
 [node name="SFX1" type="AudioStreamPlayer2D" parent="SFX"]
-bus = &"Effect"
+volume_db = -20.0
+bus = &"Effect1"
 
 [node name="SFX2" type="AudioStreamPlayer2D" parent="SFX"]
-bus = &"Effect"
+volume_db = -20.0
+bus = &"Effect1"
 
 [node name="SFX3" type="AudioStreamPlayer2D" parent="SFX"]
-bus = &"Effect"
+volume_db = -20.0
+bus = &"Effect1"
 
 [node name="SFX4" type="AudioStreamPlayer2D" parent="SFX"]
-bus = &"Effect"
+volume_db = -20.0
+bus = &"Effect1"
 
 [node name="SFX5" type="AudioStreamPlayer2D" parent="SFX"]
-bus = &"Effect"
+volume_db = -20.0
+bus = &"Effect1"
+
+[node name="SFX6" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect2"
+
+[node name="SFX7" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect2"
+
+[node name="SFX8" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect2"
+
+[node name="SFX9" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect2"
+
+[node name="SFX10" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect2"
+
+[node name="SFX11" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect3"
+
+[node name="SFX12" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect3"
+
+[node name="SFX13" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect3"
+
+[node name="SFX14" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect3"
+
+[node name="SFX15" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect3"
+
+[node name="SFX16" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect4"
+
+[node name="SFX17" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect4"
+
+[node name="SFX18" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect4"
+
+[node name="SFX19" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect4"
+
+[node name="SFX20" type="AudioStreamPlayer2D" parent="SFX"]
+volume_db = -20.0
+bus = &"Effect4"

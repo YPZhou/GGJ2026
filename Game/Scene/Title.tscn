@@ -372,17 +372,14 @@ uv = PackedVector2Array(0, 0, 0, 512, 512, 512, 512, 0)
 
 [node name="StartSFX" type="AudioStreamPlayer2D" parent="TV"]
 stream = ExtResource("5_wfnnf")
-bus = &"Effect"
 
 [node name="CatSFX" type="AudioStreamPlayer2D" parent="TV"]
 volume_db = -10.0
-bus = &"Effect"
 
 [node name="EnviSfx" type="AudioStreamPlayer2D" parent="TV"]
 stream = ExtResource("5_6kmno")
 volume_db = -12.0
 autoplay = true
-bus = &"Effect"
 parameters/looping = true
 
 [node name="Area2D" type="Area2D" parent="TV"]
@@ -458,6 +455,7 @@ offset_bottom = 63.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.8, 0.8)
+tooltip_text = "退出游戏"
 texture_normal = ExtResource("12_u0kn2")
 texture_pressed = ExtResource("13_nmykl")
 texture_hover = ExtResource("13_nmykl")

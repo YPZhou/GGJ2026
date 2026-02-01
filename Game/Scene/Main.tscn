@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=78 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Script" uid="uid://ctpf6j6uca62b" path="res://Script/Game.cs" id="1_togfq"]
@@ -67,6 +67,8 @@
 [ext_resource type="Texture2D" uid="uid://ciaql7c1jeg8w" path="res://Res/ui/button/重新挑战按下.png" id="57_45bv1"]
 [ext_resource type="Texture2D" uid="uid://xjq73x8rcj3n" path="res://Res/ui/button/返回标题默认.png" id="58_nqw0k"]
 [ext_resource type="Texture2D" uid="uid://ddfdv3vmf1cqu" path="res://Res/ui/button/返回标题按下.png" id="59_8xa3c"]
+[ext_resource type="Texture2D" uid="uid://bxloxes08uurw" path="res://Res/ui/button/离开默认.png" id="68_adsry"]
+[ext_resource type="Texture2D" uid="uid://dwef2l5rvq2tf" path="res://Res/ui/button/离开点击.png" id="69_iv5a6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vm4ek"]
 shader = ExtResource("6_yg4ot")
@@ -124,7 +126,7 @@ _data = {
 &"happy": SubResource("Animation_lllnr")
 }
 
-[node name="MainGameScene" type="Control" node_paths=PackedStringArray("resultControl", "cat", "hand", "tv", "timeBar", "timeHint", "catSanUI", "tvFace")]
+[node name="MainGameScene" type="Control" node_paths=PackedStringArray("resultControl", "cat", "hand", "tv", "timeBar", "timeHint", "catSanUI", "tvFace", "exit_btn")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -141,6 +143,7 @@ timeBar = NodePath("GameTime")
 timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 tvFace = NodePath("TV/TrueTV")
+exit_btn = NodePath("btn_exti")
 totalTime = 30.0
 
 [node name="TVFace" type="Sprite2D" parent="."]
@@ -424,11 +427,9 @@ grow_vertical = 2
 
 [node name="WinSFX" type="AudioStreamPlayer2D" parent="ResultControl/SFX"]
 stream = ExtResource("50_6b3h5")
-bus = &"Effect"
 
 [node name="FailSFX" type="AudioStreamPlayer2D" parent="ResultControl/SFX"]
 stream = ExtResource("51_qtu3h")
-bus = &"Effect"
 
 [node name="CatSan" type="Control" parent="." node_paths=PackedStringArray("progressBar")]
 custom_minimum_size = Vector2(559, 167)
@@ -445,6 +446,7 @@ offset_bottom = -2.9993896
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.8, 0.8)
+tooltip_text = "SAN值"
 script = ExtResource("11_vm4ek")
 progressBar = NodePath("SanTextureProgressBar")
 metadata/_edit_group_ = true
@@ -472,3 +474,16 @@ offset_left = -50.0
 offset_right = 509.0
 offset_bottom = 167.0
 texture = ExtResource("56_goe3w")
+
+[node name="btn_exti" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 916.0
+offset_right = 144.0
+offset_bottom = 1094.0
+tooltip_text = "返回标题"
+texture_normal = ExtResource("68_adsry")
+texture_pressed = ExtResource("69_iv5a6")
+texture_hover = ExtResource("69_iv5a6")
+ignore_texture_size = true
+stretch_mode = 5
