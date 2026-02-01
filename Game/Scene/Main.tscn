@@ -47,7 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://cyxk4df03rr2x" path="res://Res/hand/平常手.png" id="37_n044j"]
 [ext_resource type="Texture2D" uid="uid://cqbjvn760wba8" path="res://Res/ui/bar/时间进度框.png" id="43_6b3h5"]
 [ext_resource type="Texture2D" uid="uid://0j5p701kv14g" path="res://Res/ui/bar/时间进度条.png" id="44_qtu3h"]
-[ext_resource type="PackedScene" path="res://Scene/control_tips.tscn" id="44_vs8fc"]
+[ext_resource type="PackedScene" uid="uid://c7vav3ysovknj" path="res://Scene/control_tips.tscn" id="44_vs8fc"]
 [ext_resource type="Texture2D" uid="uid://dabypj0qrb1is" path="res://Res/ui/bar/时间图标钟.png" id="45_qtu3h"]
 [ext_resource type="Texture2D" uid="uid://hvvlsjfjwts2" path="res://Res/ui/result/结算页面-success.png" id="46_clf5q"]
 [ext_resource type="Texture2D" uid="uid://bp8solqpkwl6" path="res://Res/ui/result/跳跳小猫-02.png" id="47_r8yv8"]
@@ -304,9 +304,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="GameTime"]
-layout_mode = 0
-offset_right = 1485.0
-offset_bottom = 131.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -65.5
+offset_right = 1421.0
+offset_bottom = 65.5
+grow_vertical = 2
 texture = ExtResource("45_qtu3h")
 
 [node name="ResultControl" type="Control" parent="." node_paths=PackedStringArray("restartButton", "backToMainMenuButton", "winTexture", "failTexture", "WinSFX", "FaildSFX")]
@@ -449,12 +455,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -465.0
-offset_top = -186.0
-offset_right = 94.0
-offset_bottom = -18.99939
+offset_left = -457.0
+offset_top = -170.0
+offset_right = 102.0
+offset_bottom = -2.9993896
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(0.8, 0.8)
 script = ExtResource("11_vm4ek")
 progressBar = NodePath("SanTextureProgressBar")
 metadata/_edit_group_ = true
@@ -478,6 +485,7 @@ texture_progress = ExtResource("55_5u6qd")
 
 [node name="Icon" type="TextureRect" parent="CatSan"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -50.0
+offset_right = 509.0
+offset_bottom = 167.0
 texture = ExtResource("56_goe3w")
