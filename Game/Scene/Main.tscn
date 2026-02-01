@@ -119,7 +119,7 @@ _data = {
 &"happy": SubResource("Animation_lllnr")
 }
 
-[node name="MainGameScene" type="Control" node_paths=PackedStringArray("resultControl", "cat", "hand", "tv", "timeBar", "timeHint", "catSanUI", "tvFace", "tvScreen")]
+[node name="MainGameScene" type="Control" node_paths=PackedStringArray("resultControl", "cat", "hand", "tv", "timeBar", "timeHint", "catSanUI", "tvFace")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -136,16 +136,15 @@ timeBar = NodePath("GameTime")
 timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 tvFace = NodePath("TV/TrueTV")
-tvScreen = NodePath("TV/TrueTV/TVScreen")
 totalTime = 30.0
-
-[node name="TVSide" type="Sprite2D" parent="."]
-position = Vector2(960, 540)
-texture = ExtResource("3_vs8fc")
 
 [node name="TVFace" type="Sprite2D" parent="."]
 position = Vector2(1412, 540)
 texture = ExtResource("3_3uymx")
+
+[node name="TVSide" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("3_vs8fc")
 
 [node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea", "gizmo")]
 position = Vector2(846, 755)
