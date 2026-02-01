@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cimsp704ykul0"]
+[gd_scene load_steps=5 format=3 uid="uid://cimsp704ykul0"]
 
 [ext_resource type="Script" uid="uid://bdkkpymy1jfsm" path="res://Scene/AudioManager.cs" id="1_fmqd6"]
 [ext_resource type="AudioStream" uid="uid://b4wbmbr4eks0p" path="res://Sound/BGM/制樂厂Musiceuticals - Penguin's Game-8bit（兔子舞）.ogg" id="1_uux71"]
+[ext_resource type="AudioStream" uid="uid://c045jgmmmyrcl" path="res://Sound/Effect/cat_like1a.wav" id="2_hmrhg"]
+[ext_resource type="AudioStream" uid="uid://u4e6r1pxfd0b" path="res://Sound/Effect/elevator_button.wav" id="4_hmrhg"]
 
-[node name="AudioManager" type="Control" node_paths=PackedStringArray("BGM")]
+[node name="AudioManager" type="Control" node_paths=PackedStringArray("BGM", "SFX")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -13,8 +15,20 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fmqd6")
-BGM = NodePath("BGM")
+BGM = NodePath("BGM/BGM")
+SFX = NodePath("SFX/SFX")
+SFXs = Dictionary[int, AudioStream]({
+0: ExtResource("2_hmrhg"),
+1: ExtResource("4_hmrhg")
+})
 
-[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+[node name="BGM" type="Node" parent="."]
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="BGM"]
+position = Vector2(960, 540)
 stream = ExtResource("1_uux71")
 parameters/looping = true
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="SFX"]

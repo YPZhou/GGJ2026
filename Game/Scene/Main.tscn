@@ -346,19 +346,14 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.7058824)
 
 [node name="Win" type="TextureRect" parent="ResultControl"]
-visible = false
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
 offset_left = -680.0
-offset_top = -500.0
 offset_right = 680.0
-offset_bottom = 500.0
+offset_bottom = 1000.0
 grow_horizontal = 2
-grow_vertical = 2
 texture = ExtResource("46_clf5q")
 stretch_mode = 5
 
@@ -386,17 +381,13 @@ autoplay = "happy"
 [node name="Filed" type="TextureRect" parent="ResultControl"]
 visible = false
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
 offset_left = -680.0
-offset_top = -500.0
 offset_right = 680.0
-offset_bottom = 500.0
+offset_bottom = 1000.0
 grow_horizontal = 2
-grow_vertical = 2
 texture = ExtResource("49_lllnr")
 
 [node name="RestartButton" type="TextureButton" parent="ResultControl"]
@@ -407,9 +398,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -444.0
-offset_top = -168.0
+offset_top = -218.0
 offset_right = -80.0
-offset_bottom = -20.0
+offset_bottom = -70.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("56_a8wfw")
@@ -424,9 +415,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = 19.0
-offset_top = -167.0
+offset_top = -217.0
 offset_right = 383.0
-offset_bottom = -19.0
+offset_bottom = -69.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("58_nqw0k")

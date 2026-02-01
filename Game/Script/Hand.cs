@@ -101,6 +101,7 @@ public partial class Hand : Sprite2D
         {
             GD.Print("Touching Cat Head!");
             cat.SetMasked(true);
+            AudioManager.Instance.PlaySFX(AudioManager.EAudioSFX.Cat);
         }
     }
 
