@@ -34,6 +34,13 @@ public partial class StartTv : Sprite2D
 	[Export]
 	TextureRect tutorial;
 
+    [Export]
+    Button btn_creditor;
+
+    [Export]
+    Control Staff;
+
+
     public override void _Ready()
     {
         if (area2D == null)
@@ -77,6 +84,11 @@ public partial class StartTv : Sprite2D
         OpenDoor_SFX.Finished += () =>
         {
             GetTree().Quit();
+        };
+
+        btn_creditor.Pressed += () =>
+        {
+            Staff.Visible = true;
         };
     }
 
