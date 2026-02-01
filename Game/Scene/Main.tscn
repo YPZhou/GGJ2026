@@ -153,6 +153,9 @@ text = "猫身"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CatNecks" type="Node2D" parent="Cat"]
+position = Vector2(-33, -102)
+
 [node name="CatHead" type="Node2D" parent="Cat"]
 position = Vector2(-33, -102)
 
@@ -166,14 +169,10 @@ position = Vector2(-181.25, -56.25)
 shape = SubResource("RectangleShape2D_4qtod")
 
 [node name="Sprite2D" type="Sprite2D" parent="Cat/CatHead"]
-z_index = 1
 position = Vector2(-14.999999, -58.999992)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_jupvq")
 offset = Vector2(226, 626)
-
-[node name="CatNecks" type="Node2D" parent="Cat"]
-position = Vector2(-33, -102)
 
 [node name="Gizmo" type="Node2D" parent="Cat"]
 script = ExtResource("7_cd6bo")
