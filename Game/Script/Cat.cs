@@ -94,7 +94,7 @@ public partial class Cat : Sprite2D
 		San = 100;
 
 		CheckRes();
-
+		headTimer = 0;
 		currentHeadTargetPos = GenerateRandomCatHeadPosition();
 
 		// 初始生成脖子
@@ -107,13 +107,16 @@ public partial class Cat : Sprite2D
 
 		if (IsAlive && game.CurrentGameState == GameState.Playing)
 		{
-			if (CurrentStatus == TVStatus.GOOD)
+			switch (CurrentStatus)
 			{
-				
-			}
-			else if (CurrentStatus == TVStatus.Fool)
-			{
-				
+				case TVStatus.MOSAIC:
+				case TVStatus.Fool:
+				TickCatHeadPosGen(delta);
+					
+					break;
+				default:
+				case TVStatus.GOOD:
+					break;
 			}
 
 			if (MoveHead(delta))
@@ -129,6 +132,16 @@ public partial class Cat : Sprite2D
 			}
 			
 			TickSan(delta, CurrentStatus);
+		}
+	}
+
+	void TickCatHeadPosGen(double delta){
+		headTimer += delta;
+		if (headTimer >= HeadMoveInterval)
+		{
+			currentHeadTargetPos = GenerateRandomCatHeadPosition();
+			GD.Print($"{nameof(Cat)}: New head position: {currentHeadTargetPos}");
+			headTimer = 0;
 		}
 	}
 
