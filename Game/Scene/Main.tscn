@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bu67nktj14ycn"]
+[gd_scene load_steps=64 format=3 uid="uid://bu67nktj14ycn"]
 
 [ext_resource type="Script" uid="uid://c5jihcwcsx36b" path="res://Script/Cat.cs" id="1_djkur"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://icon.svg" id="1_h175a"]
@@ -44,12 +44,18 @@
 [ext_resource type="Texture2D" uid="uid://cjoxy6nkkd355" path="res://Res/tv_mosaic/3.png" id="21_g6i1l"]
 [ext_resource type="Texture2D" uid="uid://bvrvjn5g4grfc" path="res://Res/tv_mosaic/4.png" id="22_reyx0"]
 [ext_resource type="Texture2D" uid="uid://cyxk4df03rr2x" path="res://Res/hand/平常手.png" id="37_n044j"]
+[ext_resource type="Texture2D" uid="uid://cqbjvn760wba8" path="res://Res/ui/bar/时间进度框.png" id="43_6b3h5"]
+[ext_resource type="Texture2D" uid="uid://0j5p701kv14g" path="res://Res/ui/bar/时间进度条.png" id="44_qtu3h"]
+[ext_resource type="Texture2D" uid="uid://dabypj0qrb1is" path="res://Res/ui/bar/时间图标钟.png" id="45_qtu3h"]
 [ext_resource type="Texture2D" uid="uid://hvvlsjfjwts2" path="res://Res/ui/result/结算页面-success.png" id="46_clf5q"]
 [ext_resource type="Texture2D" uid="uid://bp8solqpkwl6" path="res://Res/ui/result/跳跳小猫-02.png" id="47_r8yv8"]
 [ext_resource type="Texture2D" uid="uid://yebydlcc21vc" path="res://Res/ui/result/跳跳小猫-01.png" id="48_wd3ae"]
 [ext_resource type="Texture2D" uid="uid://bc6y4k4tvtm72" path="res://Res/ui/result/结算页面-OVER.png" id="49_lllnr"]
 [ext_resource type="AudioStream" uid="uid://bp8k6ieqbn1r8" path="res://Sound/Effect/HappyCat.wav" id="50_6b3h5"]
 [ext_resource type="AudioStream" uid="uid://72ot4hxs5om8" path="res://Sound/Effect/RoaringBlackCat.wav" id="51_qtu3h"]
+[ext_resource type="Texture2D" uid="uid://b3vt68tjwvtv4" path="res://Res/ui/bar/san值条.png" id="54_ps337"]
+[ext_resource type="Texture2D" uid="uid://cc1813hxki0cu" path="res://Res/ui/bar/san值储蓄条.png" id="55_5u6qd"]
+[ext_resource type="Texture2D" uid="uid://nagsftw4jerl" path="res://Res/ui/bar/san值图标猫头.png" id="56_goe3w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qtod"]
 size = Vector2(356.25, 193.75)
@@ -118,7 +124,7 @@ resultControl = NodePath("ResultControl")
 cat = NodePath("Cat")
 hand = NodePath("Hand")
 tv = NodePath("TV")
-timeBar = NodePath("GameTime")
+timeBar = NodePath("")
 timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 totalTime = 30.0
@@ -234,7 +240,7 @@ collision_mask = 7
 position = Vector2(-0.5, -3)
 shape = SubResource("RectangleShape2D_jupvq")
 
-[node name="GameTime" type="ProgressBar" parent="."]
+[node name="GameTime" type="TextureProgressBar" parent="."]
 custom_minimum_size = Vector2(960, 40)
 layout_mode = 1
 anchors_preset = 5
@@ -247,8 +253,9 @@ offset_bottom = 50.0
 grow_horizontal = 2
 max_value = 30.0
 step = 0.1
-value = 5.0
-show_percentage = false
+value = 30.0
+texture_under = ExtResource("43_6b3h5")
+texture_progress = ExtResource("44_qtu3h")
 
 [node name="Time" type="Label" parent="GameTime"]
 layout_mode = 1
@@ -257,9 +264,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 48
 text = "时间 30:00s"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="GameTime"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("45_qtu3h")
 
 [node name="ResultControl" type="Control" parent="." node_paths=PackedStringArray("restartButton", "backToMainMenuButton", "winTexture", "failTexture", "WinSFX", "FaildSFX")]
 visible = false
@@ -393,29 +407,42 @@ bus = &"Effect"
 stream = ExtResource("51_qtu3h")
 bus = &"Effect"
 
-[node name="CatSan" type="Control" parent="." node_paths=PackedStringArray("progressBar")]
-visible = false
-modulate = Color(1, 0.28627452, 0.14901961, 1)
+[node name="CatSan" type="Control" parent="."]
+custom_minimum_size = Vector2(559, 167)
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -893.0
-offset_top = -69.0
-grow_horizontal = 0
+offset_left = -279.5
+offset_top = -190.0
+offset_right = 279.5
+offset_bottom = -22.99939
+grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("11_vm4ek")
-progressBar = NodePath("SanTextureProgressBar")
+metadata/_edit_group_ = true
 
-[node name="SanTextureProgressBar" type="ProgressBar" parent="CatSan"]
+[node name="SanTextureProgressBar" type="TextureProgressBar" parent="CatSan"]
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -13.5
-offset_bottom = 13.5
+offset_left = -279.5
+offset_top = -83.5
+offset_right = 279.5
+offset_bottom = 83.5
 grow_horizontal = 2
 grow_vertical = 2
+value = 50.0
+texture_under = ExtResource("54_ps337")
+texture_progress = ExtResource("55_5u6qd")
+
+[node name="Icon" type="TextureRect" parent="CatSan"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("56_goe3w")

@@ -14,7 +14,7 @@ public partial class Game : Node
 	[Export] Hand hand;
 	[Export] TV tv;
 
-	[Export] ProgressBar timeBar;
+	[Export] TextureProgressBar timeBar;
 	[Export] Label timeHint;
 	[Export] CatSanUI catSanUI;
 
