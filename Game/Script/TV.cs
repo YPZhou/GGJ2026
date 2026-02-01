@@ -206,6 +206,7 @@ public partial class TV : Sprite2D
 				var goodTexture = goodImage[GD.RandRange(0, goodImage.Length - 1)];
 				tvScreen.Texture = goodTexture;
 				tvScreenSide.Texture = goodTexture;
+
 				break;
 			case TVStatus.Fool:
 				if (mat != null)
@@ -229,7 +230,8 @@ public partial class TV : Sprite2D
 				var foolTexture = foolImage[GD.RandRange(0, foolImage.Length - 1)];
 				tvScreen.Texture = foolTexture;
 				tvScreenSide.Texture = foolTexture;
-				break;
+
+                break;
 			case TVStatus.MOSAIC:
 				if (mat != null)
 				{
@@ -252,7 +254,8 @@ public partial class TV : Sprite2D
 				var mosaicTexture = mosaicImage[GD.RandRange(0, mosaicImage.Length - 1)];
 				tvScreen.Texture = mosaicTexture;
 				tvScreenSide.Texture = mosaicTexture;
-				break;
+
+                break;
 		}
 	}
 
