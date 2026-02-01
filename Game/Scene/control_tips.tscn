@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7vav3ysovknj"]
+[gd_scene load_steps=10 format=3 uid="uid://c7vav3ysovknj"]
 
 [ext_resource type="Script" uid="uid://5185xio7om8p" path="res://Scene/ControlTips.cs" id="1_3xnqt"]
 [ext_resource type="Texture2D" uid="uid://dsqe3e80x4jy8" path="res://Res/ui/button/W默认.png" id="1_hbucx"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://5xcerxrijxwy" path="res://Res/ui/button/S默认.png" id="3_8u2tp"]
 [ext_resource type="Texture2D" uid="uid://djopgn57tvosp" path="res://Res/ui/button/D默认.png" id="4_hgega"]
 [ext_resource type="Texture2D" uid="uid://y35u8n28y6cw" path="res://Res/ui/button/S点击.png" id="5_hef45"]
+[ext_resource type="Texture2D" uid="uid://cwb8k35m28v1y" path="res://Res/ui/button/A默认.png" id="5_toi7p"]
 [ext_resource type="Texture2D" uid="uid://cv5mhlkiv147c" path="res://Res/ui/button/D点击.png" id="7_toi7p"]
 
 [node name="ControlTips" type="Control" node_paths=PackedStringArray("BtnW", "BtnA", "BtnS", "BtnD")]
@@ -14,7 +15,7 @@ custom_minimum_size = Vector2(380, 255)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_3xnqt")
-texture2Ds = Array[Texture2D]([ExtResource("2_tydgk"), ExtResource("1_hbucx"), ExtResource("2_3xnqt"), ExtResource("2_3xnqt"), ExtResource("5_hef45"), ExtResource("3_8u2tp"), ExtResource("7_toi7p"), ExtResource("4_hgega")])
+texture2Ds = Array[Texture2D]([ExtResource("2_tydgk"), ExtResource("1_hbucx"), ExtResource("2_3xnqt"), ExtResource("5_toi7p"), ExtResource("5_hef45"), ExtResource("3_8u2tp"), ExtResource("7_toi7p"), ExtResource("4_hgega")])
 BtnW = NodePath("W")
 BtnA = NodePath("A")
 BtnS = NodePath("S")
@@ -39,7 +40,7 @@ anchor_bottom = 1.0
 offset_top = -124.0
 offset_right = 122.0
 grow_vertical = 0
-texture = ExtResource("2_3xnqt")
+texture = ExtResource("5_toi7p")
 
 [node name="S" type="TextureRect" parent="."]
 layout_mode = 1

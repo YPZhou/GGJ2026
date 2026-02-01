@@ -1,11 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://bjpvbkw0552u1"]
+[gd_scene load_steps=29 format=3 uid="uid://bjpvbkw0552u1"]
 
 [ext_resource type="Texture2D" uid="uid://ca45surtl8ynh" path="res://Res/ui/tv/tv_side.png" id="1_84rv1"]
 [ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="1_jxiog"]
+[ext_resource type="Texture2D" uid="uid://cyy7vnbof5688" path="res://Res/ui/button/遥控器.png" id="3_oifpe"]
 [ext_resource type="PackedScene" uid="uid://bu67nktj14ycn" path="res://Scene/Main.tscn" id="4_ghwbr"]
 [ext_resource type="Script" uid="uid://br3ixx2smra0d" path="res://Scene/StartTv.cs" id="4_r4yu4"]
 [ext_resource type="AudioStream" uid="uid://clmwpag3st2cr" path="res://Sound/Effect/purring.ogg" id="5_6kmno"]
-[ext_resource type="Texture2D" uid="uid://c55qjkoq682le" path="res://Res/tv_cursor.png" id="5_ghwbr"]
 [ext_resource type="AudioStream" uid="uid://u4e6r1pxfd0b" path="res://Sound/Effect/elevator_button.wav" id="5_wfnnf"]
 [ext_resource type="Texture2D" uid="uid://cqj0po8t3lbrj" path="res://Res/ui/button/开始按键默认.png" id="6_ifijr"]
 [ext_resource type="AudioStream" uid="uid://ci4xqqaoqivc7" path="res://Sound/Effect/cat3b.wav" id="6_r4yu4"]
@@ -14,12 +14,51 @@
 [ext_resource type="Texture2D" uid="uid://b86ab4msofp6n" path="res://Res/ui/title/默认主标题.png" id="7_ybpwn"]
 [ext_resource type="Texture2D" uid="uid://ci2dgn355vf3n" path="res://Res/ui/title/手掌.png" id="9_6kmno"]
 [ext_resource type="Texture2D" uid="uid://c6kpcsh4y7qw7" path="res://Res/cat_sleep/猫咪睡觉1.png" id="9_ifijr"]
+[ext_resource type="Texture2D" uid="uid://e0ejh736vhvb" path="res://Res/cat_sleep/猫咪睡觉2.png" id="10_oifpe"]
 [ext_resource type="Texture2D" uid="uid://bxloxes08uurw" path="res://Res/ui/button/离开默认.png" id="12_u0kn2"]
 [ext_resource type="Texture2D" uid="uid://dwef2l5rvq2tf" path="res://Res/ui/button/离开点击.png" id="13_nmykl"]
 [ext_resource type="AudioStream" uid="uid://f1lu3rvfxnqi" path="res://Sound/Effect/room_door_O.wav" id="14_nmykl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghwbr"]
 size = Vector2(278, 447)
+
+[sub_resource type="Animation" id="Animation_7wypr"]
+resource_name = "sleep"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.2, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("9_ifijr"), ExtResource("10_oifpe")]
+}
+
+[sub_resource type="Animation" id="Animation_e5hbd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_ifijr")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pniab"]
+_data = {
+&"RESET": SubResource("Animation_e5hbd"),
+&"sleep": SubResource("Animation_7wypr")
+}
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ybpwn"]
 frequency = 0.5
@@ -310,7 +349,7 @@ stretch_mode = 5
 position = Vector2(398, 499)
 script = ExtResource("4_r4yu4")
 area2D = NodePath("Area2D")
-cursorTexture = ExtResource("5_ghwbr")
+cursorTexture = ExtResource("3_oifpe")
 GameScene = ExtResource("4_ghwbr")
 StarFX = NodePath("StartSFX")
 CatFX = NodePath("CatSFX")
@@ -361,6 +400,12 @@ offset_bottom = 996.0
 texture = ExtResource("9_ifijr")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="CatAnimPlayer" type="AnimationPlayer" parent="Cat"]
+libraries = {
+&"": SubResource("AnimationLibrary_pniab")
+}
+autoplay = "sleep"
 
 [node name="title" type="TextureRect" parent="."]
 anchors_preset = 1
