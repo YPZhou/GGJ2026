@@ -142,7 +142,9 @@ public partial class Cat : Sprite2D
 			currentHeadTargetPos = GenerateRandomCatHeadPosition();
 			GD.Print($"{nameof(Cat)}: New head position: {currentHeadTargetPos}");
 			headTimer = 0;
-		}
+
+            AudioManager.Instance.PlaySFX(AudioManager.EAudioSFX.CatMove);
+        }
 	}
 
 	Vector2 GenerateRandomCatHeadPosition()
@@ -173,7 +175,7 @@ public partial class Cat : Sprite2D
 			catHead.Position = catHead.Position.Lerp(currentHeadTargetPos, t);
 			currentCp1 = currentCp1.Lerp(targetCp1, t);
 			currentCp2 = currentCp2.Lerp(targetCp2, t);
-			return true;
+            return true;
 		}
 		else if (catHead.Position != currentHeadTargetPos)
 		{
@@ -279,8 +281,10 @@ public partial class Cat : Sprite2D
 
 				// 应用变换
 				var segment = neckSegmentNodes[i];
-				segment.Position = position - catNecksParent.Position + new Vector2(25, 25);
-				segment.Scale = new Vector2(0.13f * scaleRatio, 0.13f * scaleRatio);
+				//segment.Position = position - catNecksParent.Position + new Vector2(25, 25);
+				//segment.Scale = new Vector2(0.13f * scaleRatio, 0.13f * scaleRatio);
+
+				segment.Position = position - catNecksParent.Position + new Vector2(-5, -25);
 				// segment.Rotation = rotation;
 			}
 			

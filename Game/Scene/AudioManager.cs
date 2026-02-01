@@ -8,13 +8,17 @@ public partial class AudioManager : Control
     {
         Cat,
         TV,
+        CatMove,
+        GoodImg,
+        NormImg,
+        BadImg,
     }
 
     public static AudioManager Instance { get; private set; }
 
     [Export] AudioStreamPlayer2D BGM;
 
-    [Export] AudioStreamPlayer2D SFX;
+    [Export] AudioStreamPlayer2D[] SFXPlayers;
 
     [Export] Dictionary<EAudioSFX, AudioStream> SFXs;
 
@@ -58,8 +62,15 @@ public partial class AudioManager : Control
     {
         if (SFXs.TryGetValue(esfx, out AudioStream audioStream))
         {
-            SFX.Stream = audioStream;
-            SFX.Play();
+            for (int i = 0; i < SFXPlayers.Length; i++)
+            {
+                var player = SFXPlayers[i];
+                if (!player.Playing)
+                {
+                    player.Stream = audioStream;
+                    player.Play();
+                }
+            }
         }
     }
 

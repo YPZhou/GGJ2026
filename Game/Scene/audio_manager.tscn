@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cimsp704ykul0"]
+[gd_scene load_steps=6 format=3 uid="uid://cimsp704ykul0"]
 
 [ext_resource type="Script" uid="uid://bdkkpymy1jfsm" path="res://Scene/AudioManager.cs" id="1_fmqd6"]
 [ext_resource type="AudioStream" uid="uid://b4wbmbr4eks0p" path="res://Sound/BGM/制樂厂Musiceuticals - Penguin's Game-8bit（兔子舞）.ogg" id="1_uux71"]
 [ext_resource type="AudioStream" uid="uid://c045jgmmmyrcl" path="res://Sound/Effect/cat_like1a.wav" id="2_hmrhg"]
+[ext_resource type="AudioStream" uid="uid://cj35cqd4h17ej" path="res://Sound/Effect/swish1_1.wav" id="4_gp5ax"]
 [ext_resource type="AudioStream" uid="uid://u4e6r1pxfd0b" path="res://Sound/Effect/elevator_button.wav" id="4_hmrhg"]
 
-[node name="AudioManager" type="Control" node_paths=PackedStringArray("BGM", "SFX")]
+[node name="AudioManager" type="Control" node_paths=PackedStringArray("BGM", "SFXPlayers")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -16,10 +17,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fmqd6")
 BGM = NodePath("BGM/BGM")
-SFX = NodePath("SFX/SFX")
+SFXPlayers = [NodePath("SFX/SFX1"), NodePath("SFX/SFX2"), NodePath("SFX/SFX3"), NodePath("SFX/SFX4"), NodePath("SFX/SFX5")]
 SFXs = Dictionary[int, AudioStream]({
 0: ExtResource("2_hmrhg"),
-1: ExtResource("4_hmrhg")
+1: ExtResource("4_hmrhg"),
+2: ExtResource("4_gp5ax")
 })
 
 [node name="BGM" type="Node" parent="."]
@@ -31,4 +33,17 @@ parameters/looping = true
 
 [node name="SFX" type="Node" parent="."]
 
-[node name="SFX" type="AudioStreamPlayer2D" parent="SFX"]
+[node name="SFX1" type="AudioStreamPlayer2D" parent="SFX"]
+bus = &"Effect"
+
+[node name="SFX2" type="AudioStreamPlayer2D" parent="SFX"]
+bus = &"Effect"
+
+[node name="SFX3" type="AudioStreamPlayer2D" parent="SFX"]
+bus = &"Effect"
+
+[node name="SFX4" type="AudioStreamPlayer2D" parent="SFX"]
+bus = &"Effect"
+
+[node name="SFX5" type="AudioStreamPlayer2D" parent="SFX"]
+bus = &"Effect"
