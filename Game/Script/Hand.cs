@@ -81,7 +81,6 @@ public partial class Hand : Sprite2D
 
 	void UpdateHandTexture()
 	{
-		GD.Print(Position.Y);
 		if (Position.Y < upHandCoordY)
 		{
 			Texture = upHand;
