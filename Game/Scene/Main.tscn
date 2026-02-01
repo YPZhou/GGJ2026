@@ -124,15 +124,15 @@ timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 totalTime = 30.0
 
+[node name="TVFace" type="Sprite2D" parent="."]
+position = Vector2(1576, 746)
+scale = Vector2(0.5852021, 0.6572069)
+texture = ExtResource("3_86elt")
+
 [node name="TVSide" type="Sprite2D" parent="."]
 position = Vector2(332.9999, 572)
 scale = Vector2(0.41080734, 0.4108073)
 texture = ExtResource("2_lllnr")
-
-[node name="TVFace" type="Sprite2D" parent="."]
-position = Vector2(1510, 488)
-scale = Vector2(0.39170575, 0.43990228)
-texture = ExtResource("3_86elt")
 
 [node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("catHead", "catNecksParent", "game", "interactArea", "gizmo")]
 position = Vector2(711, 721)
