@@ -154,7 +154,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CatHead" type="Node2D" parent="Cat"]
-position = Vector2(-50, -130)
+position = Vector2(-33, -102)
 
 [node name="Area2D" type="Area2D" parent="Cat/CatHead"]
 scale = Vector2(0.16, 0.16)
@@ -167,7 +167,7 @@ shape = SubResource("RectangleShape2D_4qtod")
 
 [node name="Sprite2D" type="Sprite2D" parent="Cat/CatHead"]
 z_index = 1
-position = Vector2(-1.9999998, -32.999996)
+position = Vector2(-14.999999, -58.999992)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_jupvq")
 offset = Vector2(226, 626)
