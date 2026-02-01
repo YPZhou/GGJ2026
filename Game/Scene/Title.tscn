@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bjpvbkw0552u1"]
+[gd_scene load_steps=31 format=3 uid="uid://bjpvbkw0552u1"]
 
 [ext_resource type="Texture2D" uid="uid://ca45surtl8ynh" path="res://Res/ui/tv/tv_side.png" id="1_84rv1"]
 [ext_resource type="Shader" uid="uid://c2uv734equxhp" path="res://Shader/crt_effect.gdshader.gdshader" id="1_jxiog"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://dwef2l5rvq2tf" path="res://Res/ui/button/离开点击.png" id="13_nmykl"]
 [ext_resource type="AudioStream" uid="uid://f1lu3rvfxnqi" path="res://Sound/Effect/room_door_O.wav" id="14_nmykl"]
 [ext_resource type="Texture2D" uid="uid://b0ux7pnthqy2u" path="res://Res/ui/教程.png" id="19_7wypr"]
+[ext_resource type="PackedScene" uid="uid://crymmtr50d3mn" path="res://Scene/staff.tscn" id="20_e5hbd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghwbr"]
 size = Vector2(278, 447)
@@ -346,7 +347,7 @@ texture = ExtResource("1_84rv1")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("area2D", "StarFX", "CatFX", "OpenDoor_SFX", "startButtonPolygon", "TitleAnimPlayer", "ExitBtn", "tutorial")]
+[node name="TV" type="Sprite2D" parent="." node_paths=PackedStringArray("area2D", "StarFX", "CatFX", "OpenDoor_SFX", "startButtonPolygon", "TitleAnimPlayer", "ExitBtn", "tutorial", "btn_creditor", "Staff")]
 position = Vector2(398, 499)
 script = ExtResource("4_r4yu4")
 area2D = NodePath("Area2D")
@@ -361,6 +362,8 @@ startButtonTexture_Hover = ExtResource("6_ifijr")
 TitleAnimPlayer = NodePath("../title/TitleAnimPlayer")
 ExitBtn = NodePath("../btn_exit")
 tutorial = NodePath("../Tutorial")
+btn_creditor = NodePath("../btn_creditor")
+Staff = NodePath("../Staff")
 
 [node name="TVScreen" type="Polygon2D" parent="TV"]
 visible = false
@@ -462,6 +465,7 @@ texture_hover = ExtResource("13_nmykl")
 stream = ExtResource("14_nmykl")
 
 [node name="Tutorial" type="TextureRect" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -475,3 +479,17 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("19_7wypr")
+
+[node name="btn_creditor" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -91.0
+offset_right = 230.0
+offset_bottom = -31.0
+grow_vertical = 0
+text = "制作人员"
+
+[node name="Staff" parent="." instance=ExtResource("20_e5hbd")]
+visible = false
