@@ -95,6 +95,8 @@ public partial class Cat : Sprite2D
 
 		CheckRes();
 
+		currentHeadTargetPos = GenerateRandomCatHeadPosition();
+
 		// 初始生成脖子
 		GenerateNeck();
 	}
