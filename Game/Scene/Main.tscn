@@ -123,7 +123,7 @@ resultControl = NodePath("ResultControl")
 cat = NodePath("Cat")
 hand = NodePath("Hand")
 tv = NodePath("TV")
-timeBar = NodePath("")
+timeBar = NodePath("GameTime")
 timeHint = NodePath("GameTime/Time")
 catSanUI = NodePath("CatSan")
 totalTime = 30.0
@@ -216,6 +216,7 @@ polygon = PackedVector2Array(-244, -109, -245, 255, -223, 271, -158, 281, 189, 2
 uv = PackedVector2Array(0, 5, 0, 520, 5, 525, 15, 530, 725, 530, 735, 525, 740, 520, 740, 10, 735, 5, 730, 0, 10, 0, 5, 5)
 
 [node name="Label" type="Label" parent="TV"]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -267,21 +268,22 @@ texture_under = ExtResource("43_6b3h5")
 texture_progress = ExtResource("44_qtu3h")
 
 [node name="Time" type="Label" parent="GameTime"]
+self_modulate = Color(0, 0, 0.011764706, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 24
 text = "时间 30:00s"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="GameTime"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1485.0
+offset_bottom = 131.0
 texture = ExtResource("45_qtu3h")
 
 [node name="ResultControl" type="Control" parent="." node_paths=PackedStringArray("restartButton", "backToMainMenuButton", "winTexture", "failTexture", "WinSFX", "FaildSFX")]
@@ -416,7 +418,7 @@ bus = &"Effect"
 stream = ExtResource("51_qtu3h")
 bus = &"Effect"
 
-[node name="CatSan" type="Control" parent="."]
+[node name="CatSan" type="Control" parent="." node_paths=PackedStringArray("progressBar")]
 custom_minimum_size = Vector2(559, 167)
 layout_mode = 1
 anchors_preset = 7
@@ -431,6 +433,7 @@ offset_bottom = -22.99939
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("11_vm4ek")
+progressBar = NodePath("SanTextureProgressBar")
 metadata/_edit_group_ = true
 
 [node name="SanTextureProgressBar" type="TextureProgressBar" parent="CatSan"]
