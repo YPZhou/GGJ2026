@@ -168,6 +168,7 @@ polygon = PackedVector2Array(-333, -23, -328, 320, -295, 342, -238, 350, 129, 34
 uv = PackedVector2Array(0, 5, 0, 520, 5, 525, 15, 530, 725, 530, 735, 525, 740, 520, 740, 10, 735, 5, 730, 0, 10, 0, 5, 5)
 
 [node name="TVScreenSide" type="Polygon2D" parent="TV"]
+z_index = 1
 material = SubResource("ShaderMaterial_e8kx7")
 polygon = PackedVector2Array(-1400, -157, -1400, 114, -1247, 82, -1241, 51, -1242, -89, -1249, -125)
 uv = PackedVector2Array(0, 0, 0, 530, 735, 530, 740, 520, 740, 10, 735, 0)
