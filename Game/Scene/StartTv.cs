@@ -31,6 +31,9 @@ public partial class StartTv : Sprite2D
     [Export]
     TextureButton ExitBtn;
 
+	[Export]
+	TextureRect tutorial;
+
     public override void _Ready()
     {
         if (area2D == null)
@@ -46,16 +49,19 @@ public partial class StartTv : Sprite2D
             GD.PrintErr("GameScene is null, set GameScene for StartTv.GameScene in the editor.");
         }
 
+		tutorial.Visible = false;
 		startButtonPolygon.Texture = startButtonTexture_Normal;
         area2D.InputPickable = true;
         area2D.MouseEntered += () =>
         {
+			tutorial.Visible = true;
 			startButtonPolygon.Texture = startButtonTexture_Hover;
             MouseEntered = true;
             Input.SetCustomMouseCursor(cursorTexture, Input.CursorShape.Arrow, new Vector2(16, 16));
         };
         area2D.MouseExited += () =>
         {
+			tutorial.Visible = false;
 			startButtonPolygon.Texture = startButtonTexture_Normal;
             MouseEntered = false;
             Input.SetCustomMouseCursor(null);

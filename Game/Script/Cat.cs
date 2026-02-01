@@ -235,64 +235,67 @@ public partial class Cat : Sprite2D
 		
 		// 2. 采样曲线上的点
 		float curveLength = neckCurve.GetBakedLength();
-		int segmentCount = Math.Max(1, Math.Min(neckSegments, (int)(curveLength / 10.0f))); // 根据长度自适应
-		
-		// 3. 调整节段数量
-		while (neckSegmentNodes.Count > segmentCount)
+		if (curveLength > 0)
 		{
-			var lastNode = neckSegmentNodes[neckSegmentNodes.Count - 1];
-			lastNode.QueueFree();
-			neckSegmentNodes.RemoveAt(neckSegmentNodes.Count - 1);
-		}
-		
-		while (neckSegmentNodes.Count < segmentCount)
-		{
-			var sprite = new Sprite2D();
-			sprite.Texture = catNeckTexture;
-			sprite.Centered = true;
-			catNecksParent.AddChild(sprite);
-			neckSegmentNodes.Add(sprite);
-		}
-		
-		// 4. 更新每个节段的位置、旋转和缩放
-		for (int i = 0; i < segmentCount; i++)
-		{
-			float t = ((float)i) / segmentCount; // 在节段中心采样
+			int segmentCount = Math.Max(1, Math.Min(neckSegments, (int)(curveLength / 10.0f))); // 根据长度自适应
 			
-			// 采样位置
-			Vector2 position = neckCurve.SampleBaked(t * curveLength);
+			// 3. 调整节段数量
+			while (neckSegmentNodes.Count > segmentCount)
+			{
+				var lastNode = neckSegmentNodes[neckSegmentNodes.Count - 1];
+				lastNode.QueueFree();
+				neckSegmentNodes.RemoveAt(neckSegmentNodes.Count - 1);
+			}
 			
-			// 计算切线方向（用于旋转）- 使用前后点计算方向
-			// float offset = 1.0f; // 采样偏移距离
-			// Vector2 tangentPoint1 = neckCurve.SampleBaked(Mathf.Max(0, t * curveLength - offset));
-			// Vector2 tangentPoint2 = neckCurve.SampleBaked(Mathf.Min(curveLength, t * curveLength + offset));
-			// Vector2 tangent = (tangentPoint2 - tangentPoint1).Normalized();
+			while (neckSegmentNodes.Count < segmentCount)
+			{
+				var sprite = new Sprite2D();
+				sprite.Texture = catNeckTexture;
+				sprite.Centered = true;
+				catNecksParent.AddChild(sprite);
+				neckSegmentNodes.Add(sprite);
+			}
 			
-			// 计算旋转角度（假设贴图原始方向是水平向右，如果是竖直向上则加Mathf.Pi/2）
-			// float rotation = tangent.Angle() + Mathf.Pi / 2; // 如果贴图是竖直的，改为: tangent.Angle() + Mathf.Pi / 2
-			
-			// 计算缩放（从身体到头部逐渐变细）
-			// float scaleRatio = Mathf.Lerp(1.5f, 1.5f, t); // 身体端粗，头部端细
-			float scaleRatio = 1.5f;
+			// 4. 更新每个节段的位置、旋转和缩放
+			for (int i = 0; i < segmentCount; i++)
+			{
+				float t = ((float)i) / segmentCount; // 在节段中心采样
+				
+				// 采样位置
+				Vector2 position = neckCurve.SampleBaked(t * curveLength);
+				
+				// 计算切线方向（用于旋转）- 使用前后点计算方向
+				// float offset = 1.0f; // 采样偏移距离
+				// Vector2 tangentPoint1 = neckCurve.SampleBaked(Mathf.Max(0, t * curveLength - offset));
+				// Vector2 tangentPoint2 = neckCurve.SampleBaked(Mathf.Min(curveLength, t * curveLength + offset));
+				// Vector2 tangent = (tangentPoint2 - tangentPoint1).Normalized();
+				
+				// 计算旋转角度（假设贴图原始方向是水平向右，如果是竖直向上则加Mathf.Pi/2）
+				// float rotation = tangent.Angle() + Mathf.Pi / 2; // 如果贴图是竖直的，改为: tangent.Angle() + Mathf.Pi / 2
+				
+				// 计算缩放（从身体到头部逐渐变细）
+				// float scaleRatio = Mathf.Lerp(1.5f, 1.5f, t); // 身体端粗，头部端细
+				float scaleRatio = 1.5f;
 
-			// 应用变换
-			var segment = neckSegmentNodes[i];
-			segment.Position = position - catNecksParent.Position + new Vector2(25, 25);
-			segment.Scale = new Vector2(0.13f * scaleRatio, 0.13f * scaleRatio);
-			// segment.Rotation = rotation;
+				// 应用变换
+				var segment = neckSegmentNodes[i];
+				segment.Position = position - catNecksParent.Position + new Vector2(25, 25);
+				segment.Scale = new Vector2(0.13f * scaleRatio, 0.13f * scaleRatio);
+				// segment.Rotation = rotation;
+			}
+			
+			// 5. 调试可视化
+			// if (gizmo != null)
+			// {
+			// 	var points = new List<Vector2>();
+			// 	int debugSamples = 50;
+			// 	for (int i = 0; i <= debugSamples; i++)
+			// 	{
+			// 		float t = i / (float)debugSamples;
+			// 		points.Add(neckCurve.SampleBaked(t * curveLength));
+			// 	}
+			// 	gizmo.Points = points.ToArray();
+			// }
 		}
-		
-		// 5. 调试可视化
-		// if (gizmo != null)
-		// {
-		// 	var points = new List<Vector2>();
-		// 	int debugSamples = 50;
-		// 	for (int i = 0; i <= debugSamples; i++)
-		// 	{
-		// 		float t = i / (float)debugSamples;
-		// 		points.Add(neckCurve.SampleBaked(t * curveLength));
-		// 	}
-		// 	gizmo.Points = points.ToArray();
-		// }
 	}
 }
