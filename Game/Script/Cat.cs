@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Godot;
 
 public partial class Cat : Sprite2D
@@ -30,15 +29,12 @@ public partial class Cat : Sprite2D
 	Vector2 currentHeadTargetPos;
 	Vector2 currentCp1, currentCp2;
 	Vector2 targetCp1, targetCp2;
-	Vector2 neckEndOffset;
 	
 	// 脖子曲线系统
 	Curve2D neckCurve;
-	List<Sprite2D> neckSegmentNodes = new List<Sprite2D>();
 	bool needsNeckUpdate = true;
 
 	[Export] float headSmoothingSpeed = 5.0f;
-	[Export] int neckSegments = 60; // Now used as a fallback or limit
 	[Export] float curveTolerance = 2.0f;
 
 	[Export] Area2D interactArea;
@@ -72,9 +68,6 @@ public partial class Cat : Sprite2D
 	{
 		base._Ready();
 
-		// Calculate offset from Head to NeckEnd
-		neckEndOffset = Vector2.Zero;
-
 		currentHeadTargetPos = catHead.Position;
 		
 		// 初始化曲线系统
@@ -86,8 +79,8 @@ public partial class Cat : Sprite2D
 		Vector2 diff = headPos - bodyPos;
 		
 		// 设置初始控制点（1/3和2/3位置，稍微偏移形成曲线）
-		currentCp1 = bodyPos + diff * 0.33f + new Vector2(20, 0);
-		currentCp2 = bodyPos + diff * 0.66f + new Vector2(-20, 0);
+		currentCp1 = bodyPos + diff * 0.33f + new Vector2(-20, 0);
+		currentCp2 = bodyPos + diff * 0.66f + new Vector2(20, 0);
 		targetCp1 = currentCp1;
 		targetCp2 = currentCp2;
 
@@ -155,14 +148,14 @@ public partial class Cat : Sprite2D
 			int index = Random.Shared.Next(HeadYOffsets.Length);
 			targetOffset = HeadYOffsets[index];
 		}
-		double randomX = initialX + (Random.Shared.NextDouble() * 2.0 - 1.0) * HeadXRange;
+		double randomX = initialX + (Random.Shared.NextDouble() * 2.0 - 1.5) * HeadXRange;
 		Vector2 newPos = new Vector2((float)randomX, (float)(initialY + targetOffset));
 		
 		// 更新目标控制点
 		Vector2 bodyPos = catNecksParent.Position;
 		Vector2 diff = newPos - bodyPos;
-		targetCp1 = bodyPos + diff * 0.33f + new Vector2(20, 0);
-		targetCp2 = bodyPos + diff * 0.66f + new Vector2(-20, 0);
+		targetCp1 = bodyPos + diff * 0.33f + new Vector2(-20, 0);
+		targetCp2 = bodyPos + diff * 0.66f + new Vector2(20, 0);
 		
 		return newPos;
 	}
@@ -228,78 +221,71 @@ public partial class Cat : Sprite2D
 		// 1. 构建贝塞尔曲线
 		neckCurve.ClearPoints();
 		
-		Vector2 bodyPos = catNecksParent.Position; // 身体位置
-		Vector2 headPos = catHead.Position + neckEndOffset; // 头部位置
+		var bodyPos = catNecksParent.Position; // 身体位置
+		var headPos = catHead.Position; // 头部位置
 		
 		// 添加曲线点（起点、控制点、终点）
 		neckCurve.AddPoint(bodyPos, Vector2.Zero, currentCp1 - bodyPos);
 		neckCurve.AddPoint(headPos, currentCp2 - headPos, Vector2.Zero);
 		
-		// 2. 采样曲线上的点
-		float curveLength = neckCurve.GetBakedLength();
+		// 2. 沿曲线绘制多边形
+		var curveLength = neckCurve.GetBakedLength();
 		if (curveLength > 0)
 		{
-			int segmentCount = Math.Max(1, Math.Min(neckSegments, (int)(curveLength / 10.0f))); // 根据长度自适应
-			
-			// 3. 调整节段数量
-			while (neckSegmentNodes.Count > segmentCount)
+			foreach (var neckPolygon in catNecksParent.GetChildren())
 			{
-				var lastNode = neckSegmentNodes[neckSegmentNodes.Count - 1];
-				lastNode.QueueFree();
-				neckSegmentNodes.RemoveAt(neckSegmentNodes.Count - 1);
+				neckPolygon.QueueFree();
 			}
-			
-			while (neckSegmentNodes.Count < segmentCount)
+
+			var segmentCount = 10;
+			var prevPosition = Vector2.Zero;
+			for (var i = 1; i <= segmentCount; i++)
 			{
-				var sprite = new Sprite2D();
-				sprite.Texture = catNeckTexture;
-				sprite.Centered = true;
-				catNecksParent.AddChild(sprite);
-				neckSegmentNodes.Add(sprite);
-			}
-			
-			// 4. 更新每个节段的位置、旋转和缩放
-			for (int i = 0; i < segmentCount; i++)
-			{
-				float t = ((float)i) / segmentCount; // 在节段中心采样
-				
 				// 采样位置
-				Vector2 position = neckCurve.SampleBaked(t * curveLength);
-				
-				// 计算切线方向（用于旋转）- 使用前后点计算方向
-				// float offset = 1.0f; // 采样偏移距离
-				// Vector2 tangentPoint1 = neckCurve.SampleBaked(Mathf.Max(0, t * curveLength - offset));
-				// Vector2 tangentPoint2 = neckCurve.SampleBaked(Mathf.Min(curveLength, t * curveLength + offset));
-				// Vector2 tangent = (tangentPoint2 - tangentPoint1).Normalized();
-				
-				// 计算旋转角度（假设贴图原始方向是水平向右，如果是竖直向上则加Mathf.Pi/2）
-				// float rotation = tangent.Angle() + Mathf.Pi / 2; // 如果贴图是竖直的，改为: tangent.Angle() + Mathf.Pi / 2
-				
-				// 计算缩放（从身体到头部逐渐变细）
-				// float scaleRatio = Mathf.Lerp(1.5f, 1.5f, t); // 身体端粗，头部端细
-				float scaleRatio = 1.5f;
-
-				// 应用变换
-				var segment = neckSegmentNodes[i];
-				//segment.Position = position - catNecksParent.Position + new Vector2(25, 25);
-				//segment.Scale = new Vector2(0.13f * scaleRatio, 0.13f * scaleRatio);
-
-				segment.Position = position - catNecksParent.Position + new Vector2(-5, -25);
-				// segment.Rotation = rotation;
+				var t = ((float)i) / segmentCount * curveLength;
+				var position = neckCurve.SampleBaked(t) - catNecksParent.Position;
+				BuildNeckPolygon(position, prevPosition);
+				prevPosition = position;
 			}
 			
 			// 5. 调试可视化
 			// if (gizmo != null)
 			// {
 			// 	var points = new List<Vector2>();
-			// 	int debugSamples = 50;
-			// 	for (int i = 0; i <= debugSamples; i++)
+			// 	for (int i = 0; i <= segmentCount; i++)
 			// 	{
-			// 		float t = i / (float)debugSamples;
+			// 		var t = i / (float)segmentCount;
 			// 		points.Add(neckCurve.SampleBaked(t * curveLength));
 			// 	}
-			// 	gizmo.Points = points.ToArray();
+			// 	gizmo.Points = [.. points];
 			// }
 		}
+	}
+
+	void BuildNeckPolygon(Vector2 topPosition, Vector2 bottomPosition)
+	{
+		// Magic number，猫身体与脖子连接处的斜边方向
+		var normal = new Vector2(125, -24).Normalized();
+
+		float halfWidth = 40f * 1.5f; // 节段半宽度（可调整）
+		var p1 = topPosition - normal * halfWidth;
+		var p2 = bottomPosition - normal * halfWidth;
+		var p3 = bottomPosition + normal * halfWidth;
+		var p4 = topPosition + normal * halfWidth;
+
+		var neckPolygon = new Polygon2D
+		{
+			Texture = catNeckTexture,
+			Polygon = [p1, p2, p3, p4],
+			UV =
+			[
+				Vector2.Zero,
+				new Vector2(0, 31),
+				new Vector2(111, 31),
+				new Vector2(111, 0),
+			]
+		};
+
+		catNecksParent.AddChild(neckPolygon);
 	}
 }

@@ -205,25 +205,24 @@ position = Vector2(185, -151.66666)
 texture = ExtResource("6_e8kx7")
 
 [node name="CatNecks" type="Node2D" parent="Cat"]
-position = Vector2(-33, -102)
+position = Vector2(-40, -110)
 
 [node name="CatHead" type="Node2D" parent="Cat"]
-position = Vector2(-33, -102)
+position = Vector2(-39.999996, -115)
+
+[node name="Sprite2D" type="Sprite2D" parent="Cat/CatHead"]
+texture = ExtResource("5_jupvq")
+offset = Vector2(-25, -65)
 
 [node name="Area2D" type="Area2D" parent="Cat/CatHead"]
-position = Vector2(-25, -60)
+position = Vector2(-16.666668, -46.666664)
 scale = Vector2(0.16, 0.16)
 collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cat/CatHead/Area2D"]
-position = Vector2(-181.25, -56.25)
+position = Vector2(-200.51953, -56.25049)
 shape = SubResource("RectangleShape2D_4qtod")
-
-[node name="Sprite2D" type="Sprite2D" parent="Cat/CatHead"]
-position = Vector2(-258.6667, -719.6666)
-texture = ExtResource("5_jupvq")
-offset = Vector2(226, 626)
 
 [node name="Gizmo" type="Node2D" parent="Cat"]
 script = ExtResource("7_cd6bo")
